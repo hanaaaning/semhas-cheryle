@@ -1,1 +1,470 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semhas Cheryle Azzahra Nugraha</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Quicksand',sans-serif;
+overflow:hidden;
+background:#f9f4ec;
+}
+
+.slide{
+position:absolute;
+width:100%;
+height:100vh;
+left:100%;
+top:0;
+transition:1s;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:30px;
+}
+
+.slide.active{
+left:0;
+}
+
+.paper{
+width:95%;
+max-width:1300px;
+height:90vh;
+background:#fffdf8;
+border-radius:25px;
+box-shadow:0 15px 40px rgba(0,0,0,.15);
+padding:40px;
+position:relative;
+overflow:auto;
+}
+
+h1{
+font-family:'Caveat',cursive;
+font-size:4rem;
+color:#d76b95;
+text-align:center;
+margin-bottom:15px;
+}
+
+.subtitle{
+text-align:center;
+font-size:1.2rem;
+margin-bottom:30px;
+}
+
+.btn{
+padding:14px 30px;
+border:none;
+border-radius:50px;
+background:#e48db1;
+color:white;
+font-weight:bold;
+cursor:pointer;
+margin-top:20px;
+}
+
+.btn:hover{
+transform:translateY(-3px);
+}
+
+.center{
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+height:100%;
+}
+
+.slot{
+font-size:5rem;
+background:white;
+padding:25px 50px;
+border-radius:20px;
+box-shadow:0 5px 20px rgba(0,0,0,.1);
+margin-bottom:20px;
+}
+
+.result{
+font-size:1.2rem;
+text-align:center;
+min-height:70px;
+}
+
+.note-container{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:50px;
+flex-wrap:wrap;
+height:100%;
+}
+
+.main-photo{
+background:white;
+padding:15px;
+box-shadow:0 10px 20px rgba(0,0,0,.2);
+transform:rotate(-4deg);
+}
+
+.main-photo img{
+width:320px;
+height:420px;
+object-fit:cover;
+}
+
+.note{
+width:420px;
+background:#fff6a5;
+padding:30px;
+font-family:'Caveat';
+font-size:2rem;
+line-height:1.5;
+box-shadow:5px 5px 15px rgba(0,0,0,.15);
+transform:rotate(2deg);
+}
+
+.gallery{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:25px;
+margin-top:40px;
+}
+
+.polaroid{
+background:white;
+padding:10px 10px 35px;
+box-shadow:0 10px 20px rgba(0,0,0,.15);
+transition:.3s;
+}
+
+.polaroid:hover{
+transform:translateY(-10px);
+}
+
+.polaroid img{
+width:220px;
+height:270px;
+object-fit:cover;
+}
+
+.end{
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+height:100%;
+text-align:center;
+}
+
+.end h2{
+font-family:'Caveat';
+font-size:4rem;
+color:#d76b95;
+}
+
+.end p{
+font-size:1.3rem;
+margin-top:20px;
+max-width:700px;
+}
+
+.flower{
+position:fixed;
+font-size:30px;
+animation:fall linear infinite;
+pointer-events:none;
+z-index:9999;
+}
+
+@keyframes fall{
+0%{
+transform:translateY(-100px) rotate(0deg);
+}
+100%{
+transform:translateY(110vh) rotate(360deg);
+}
+}
+
+.corner{
+position:absolute;
+font-size:70px;
+opacity:.2;
+}
+
+.c1{
+top:10px;
+left:20px;
+}
+
+.c2{
+top:10px;
+right:20px;
+}
+
+.c3{
+bottom:10px;
+left:20px;
+}
+
+.c4{
+bottom:10px;
+right:20px;
+}
+
+</style>
+</head>
+<body>
+
+<div id="flowers"></div>
+
+<!-- SLIDE 1 -->
+
+<section class="slide active" id="slide1">
+
+<div class="paper">
+
+<div class="corner c1">🌸</div>
+<div class="corner c2">🌼</div>
+<div class="corner c3">🌷</div>
+<div class="corner c4">🌺</div>
+
+<div class="center">
+
+<h1>Blooming Journey</h1>
+
+<p class="subtitle">
+Semhas Cheryle Azzahra Nugraha 🌸
+</p>
+
+<div class="slot" id="slot">
+🍓 🍌 🍊
+</div>
+
+<button class="btn" onclick="spin()">
+Putar Buah 🍓
+</button>
+
+<div class="result" id="result"></div>
+
+<button class="btn" onclick="nextSlide(2)">
+Lanjut ➜
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- SLIDE 2 -->
+
+<section class="slide" id="slide2">
+
+<div class="paper">
+
+<div class="note-container">
+
+<div class="main-photo">
+<img src="foto1.jpg">
+</div>
+
+<div class="note">
+
+Dear Cheryle 🌷
+
+Statistik perjuangan skripsi:
+
+☕ Kopi diminum : tak terhitung
+
+📄 Revisi : banyak sekali
+
+😵 Overthinking : setiap malam
+
+😭 Ingin menyerah : pernah
+
+✨ Hebat : selalu
+
+Hari ini waktunya bersinar dan menunjukkan hasil perjuanganmu.
+
+Semangat semhas!
+
+</div>
+
+</div>
+
+<center>
+<button class="btn" onclick="nextSlide(3)">
+Lanjut ➜
+</button>
+</center>
+
+</div>
+
+</section>
+
+<!-- SLIDE 3 -->
+
+<section class="slide" id="slide3">
+
+<div class="paper">
+
+<h1>People Behind This Journey</h1>
+
+<div class="gallery">
+
+<div class="polaroid">
+<img src="foto1.jpg">
+</div>
+
+<div class="polaroid">
+<img src="foto2.jpg">
+</div>
+
+<div class="polaroid">
+<img src="foto3.jpg">
+</div>
+
+<div class="polaroid">
+<img src="foto4.jpg">
+</div>
+
+<div class="polaroid">
+<img src="foto5.jpg">
+</div>
+
+</div>
+
+<center>
+<button class="btn" onclick="nextSlide(4)">
+Lanjut ➜
+</button>
+</center>
+
+</div>
+
+</section>
+
+<!-- SLIDE 4 -->
+
+<section class="slide" id="slide4">
+
+<div class="paper">
+
+<div class="end">
+
+<h2>Selamat Semhas Cheryle 🌸</h2>
+
+<p>
+
+Semhas bukan akhir perjalanan.
+
+Ini adalah salah satu langkah menuju mimpi yang telah diperjuangkan selama ini.
+
+Terima kasih telah bertahan sejauh ini.
+
+Semoga semua berjalan lancar, diberikan kemudahan, dan mendapatkan hasil terbaik.
+
+✨ Good Luck ✨
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<script>
+
+function nextSlide(num){
+
+document.querySelectorAll(".slide").forEach(slide=>{
+slide.classList.remove("active");
+});
+
+document.getElementById("slide"+num)
+.classList.add("active");
+
+}
+
+function spin(){
+
+const buah=["🍓","🍌","🍊"];
+
+let putaran=0;
+
+const slot=document.getElementById("slot");
+
+const animasi=setInterval(()=>{
+
+let a=buah[Math.floor(Math.random()*3)];
+let b=buah[Math.floor(Math.random()*3)];
+let c=buah[Math.floor(Math.random()*3)];
+
+slot.innerHTML=`${a} ${b} ${c}`;
+
+putaran++;
+
+if(putaran>25){
+
+clearInterval(animasi);
+
+if(a===b && b===c){
+
+document.getElementById("result").innerHTML=
+"🎉 SELAMAT! Semoga semhas berjalan lancar dan sukses!";
+
+}else{
+
+document.getElementById("result").innerHTML=
+"💕 Belum cocok, tapi keberuntungan semhas tetap menyertaimu!";
+}
+
+}
+
+},100);
+
+}
+
+const flowers=document.getElementById("flowers");
+
+const emoji=["🌸","🌷","🌼","🌺"];
+
+for(let i=0;i<25;i++){
+
+let flower=document.createElement("div");
+
+flower.classList.add("flower");
+
+flower.innerHTML=
+emoji[Math.floor(Math.random()*emoji.length)];
+
+flower.style.left=Math.random()*100+"%";
+
+flower.style.animationDuration=
+(5+Math.random()*10)+"s";
+
+flower.style.animationDelay=
+Math.random()*5+"s";
+
+flowers.appendChild(flower);
+
+}
+
+</script>
+
+</body>
+</html>
