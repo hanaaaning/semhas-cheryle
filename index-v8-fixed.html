@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Canva Premium Store V8</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f7f7fb;color:#172033;font-family:Arial,Helvetica,sans-serif}
+.container{width:min(1050px,92%);margin:0 auto}
+header{padding:28px 0 18px}.brand{font-size:24px;font-weight:800}
+.hero{padding:28px 0 16px}.hero h1{font-size:42px;line-height:1.08;margin:0 0 12px}.hero p{font-size:17px;color:#697386;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:28px 0}
+.card{background:#fff;border:1px solid #eceef3;border-radius:20px;padding:24px;box-shadow:0 12px 40px rgba(0,0,0,.05)}
+.card h2{margin:0 0 8px;font-size:24px}.price{font-size:32px;font-weight:800;margin:16px 0}
+.card ul{padding-left:20px;color:#667085;line-height:1.8}
+button{width:100%;border:0;border-radius:12px;background:#7c3aed;color:#fff;padding:14px;font-size:16px;font-weight:700;cursor:pointer}
+button:hover{background:#6d28d9}.panel{display:none;background:#fff;border-radius:20px;padding:26px;margin:22px 0 40px;border:1px solid #eceef3}
+label{display:block;font-weight:700;margin:14px 0 7px}input{width:100%;padding:14px;border:1px solid #d6dae3;border-radius:11px;font-size:15px;outline:none}
+.summary,.orderbox,.testbox{padding:14px;border-radius:12px;margin:16px 0;line-height:1.7}.summary{background:#f6f5ff}.orderbox{background:#eef2ff}.testbox{background:#fff7ed;color:#9a3412}
+.message{display:none;margin-top:16px;padding:14px;border-radius:12px;line-height:1.5}.ok{background:#ecfdf5;color:#065f46}.err{background:#fff1f2;color:#9f1239}
+.small{font-size:12px;color:#7b8491;margin-top:12px;line-height:1.5}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.hero h1{font-size:34px}}
+</style>
+</head>
+<body>
+<div class="container">
+<header><div class="brand">Canva Premium Store</div></header>
+
+<section class="hero">
+  <h1>Pilih paket Canva Premium</h1>
+  <p>Versi V8 ini memakai <strong>simulasi pembayaran</strong>. Belum ada uang sungguhan yang ditagihkan.</p>
+</section>
+
+<section class="grid">
+<article class="card"><h2>1 Bulan</h2><p>Akses 1 bulan</p><div class="price">Rp3.000</div><button data-package="1M">Beli Sekarang</button></article>
+<article class="card"><h2>2 Bulan</h2><p>Akses 2 bulan</p><div class="price">Rp6.000</div><button data-package="2M">Beli Sekarang</button></article>
+<article class="card"><h2>3 Bulan</h2><p>Akses 3 bulan</p><div class="price">Rp8.500</div><button data-package="3M">Beli Sekarang</button></article>
+</section>
+
+<section class="panel" id="checkout">
+<h2>Checkout</h2>
+<div class="summary" id="summary"></div>
+<label for="name">Nama</label><input id="name" placeholder="Nama Anda">
+<label for="email">Email Canva</label><input id="email" type="email" placeholder="email Canva">
+<button id="payBtn">Buat Pesanan & Simulasi Pembayaran</button>
+<div id="orderbox" class="orderbox" style="display:none"></div>
+<div id="message" class="message"></div>
+<div class="testbox"><strong>Mode TEST:</strong> tombol ini hanya mengubah status melalui server. Nanti tombol ini akan digantikan payment gateway nyata.</div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL="https://yxybbsbjvtkpwcazairg.supabase.co";
+const SUPABASE_KEY="sb_publishable_CqIJY0Dpwuvb6eF_wO-Axw_LjHi7jEz";
+const CREATE_ORDER_URL=SUPABASE_URL+"/functions/v1/create-order";
+const START_PAYMENT_URL=SUPABASE_URL+"/functions/v1/start-payment-test";
+
+const products={"1M":{name:"Canva 1 Bulan",months:1,price:3000},"2M":{name:"Canva 2 Bulan",months:2,price:6000},"3M":{name:"Canva 3 Bulan",months:3,price:8500}};
+let selectedCode=null;
+const fmt=n=>new Intl.NumberFormat("id-ID").format(n);
+const esc=s=>String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+
+document.querySelectorAll("[data-package]").forEach(btn=>btn.onclick=()=>{
+ selectedCode=btn.dataset.package; const p=products[selectedCode];
+ document.getElementById("summary").innerHTML=`<strong>${p.name}</strong><br>Durasi: ${p.months} bulan<br>Total: <strong>Rp${fmt(p.price)}</strong>`;
+ const panel=document.getElementById("checkout"); panel.style.display="block"; panel.scrollIntoView({behavior:"smooth"});
+});
+
+document.getElementById("payBtn").onclick=async()=>{
+ const name=document.getElementById("name").value.trim(), email=document.getElementById("email").value.trim(), msg=document.getElementById("message"), pay=document.getElementById("payBtn");
+ if(!selectedCode) return show("Pilih paket terlebih dahulu.",false);
+ if(name.length<2) return show("Nama tidak valid.",false);
+ if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return show("Email tidak valid.",false);
+ pay.disabled=true; pay.textContent="Memproses...";
+ try{
+   const res=await fetch(START_PAYMENT_URL,{method:"POST",headers:{"Content-Type":"application/json","apikey":SUPABASE_KEY,"Authorization":"Bearer "+SUPABASE_KEY},body:JSON.stringify({package_code:selectedCode,customer_name:name,customer_email:email})});
+   const data=await res.json().catch(()=>({}));
+   if(!res.ok) throw new Error(data.error||"Gagal membuat pembayaran test.");
+   document.getElementById("orderbox").style.display="block";
+   document.getElementById("orderbox").innerHTML=`<strong>Order:</strong> ${esc(data.order_code)}<br><strong>Total:</strong> Rp${fmt(data.amount)}<br><strong>Status:</strong> ${esc(data.status)}`;
+   show(`<strong>Pembayaran test siap.</strong><br>Gunakan tombol simulasi di bawah untuk menguji webhook.`,true);
+   const b=document.createElement("button"); b.textContent="✅ Simulasikan Pembayaran Berhasil"; b.style.marginTop="12px";
+   b.onclick=()=>simulate(data.order_code); b.id="simulateBtn";
+   document.getElementById("orderbox").appendChild(b);
+ }catch(e){show(e.message,false)}
+ finally{pay.disabled=false;pay.textContent="Buat Pesanan & Simulasi Pembayaran"}
+};
+
+async function simulate(orderCode){
+ const btn=document.getElementById("simulateBtn"); btn.disabled=true; btn.textContent="Mengonfirmasi...";
+ try{
+   const res=await fetch(SUPABASE_URL+"/functions/v1/payment-webhook-test",{method:"POST",headers:{"Content-Type":"application/json","apikey":SUPABASE_KEY,"Authorization":"Bearer "+SUPABASE_KEY},body:JSON.stringify({order_code:orderCode,status:"PAID"})});
+   const data=await res.json().catch(()=>({}));
+   if(!res.ok) throw new Error(data.error||"Webhook test gagal.");
+   show(`<strong>Pembayaran berhasil!</strong><br>Order ${esc(orderCode)} sekarang PAID.<br>Access token: <strong>${esc(data.access_token)}</strong><br><br><a href="${esc(data.access_url)}">Buka link akses</a>`,true);
+ }catch(e){show(e.message,false)}
+ finally{btn.disabled=false;btn.textContent="✅ Simulasikan Pembayaran Berhasil"}
+}
+function show(text,ok){const m=document.getElementById("message");m.className="message "+(ok?"ok":"err");m.innerHTML=text;m.style.display="block"}
+</script>
+</div>
+</body>
+</html>
