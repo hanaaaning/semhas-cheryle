@@ -1,470 +1,161 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Semhas Cheryle Azzahra Nugraha</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
-body{
-font-family:'Quicksand',sans-serif;
-overflow:hidden;
-background:#f9f4ec;
-}
-
-.slide{
-position:absolute;
-width:100%;
-height:100vh;
-left:100%;
-top:0;
-transition:1s;
-display:flex;
-justify-content:center;
-align-items:center;
-padding:30px;
-}
-
-.slide.active{
-left:0;
-}
-
-.paper{
-width:95%;
-max-width:1300px;
-height:90vh;
-background:#fffdf8;
-border-radius:25px;
-box-shadow:0 15px 40px rgba(0,0,0,.15);
-padding:40px;
-position:relative;
-overflow:auto;
-}
-
-h1{
-font-family:'Caveat',cursive;
-font-size:4rem;
-color:#d76b95;
-text-align:center;
-margin-bottom:15px;
-}
-
-.subtitle{
-text-align:center;
-font-size:1.2rem;
-margin-bottom:30px;
-}
-
-.btn{
-padding:14px 30px;
-border:none;
-border-radius:50px;
-background:#e48db1;
-color:white;
-font-weight:bold;
-cursor:pointer;
-margin-top:20px;
-}
-
-.btn:hover{
-transform:translateY(-3px);
-}
-
-.center{
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-height:100%;
-}
-
-.slot{
-font-size:5rem;
-background:white;
-padding:25px 50px;
-border-radius:20px;
-box-shadow:0 5px 20px rgba(0,0,0,.1);
-margin-bottom:20px;
-}
-
-.result{
-font-size:1.2rem;
-text-align:center;
-min-height:70px;
-}
-
-.note-container{
-display:flex;
-align-items:center;
-justify-content:center;
-gap:50px;
-flex-wrap:wrap;
-height:100%;
-}
-
-.main-photo{
-background:white;
-padding:15px;
-box-shadow:0 10px 20px rgba(0,0,0,.2);
-transform:rotate(-4deg);
-}
-
-.main-photo img{
-width:320px;
-height:420px;
-object-fit:cover;
-}
-
-.note{
-width:420px;
-background:#fff6a5;
-padding:30px;
-font-family:'Caveat';
-font-size:2rem;
-line-height:1.5;
-box-shadow:5px 5px 15px rgba(0,0,0,.15);
-transform:rotate(2deg);
-}
-
-.gallery{
-display:flex;
-justify-content:center;
-flex-wrap:wrap;
-gap:25px;
-margin-top:40px;
-}
-
-.polaroid{
-background:white;
-padding:10px 10px 35px;
-box-shadow:0 10px 20px rgba(0,0,0,.15);
-transition:.3s;
-}
-
-.polaroid:hover{
-transform:translateY(-10px);
-}
-
-.polaroid img{
-width:220px;
-height:270px;
-object-fit:cover;
-}
-
-.end{
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-height:100%;
-text-align:center;
-}
-
-.end h2{
-font-family:'Caveat';
-font-size:4rem;
-color:#d76b95;
-}
-
-.end p{
-font-size:1.3rem;
-margin-top:20px;
-max-width:700px;
-}
-
-.flower{
-position:fixed;
-font-size:30px;
-animation:fall linear infinite;
-pointer-events:none;
-z-index:9999;
-}
-
-@keyframes fall{
-0%{
-transform:translateY(-100px) rotate(0deg);
-}
-100%{
-transform:translateY(110vh) rotate(360deg);
-}
-}
-
-.corner{
-position:absolute;
-font-size:70px;
-opacity:.2;
-}
-
-.c1{
-top:10px;
-left:20px;
-}
-
-.c2{
-top:10px;
-right:20px;
-}
-
-.c3{
-bottom:10px;
-left:20px;
-}
-
-.c4{
-bottom:10px;
-right:20px;
-}
-
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canva Access Test V3</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: Arial, sans-serif; background: #f5f6fa;
+      color: #172033; min-height: 100vh; display: grid; place-items: center; padding: 20px;
+    }
+    .card {
+      width: min(560px, 100%); background: white; padding: 32px; border-radius: 22px;
+      box-shadow: 0 14px 50px rgba(0,0,0,.08);
+    }
+    .badge { display:inline-block; padding:7px 12px; border-radius:999px; background:#eee7ff; color:#6d28d9; font-weight:700; font-size:13px; }
+    h1 { margin: 16px 0 8px; font-size: 30px; }
+    p { color:#5d6677; line-height:1.55; }
+    label { display:block; margin:20px 0 8px; font-weight:700; }
+    input {
+      width:100%; padding:14px 15px; border:1px solid #d5d9e2; border-radius:12px;
+      font-size:15px; outline:none;
+    }
+    input:focus { border-color:#7c3aed; }
+    button {
+      width:100%; margin-top:14px; padding:14px 18px; border:0; border-radius:12px;
+      background:#7c3aed; color:white; font-size:16px; font-weight:700; cursor:pointer;
+    }
+    button:disabled { background:#c8cad1; cursor:not-allowed; }
+    .result { display:none; margin-top:20px; padding:16px; border-radius:14px; background:#f7f8fb; }
+    .link {
+      word-break:break-all; padding:12px; border-radius:10px; background:white; border:1px solid #e0e3ea;
+      margin-top:10px; font-size:14px;
+    }
+    .copy { margin-top:10px; background:#111827; }
+    .open { margin-top:10px; }
+    .note { margin-top:14px; font-size:12px; color:#7b8491; line-height:1.5; }
+  </style>
 </head>
 <body>
-
-<div id="flowers"></div>
-
-<!-- SLIDE 1 -->
-
-<section class="slide active" id="slide1">
-
-<div class="paper">
-
-<div class="corner c1">🌸</div>
-<div class="corner c2">🌼</div>
-<div class="corner c3">🌷</div>
-<div class="corner c4">🌺</div>
-
-<div class="center">
-
-<h1>Blooming Journey</h1>
-
-<p class="subtitle">
-Semhas Cheryle Azzahra Nugraha 🌸
-</p>
-
-<div class="slot" id="slot">
-🍓 🍌 🍊
-</div>
-
-<button class="btn" onclick="spin()">
-Putar Buah 🍓
-</button>
-
-<div class="result" id="result"></div>
-
-<button class="btn" onclick="nextSlide(2)">
-Lanjut ➜
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- SLIDE 2 -->
-
-<section class="slide" id="slide2">
-
-<div class="paper">
-
-<div class="note-container">
-
-<div class="main-photo">
-<img src="foto1.jpg">
-</div>
-
-<div class="note">
-
-Dear Cheryle 🌷
-
-Statistik perjuangan skripsi:
-
-☕ Kopi diminum : tak terhitung
-
-📄 Revisi : banyak sekali
-
-😵 Overthinking : setiap malam
-
-😭 Ingin menyerah : pernah
-
-✨ Hebat : selalu
-
-Hari ini waktunya bersinar dan menunjukkan hasil perjuanganmu.
-
-Semangat semhas!
-
-</div>
-
-</div>
-
-<center>
-<button class="btn" onclick="nextSlide(3)">
-Lanjut ➜
-</button>
-</center>
-
-</div>
-
-</section>
-
-<!-- SLIDE 3 -->
-
-<section class="slide" id="slide3">
-
-<div class="paper">
-
-<h1>People Behind This Journey</h1>
-
-<div class="gallery">
-
-<div class="polaroid">
-<img src="foto1.jpg">
-</div>
-
-<div class="polaroid">
-<img src="foto2.jpg">
-</div>
-
-<div class="polaroid">
-<img src="foto3.jpg">
-</div>
-
-<div class="polaroid">
-<img src="foto4.jpg">
-</div>
-
-<div class="polaroid">
-<img src="foto5.jpg">
-</div>
-
-</div>
-
-<center>
-<button class="btn" onclick="nextSlide(4)">
-Lanjut ➜
-</button>
-</center>
-
-</div>
-
-</section>
-
-<!-- SLIDE 4 -->
-
-<section class="slide" id="slide4">
-
-<div class="paper">
-
-<div class="end">
-
-<h2>Selamat Semhas Cheryle 🌸</h2>
-
-<p>
-
-Semhas bukan akhir perjalanan.
-
-Ini adalah salah satu langkah menuju mimpi yang telah diperjuangkan selama ini.
-
-Terima kasih telah bertahan sejauh ini.
-
-Semoga semua berjalan lancar, diberikan kemudahan, dan mendapatkan hasil terbaik.
-
-✨ Good Luck ✨
-
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-<script>
-
-function nextSlide(num){
-
-document.querySelectorAll(".slide").forEach(slide=>{
-slide.classList.remove("active");
-});
-
-document.getElementById("slide"+num)
-.classList.add("active");
-
-}
-
-function spin(){
-
-const buah=["🍓","🍌","🍊"];
-
-let putaran=0;
-
-const slot=document.getElementById("slot");
-
-const animasi=setInterval(()=>{
-
-let a=buah[Math.floor(Math.random()*3)];
-let b=buah[Math.floor(Math.random()*3)];
-let c=buah[Math.floor(Math.random()*3)];
-
-slot.innerHTML=`${a} ${b} ${c}`;
-
-putaran++;
-
-if(putaran>25){
-
-clearInterval(animasi);
-
-if(a===b && b===c){
-
-document.getElementById("result").innerHTML=
-"🎉 SELAMAT! Semoga semhas berjalan lancar dan sukses!";
-
-}else{
-
-document.getElementById("result").innerHTML=
-"💕 Belum cocok, tapi keberuntungan semhas tetap menyertaimu!";
-}
-
-}
-
-},100);
-
-}
-
-const flowers=document.getElementById("flowers");
-
-const emoji=["🌸","🌷","🌼","🌺"];
-
-for(let i=0;i<25;i++){
-
-let flower=document.createElement("div");
-
-flower.classList.add("flower");
-
-flower.innerHTML=
-emoji[Math.floor(Math.random()*emoji.length)];
-
-flower.style.left=Math.random()*100+"%";
-
-flower.style.animationDuration=
-(5+Math.random()*10)+"s";
-
-flower.style.animationDelay=
-Math.random()*5+"s";
-
-flowers.appendChild(flower);
-
-}
-
-</script>
-
+  <main class="card">
+    <span class="badge">TEST V3</span>
+    <h1>Canva Premium Access</h1>
+    <p>
+      Masukkan email Canva. Website akan membuat token akses unik untuk email tersebut.
+      Ini masih versi demo, jadi datanya hanya tersimpan di browser.
+    </p>
+
+    <label for="email">Email Canva</label>
+    <input id="email" type="email" placeholder="contoh@gmail.com" autocomplete="email">
+    <button id="createBtn" disabled>Buat Link Akses Unik</button>
+
+    <section class="result" id="result">
+      <strong>Link akses unik Anda:</strong>
+      <div class="link" id="accessLink"></div>
+      <button class="copy" id="copyBtn">Salin Link</button>
+      <button class="open" id="openBtn">Buka Link Akses</button>
+      <div class="note">
+        Setelah link unik dibuka, halaman akan memvalidasi token di browser lalu
+        mengarahkan ke link undangan Canva yang sama. Pada versi berikutnya,
+        validasi ini akan dipindahkan ke server/database agar tidak dapat diakali.
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const INVITE_URL = "https://www.canva.com/brand/join?token=Qan3Z0E4Us2Hvep4sDtLMQ&invitationDestinationType=group";
+    const emailInput = document.getElementById("email");
+    const createBtn = document.getElementById("createBtn");
+    const result = document.getElementById("result");
+    const accessLink = document.getElementById("accessLink");
+    const copyBtn = document.getElementById("copyBtn");
+    const openBtn = document.getElementById("openBtn");
+
+    function validEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function makeToken() {
+      const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+      let token = "";
+      for (let i = 0; i < 8; i++) {
+        token += chars[Math.floor(Math.random() * chars.length)];
+      }
+      return token;
+    }
+
+    function getBaseUrl() {
+      // Saat file dibuka langsung, gunakan URL file saat ini.
+      // Saat di-host, akan otomatis menjadi URL website.
+      return window.location.href.split("?")[0];
+    }
+
+    function updateButton() {
+      createBtn.disabled = !validEmail(emailInput.value.trim());
+    }
+
+    emailInput.addEventListener("input", updateButton);
+    updateButton();
+
+    createBtn.addEventListener("click", () => {
+      const email = emailInput.value.trim().toLowerCase();
+      if (!validEmail(email)) return;
+
+      const token = makeToken();
+      const baseUrl = getBaseUrl();
+      const url = baseUrl + "?access=" + token;
+
+      // Demo-only: simpan mapping di browser.
+      const accessData = JSON.parse(localStorage.getItem("canva_access_demo") || "{}");
+      accessData[token] = {
+        email: email,
+        inviteUrl: INVITE_URL,
+        createdAt: new Date().toISOString()
+      };
+      localStorage.setItem("canva_access_demo", JSON.stringify(accessData));
+
+      accessLink.textContent = url;
+      result.style.display = "block";
+
+      openBtn.onclick = () => {
+        window.location.href = url;
+      };
+
+      copyBtn.onclick = async () => {
+        await navigator.clipboard.writeText(url);
+        copyBtn.textContent = "Link Tersalin ✓";
+        setTimeout(() => copyBtn.textContent = "Salin Link", 1400);
+      };
+    });
+
+    // Halaman akses: validasi token demo dari browser.
+    const params = new URLSearchParams(window.location.search);
+    const access = params.get("access");
+
+    if (access) {
+      const accessData = JSON.parse(localStorage.getItem("canva_access_demo") || "{}");
+      const item = accessData[access];
+
+      document.querySelector(".card").innerHTML = item
+        ? `
+          <span class="badge">LINK VALID</span>
+          <h1>Akses Canva</h1>
+          <p>Email terdaftar: <strong>${item.email}</strong></p>
+          <p>Token: <strong>${access}</strong></p>
+          <button id="joinCanva">Lanjut ke Canva</button>
+          <div class="note">Demo V3: link unik berbeda untuk setiap token, tetapi tujuan Canva masih menggunakan satu invitation link.</div>
+        `
+        : `
+          <span class="badge">LINK TIDAK VALID</span>
+          <h1>Akses ditolak</h1>
+          <p>Token tidak ditemukan di browser ini.</p>
+        `;
+
+      const btn = document.getElementById("joinCanva");
+      if (btn && item) btn.onclick = () => window.location.href = item.inviteUrl;
+    }
+  </script>
 </body>
 </html>
