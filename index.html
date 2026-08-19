@@ -23,31 +23,73 @@ label{display:block;font-weight:700;margin:14px 0 7px}input{width:100%;padding:1
 @media(max-width:760px){.grid{grid-template-columns:1fr}.hero h1{font-size:34px}}
 </style>
 </head>
+
 <body>
 <div class="container">
 <header><div class="brand">Canva Premium Store</div></header>
 
-<section class="hero">
+<section class="hero" id="storeHero">
   <h1>Pilih paket Canva Premium</h1>
   <p>Versi ini menggunakan <strong>Midtrans Sandbox</strong>. Pembayaran masih dalam mode pengujian dan tidak menggunakan uang sungguhan.</p>
 </section>
 
-<section class="grid">
-<article class="card"><h2>1 Bulan</h2><p>Akses 1 bulan</p><div class="price">Rp3.000</div><button data-package="1">Beli Sekarang</button></article>
-<article class="card"><h2>2 Bulan</h2><p>Akses 2 bulan</p><div class="price">Rp6.000</div><button data-package="2">Beli Sekarang</button></article>
-<article class="card"><h2>3 Bulan</h2><p>Akses 3 bulan</p><div class="price">Rp8.500</div><button data-package="3">Beli Sekarang</button></article>
+<section class="grid" id="productGrid">
+  <article class="card"><h2>1 Bulan</h2><p>Akses 1 bulan</p><div class="price">Rp3.000</div><button data-package="1">Beli Sekarang</button></article>
+  <article class="card"><h2>2 Bulan</h2><p>Akses 2 bulan</p><div class="price">Rp6.000</div><button data-package="2">Beli Sekarang</button></article>
+  <article class="card"><h2>3 Bulan</h2><p>Akses 3 bulan</p><div class="price">Rp8.500</div><button data-package="3">Beli Sekarang</button></article>
 </section>
 
 <section class="panel" id="checkout">
-<h2>Checkout</h2>
-<div class="summary" id="summary"></div>
-<label for="name">Nama</label><input id="name" placeholder="Nama Anda">
-<label for="email">Email Canva</label><input id="email" type="email" placeholder="email Canva">
-<button id="payBtn">Bayar Sekarang</button>
-<div id="orderbox" class="orderbox" style="display:none"></div>
-<div id="message" class="message"></div>
-<div class="testbox"><strong>Mode Sandbox:</strong> pembayaran diproses melalui halaman Midtrans Sandbox. Untuk akses Canva otomatis, notifikasi pembayaran dari Midtrans tetap perlu diproses oleh webhook server.</div>
+  <h2>Checkout</h2>
+  <div class="summary" id="summary"></div>
+  <label for="name">Nama</label><input id="name" placeholder="Nama Anda">
+  <label for="email">Email Canva</label><input id="email" type="email" placeholder="email Canva">
+  <button id="payBtn">Bayar Sekarang</button>
+  <div id="orderbox" class="orderbox" style="display:none"></div>
+  <div id="message" class="message"></div>
+  <div class="testbox"><strong>Mode Sandbox:</strong> pembayaran diproses melalui halaman Midtrans Sandbox. Untuk akses Canva otomatis, notifikasi pembayaran dari Midtrans diproses oleh webhook server.</div>
 </section>
+
+<section class="panel" id="accessPanel" style="display:none">
+  <div class="access-badge" id="accessBadge">AKSES SIAP</div>
+  <h1 id="accessTitle">Akses Canva</h1>
+
+  <div class="summary" id="accessInfo"></div>
+
+  <div class="access-warning" id="accessWarning">
+    <strong>PENDING</strong><br>
+    Pastikan Anda sudah login Canva dengan akun yang sesuai dengan email pembelian.<br><br>
+    Setelah <strong>Lanjut ke Canva</strong> ditekan, token akan langsung dikunci sebagai <strong>USED</strong>.
+  </div>
+
+  <button id="continueCanvaBtn">Lanjut ke Canva</button>
+
+  <div class="message" id="accessMessage"></div>
+</section>
+
+<style>
+.access-badge{
+  display:inline-block;background:#ede9fe;color:#6d28d9;
+  border-radius:999px;padding:9px 16px;font-weight:800;
+  margin-bottom:18px;letter-spacing:.2px
+}
+#accessTitle{font-size:38px;margin:0 0 22px}
+.access-warning{
+  background:#fff7ed;color:#9a3412;border-radius:16px;
+  padding:18px;margin:18px 0 22px;line-height:1.55
+}
+.access-warning strong:first-child{font-size:18px}
+.access-error{
+  background:#fff1f2;color:#9f1239;border-radius:14px;
+  padding:16px;line-height:1.5;margin-top:16px
+}
+.access-used{
+  background:#fff;color:#172033;border:1px solid #eceef3;
+  border-radius:20px;padding:28px;margin:22px 0 40px
+}
+.access-used .access-badge{margin-bottom:16px}
+#accessPanel button:disabled{background:#c7cad3;cursor:not-allowed}
+</style>
 
 <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="Mid-client-0b04AvipKr4ASqQw"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -55,28 +97,54 @@ label{display:block;font-weight:700;margin:14px 0 7px}input{width:100%;padding:1
 const SUPABASE_URL="https://yxybbsbjvtkpwcazairg.supabase.co";
 const SUPABASE_KEY="sb_publishable_CqIJY0Dpwuvb6eF_wO-Axw_LjHi7jEz";
 const CREATE_ORDER_URL=SUPABASE_URL+"/functions/v1/create-order";
-const START_PAYMENT_URL=SUPABASE_URL+"/functions/v1/start-payment-test";
 
-const products={"1":{name:"Canva 1 Bulan",months:1,price:3000},"2":{name:"Canva 2 Bulan",months:2,price:6000},"3":{name:"Canva 3 Bulan",months:3,price:8500}};
+const supabaseClient = window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+const products={
+  "1":{name:"Canva 1 Bulan",months:1,price:3000},
+  "2":{name:"Canva 2 Bulan",months:2,price:6000},
+  "3":{name:"Canva 3 Bulan",months:3,price:8500}
+};
+
 let selectedCode=null;
+
 const fmt=n=>new Intl.NumberFormat("id-ID").format(n);
-const esc=s=>String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+}[m]));
+
+function show(text,ok){
+  const m=document.getElementById("message");
+  m.className="message "+(ok?"ok":"err");
+  m.innerHTML=text;
+  m.style.display="block";
+}
+
+/* =========================
+   CHECKOUT MIDTRANS
+   ========================= */
 
 document.querySelectorAll("[data-package]").forEach(btn=>btn.onclick=()=>{
- selectedCode=btn.dataset.package; const p=products[selectedCode];
- document.getElementById("summary").innerHTML=`<strong>${p.name}</strong><br>Durasi: ${p.months} bulan<br>Total: <strong>Rp${fmt(p.price)}</strong>`;
- const panel=document.getElementById("checkout"); panel.style.display="block"; panel.scrollIntoView({behavior:"smooth"});
+  selectedCode=btn.dataset.package;
+  const p=products[selectedCode];
+
+  document.getElementById("summary").innerHTML=
+    `<strong>${p.name}</strong><br>Durasi: ${p.months} bulan<br>Total: <strong>Rp${fmt(p.price)}</strong>`;
+
+  const panel=document.getElementById("checkout");
+  panel.style.display="block";
+  panel.scrollIntoView({behavior:"smooth"});
 });
 
 document.getElementById("payBtn").onclick=async()=>{
   const name=document.getElementById("name").value.trim();
   const email=document.getElementById("email").value.trim();
-  const msg=document.getElementById("message");
   const pay=document.getElementById("payBtn");
 
   if(!selectedCode) return show("Pilih paket terlebih dahulu.",false);
   if(name.length<2) return show("Nama tidak valid.",false);
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return show("Email tidak valid.",false);
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+    return show("Email tidak valid.",false);
 
   pay.disabled=true;
   pay.textContent="Membuat pembayaran...";
@@ -97,7 +165,9 @@ document.getElementById("payBtn").onclick=async()=>{
     });
 
     const data=await res.json().catch(()=>({}));
-    if(!res.ok) throw new Error(data.error||"Gagal membuat pembayaran.");
+
+    if(!res.ok)
+      throw new Error(data.error||"Gagal membuat pembayaran.");
 
     document.getElementById("orderbox").style.display="block";
     document.getElementById("orderbox").innerHTML=
@@ -105,11 +175,13 @@ document.getElementById("payBtn").onclick=async()=>{
       `<strong>Total:</strong> Rp${fmt(data.amount)}<br>`+
       `<strong>Status:</strong> ${esc(data.status||"PENDING")}`;
 
-    if(!data.snap_token){
+    if(!data.snap_token)
       throw new Error("Snap token tidak diterima dari server.");
-    }
 
-    show(`<strong>Pesanan berhasil dibuat.</strong><br>Jendela pembayaran Midtrans akan dibuka.`,true);
+    show(
+      `<strong>Pesanan berhasil dibuat.</strong><br>`+
+      `Jendela pembayaran Midtrans akan dibuka.`,true
+    );
 
     window.snap.pay(data.snap_token,{
       onSuccess:function(result){
@@ -130,8 +202,7 @@ document.getElementById("payBtn").onclick=async()=>{
       onError:function(result){
         console.error("MIDTRANS ERROR",result);
         show(
-          `<strong>Pembayaran gagal.</strong><br>`+
-          `Silakan coba lagi.`,false
+          `<strong>Pembayaran gagal.</strong><br>Silakan coba lagi.`,false
         );
       },
       onClose:function(){
@@ -150,7 +221,170 @@ document.getElementById("payBtn").onclick=async()=>{
   }
 };
 
-function show(text,ok){const m=document.getElementById("message");m.className="message "+(ok?"ok":"err");m.innerHTML=text;m.style.display="block"}
+/* =========================
+   AKSES ?access=TOKEN
+   ========================= */
+
+const accessToken=new URLSearchParams(window.location.search).get("access");
+
+async function loadAccessPage(){
+  if(!accessToken) return;
+
+  // Jika ada token akses, jangan tampilkan halaman belanja.
+  document.getElementById("storeHero").style.display="none";
+  document.getElementById("productGrid").style.display="none";
+  document.getElementById("checkout").style.display="none";
+
+  const panel=document.getElementById("accessPanel");
+  panel.style.display="block";
+
+  const info=document.getElementById("accessInfo");
+  info.innerHTML="Memeriksa akses...";
+
+  try{
+    /*
+      open_access adalah fungsi database yang sebelumnya sudah kita
+      perbaiki. Fungsi ini menerima p_access_token.
+    */
+    const {data,error}=await supabaseClient.rpc("open_access",{
+      p_access_token:accessToken
+    });
+
+    if(error) throw error;
+
+    const row=Array.isArray(data)?data[0]:data;
+
+    if(!row)
+      throw new Error("TOKEN_NOT_FOUND");
+
+    const status=String(
+      row.access_status ?? row.status ?? ""
+    ).toUpperCase();
+
+    const orderCode=row.order_code || row.order || "-";
+    const email=row.customer_email || row.email || "-";
+
+    // USED = sudah pernah diklik Lanjut ke Canva.
+    if(status==="USED"){
+      showAccessUsed(orderCode,email);
+      return;
+    }
+
+    // UNUSED/PENDING tetap dianggap siap.
+    if(status==="UNUSED" || status==="PENDING" || status===""){
+      document.getElementById("accessInfo").innerHTML=
+        `<strong>Order:</strong> ${esc(orderCode)}<br>`+
+        `<strong>Email pembelian:</strong> ${esc(email)}`;
+
+      document.getElementById("continueCanvaBtn").style.display="block";
+      return;
+    }
+
+    throw new Error("ACCESS_STATUS_"+status);
+
+  }catch(error){
+    console.error("ACCESS CHECK ERROR",error);
+
+    panel.style.display="block";
+    document.getElementById("accessTitle").textContent="Akses tidak dapat digunakan";
+    document.getElementById("accessBadge").textContent="AKSES TIDAK VALID";
+    document.getElementById("accessInfo").innerHTML=
+      `<div class="access-error">`+
+      `<strong>Token akses tidak valid atau sudah tidak tersedia.</strong><br>`+
+      `Silakan hubungi admin jika Anda merasa ini adalah kesalahan.`+
+      `</div>`;
+
+    document.getElementById("accessWarning").style.display="none";
+    document.getElementById("continueCanvaBtn").style.display="none";
+  }
+}
+
+function showAccessUsed(orderCode,email){
+  document.getElementById("accessBadge").textContent="SUDAH DIGUNAKAN";
+  document.getElementById("accessTitle").textContent="Akses sudah digunakan";
+
+  document.getElementById("accessInfo").innerHTML=
+    `<strong>Order:</strong> ${esc(orderCode)}<br>`+
+    `<strong>Email pembelian:</strong> ${esc(email)}`;
+
+  document.getElementById("accessWarning").style.display="block";
+  document.getElementById("accessWarning").innerHTML=
+    `Jika Anda salah akun Canva, ajukan reset. Tidak perlu membayar ulang.`;
+
+  const btn=document.getElementById("continueCanvaBtn");
+  btn.textContent="Akses Sudah Digunakan";
+  btn.disabled=true;
+
+  const m=document.getElementById("accessMessage");
+  m.className="message ok";
+  m.style.display="block";
+  m.innerHTML=
+    `Token ini sudah digunakan. Jika akun Canva yang digunakan salah, `+
+    `hubungi admin untuk proses reset.`;
+}
+
+/*
+  Tombol ini adalah satu-satunya titik yang mengubah token menjadi USED.
+  consume-access harus melakukan update server-side dan mengembalikan
+  access_url/invite_url dari server.
+*/
+document.getElementById("continueCanvaBtn").onclick=async()=>{
+  const btn=document.getElementById("continueCanvaBtn");
+  const msg=document.getElementById("accessMessage");
+
+  btn.disabled=true;
+  btn.textContent="Memproses akses...";
+
+  try{
+    const res=await fetch(
+      SUPABASE_URL+"/functions/v1/consume-access",
+      {
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json",
+          "apikey":SUPABASE_KEY,
+          "Authorization":"Bearer "+SUPABASE_KEY
+        },
+        body:JSON.stringify({
+          access_token:accessToken
+        })
+      }
+    );
+
+    const data=await res.json().catch(()=>({}));
+
+    if(!res.ok)
+      throw new Error(data.error||"Akses tidak dapat digunakan.");
+
+    /*
+      Nama URL dibuat fleksibel supaya cocok dengan response
+      function consume-access yang sudah ada.
+    */
+    const accessUrl=
+      data.access_url ||
+      data.invite_url ||
+      data.canva_url ||
+      data.url;
+
+    if(!accessUrl)
+      throw new Error("Link Canva tidak diterima dari server.");
+
+    // Token sudah dikunci oleh server sebelum browser diarahkan.
+    window.location.href=accessUrl;
+
+  }catch(error){
+    console.error("CONSUME ACCESS ERROR",error);
+
+    btn.disabled=false;
+    btn.textContent="Lanjut ke Canva";
+
+    msg.className="message err";
+    msg.style.display="block";
+    msg.innerHTML=esc(error.message);
+  }
+};
+
+loadAccessPage();
 </script>
 </div>
 </body>
