@@ -33,9 +33,9 @@ label{display:block;font-weight:700;margin:14px 0 7px}input{width:100%;padding:1
 </section>
 
 <section class="grid">
-<article class="card"><h2>1 Bulan</h2><p>Akses 1 bulan</p><div class="price">Rp3.000</div><button data-package="1M">Beli Sekarang</button></article>
-<article class="card"><h2>2 Bulan</h2><p>Akses 2 bulan</p><div class="price">Rp6.000</div><button data-package="2M">Beli Sekarang</button></article>
-<article class="card"><h2>3 Bulan</h2><p>Akses 3 bulan</p><div class="price">Rp8.500</div><button data-package="3M">Beli Sekarang</button></article>
+<article class="card"><h2>1 Bulan</h2><p>Akses 1 bulan</p><div class="price">Rp3.000</div><button data-package="1">Beli Sekarang</button></article>
+<article class="card"><h2>2 Bulan</h2><p>Akses 2 bulan</p><div class="price">Rp6.000</div><button data-package="2">Beli Sekarang</button></article>
+<article class="card"><h2>3 Bulan</h2><p>Akses 3 bulan</p><div class="price">Rp8.500</div><button data-package="3">Beli Sekarang</button></article>
 </section>
 
 <section class="panel" id="checkout">
@@ -57,7 +57,7 @@ const SUPABASE_KEY="sb_publishable_CqIJY0Dpwuvb6eF_wO-Axw_LjHi7jEz";
 const CREATE_ORDER_URL=SUPABASE_URL+"/functions/v1/create-order";
 const START_PAYMENT_URL=SUPABASE_URL+"/functions/v1/start-payment-test";
 
-const products={"1M":{name:"Canva 1 Bulan",months:1,price:3000},"2M":{name:"Canva 2 Bulan",months:2,price:6000},"3M":{name:"Canva 3 Bulan",months:3,price:8500}};
+const products={"1":{name:"Canva 1 Bulan",months:1,price:3000},"2":{name:"Canva 2 Bulan",months:2,price:6000},"3":{name:"Canva 3 Bulan",months:3,price:8500}};
 let selectedCode=null;
 const fmt=n=>new Intl.NumberFormat("id-ID").format(n);
 const esc=s=>String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
