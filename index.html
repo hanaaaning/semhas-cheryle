@@ -29,7 +29,7 @@ label{display:block;font-weight:700;margin:14px 0 7px}input{width:100%;padding:1
 
 <section class="hero">
   <h1>Pilih paket Canva Premium</h1>
-  <p>Versi V8 ini memakai <strong>simulasi pembayaran</strong>. Belum ada uang sungguhan yang ditagihkan.</p>
+  <p>Versi ini menggunakan <strong>Midtrans Sandbox</strong>. Pembayaran masih dalam mode pengujian dan tidak menggunakan uang sungguhan.</p>
 </section>
 
 <section class="grid">
@@ -43,12 +43,13 @@ label{display:block;font-weight:700;margin:14px 0 7px}input{width:100%;padding:1
 <div class="summary" id="summary"></div>
 <label for="name">Nama</label><input id="name" placeholder="Nama Anda">
 <label for="email">Email Canva</label><input id="email" type="email" placeholder="email Canva">
-<button id="payBtn">Buat Pesanan & Simulasi Pembayaran</button>
+<button id="payBtn">Bayar Sekarang</button>
 <div id="orderbox" class="orderbox" style="display:none"></div>
 <div id="message" class="message"></div>
-<div class="testbox"><strong>Mode TEST:</strong> tombol ini hanya mengubah status melalui server. Nanti tombol ini akan digantikan payment gateway nyata.</div>
+<div class="testbox"><strong>Mode Sandbox:</strong> pembayaran diproses melalui halaman Midtrans Sandbox. Untuk akses Canva otomatis, notifikasi pembayaran dari Midtrans tetap perlu diproses oleh webhook server.</div>
 </section>
 
+<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="Mid-client-0b04AvipKr4ASqQw"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const SUPABASE_URL="https://yxybbsbjvtkpwcazairg.supabase.co";
@@ -68,35 +69,87 @@ document.querySelectorAll("[data-package]").forEach(btn=>btn.onclick=()=>{
 });
 
 document.getElementById("payBtn").onclick=async()=>{
- const name=document.getElementById("name").value.trim(), email=document.getElementById("email").value.trim(), msg=document.getElementById("message"), pay=document.getElementById("payBtn");
- if(!selectedCode) return show("Pilih paket terlebih dahulu.",false);
- if(name.length<2) return show("Nama tidak valid.",false);
- if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return show("Email tidak valid.",false);
- pay.disabled=true; pay.textContent="Memproses...";
- try{
-   const res=await fetch(START_PAYMENT_URL,{method:"POST",headers:{"Content-Type":"application/json","apikey":SUPABASE_KEY,"Authorization":"Bearer "+SUPABASE_KEY},body:JSON.stringify({package_code:selectedCode,customer_name:name,customer_email:email})});
-   const data=await res.json().catch(()=>({}));
-   if(!res.ok) throw new Error(data.error||"Gagal membuat pembayaran test.");
-   document.getElementById("orderbox").style.display="block";
-   document.getElementById("orderbox").innerHTML=`<strong>Order:</strong> ${esc(data.order_code)}<br><strong>Total:</strong> Rp${fmt(data.amount)}<br><strong>Status:</strong> ${esc(data.status)}`;
-   show(`<strong>Pembayaran test siap.</strong><br>Gunakan tombol simulasi di bawah untuk menguji webhook.`,true);
-   const b=document.createElement("button"); b.textContent="✅ Simulasikan Pembayaran Berhasil"; b.style.marginTop="12px";
-   b.onclick=()=>simulate(data.order_code); b.id="simulateBtn";
-   document.getElementById("orderbox").appendChild(b);
- }catch(e){show(e.message,false)}
- finally{pay.disabled=false;pay.textContent="Buat Pesanan & Simulasi Pembayaran"}
+  const name=document.getElementById("name").value.trim();
+  const email=document.getElementById("email").value.trim();
+  const msg=document.getElementById("message");
+  const pay=document.getElementById("payBtn");
+
+  if(!selectedCode) return show("Pilih paket terlebih dahulu.",false);
+  if(name.length<2) return show("Nama tidak valid.",false);
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return show("Email tidak valid.",false);
+
+  pay.disabled=true;
+  pay.textContent="Membuat pembayaran...";
+
+  try{
+    const res=await fetch(CREATE_ORDER_URL,{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+        "apikey":SUPABASE_KEY,
+        "Authorization":"Bearer "+SUPABASE_KEY
+      },
+      body:JSON.stringify({
+        package_code:selectedCode,
+        customer_name:name,
+        customer_email:email
+      })
+    });
+
+    const data=await res.json().catch(()=>({}));
+    if(!res.ok) throw new Error(data.error||"Gagal membuat pembayaran.");
+
+    document.getElementById("orderbox").style.display="block";
+    document.getElementById("orderbox").innerHTML=
+      `<strong>Order:</strong> ${esc(data.order_code)}<br>`+
+      `<strong>Total:</strong> Rp${fmt(data.amount)}<br>`+
+      `<strong>Status:</strong> ${esc(data.status||"PENDING")}`;
+
+    if(!data.snap_token){
+      throw new Error("Snap token tidak diterima dari server.");
+    }
+
+    show(`<strong>Pesanan berhasil dibuat.</strong><br>Jendela pembayaran Midtrans akan dibuka.`,true);
+
+    window.snap.pay(data.snap_token,{
+      onSuccess:function(result){
+        console.log("MIDTRANS SUCCESS",result);
+        show(
+          `<strong>Pembayaran berhasil!</strong><br>`+
+          `Order ${esc(data.order_code)} telah dibayar. `+
+          `Sistem sedang memproses akses Canva.`,true
+        );
+      },
+      onPending:function(result){
+        console.log("MIDTRANS PENDING",result);
+        show(
+          `<strong>Pembayaran belum selesai.</strong><br>`+
+          `Silakan selesaikan pembayaran pada metode yang dipilih.`,false
+        );
+      },
+      onError:function(result){
+        console.error("MIDTRANS ERROR",result);
+        show(
+          `<strong>Pembayaran gagal.</strong><br>`+
+          `Silakan coba lagi.`,false
+        );
+      },
+      onClose:function(){
+        show(
+          `Jendela pembayaran ditutup. Jika pembayaran belum selesai, `+
+          `Anda dapat mencoba tombol Bayar Sekarang lagi.`,false
+        );
+      }
+    });
+
+  }catch(e){
+    show(e.message,false);
+  }finally{
+    pay.disabled=false;
+    pay.textContent="Bayar Sekarang";
+  }
 };
 
-async function simulate(orderCode){
- const btn=document.getElementById("simulateBtn"); btn.disabled=true; btn.textContent="Mengonfirmasi...";
- try{
-   const res=await fetch(SUPABASE_URL+"/functions/v1/payment-webhook-test",{method:"POST",headers:{"Content-Type":"application/json","apikey":SUPABASE_KEY,"Authorization":"Bearer "+SUPABASE_KEY},body:JSON.stringify({order_code:orderCode,status:"PAID"})});
-   const data=await res.json().catch(()=>({}));
-   if(!res.ok) throw new Error(data.error||"Webhook test gagal.");
-   show(`<strong>Pembayaran berhasil!</strong><br>Order ${esc(orderCode)} sekarang PAID.<br>Access token: <strong>${esc(data.access_token)}</strong><br><br><a href="${esc(data.access_url)}">Buka link akses</a>`,true);
- }catch(e){show(e.message,false)}
- finally{btn.disabled=false;btn.textContent="✅ Simulasikan Pembayaran Berhasil"}
-}
 function show(text,ok){const m=document.getElementById("message");m.className="message "+(ok?"ok":"err");m.innerHTML=text;m.style.display="block"}
 </script>
 </div>
