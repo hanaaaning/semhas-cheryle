@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Canva Access V5.2</title>
+<title>Canva Access V6</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#f5f6fa;font-family:Arial,sans-serif;color:#172033;min-height:100vh;display:grid;place-items:center;padding:20px}
@@ -12,19 +12,16 @@ body{margin:0;background:#f5f6fa;font-family:Arial,sans-serif;color:#172033;min-
 h1{margin:16px 0 8px;font-size:30px}
 p{line-height:1.55;color:#5d6677}
 .box{margin-top:20px;padding:18px;border-radius:14px;background:#f7f8fb}
-.info{background:#eef2ff}
-.warn{background:#fff7ed;color:#9a3412}
-.danger{background:#fff1f2;color:#9f1239}
-.ok{background:#ecfdf5;color:#065f46}
+.info{background:#eef2ff}.warn{background:#fff7ed;color:#9a3412}
+.danger{background:#fff1f2;color:#9f1239}.ok{background:#ecfdf5;color:#065f46}
 button{width:100%;margin-top:12px;padding:14px;border:0;border-radius:12px;background:#7c3aed;color:#fff;font-size:16px;font-weight:700;cursor:pointer}
-button.danger-btn{background:#be123c}
-button:disabled{background:#c9cbd2;cursor:not-allowed}
+button.danger-btn{background:#be123c}button:disabled{background:#c9cbd2;cursor:not-allowed}
 .small{font-size:12px;color:#7b8491}
 </style>
 </head>
 <body>
 <main class="card" id="app">
-  <span class="badge">CANVA ACCESS V5.2</span>
+  <span class="badge">CANVA ACCESS V6</span>
   <h1>Memeriksa akses...</h1>
   <p>Tunggu sebentar.</p>
 </main>
@@ -32,18 +29,18 @@ button:disabled{background:#c9cbd2;cursor:not-allowed}
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const SUPABASE_URL = "https://yxybbsbjvtkpwcazairg.supabase.co";
-const SUPABASE_KEY = "sb_publishable_CqIJY0Dpwuvb6eF_wO-Axw_LjHi7jEz";
-const INVITE_URL = "https://www.canva.com/brand/join?token=Qan3Z0E4Us2Hvep4sDtLMQ&invitationDestinationType=group";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_CqIJY0Dpwuvb6eF_wO-Axw_LjHi7jEz";
+const CONSUME_FUNCTION = SUPABASE_URL + "/functions/v1/consume-access";
 
 const app = document.getElementById("app");
-const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 const token = new URLSearchParams(location.search).get("access");
 
 const esc = s => String(s).replace(/[&<>"']/g, m => ({
   "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
 }[m]));
 
-function showError(message){
+function showError(message) {
   app.innerHTML = `
     <span class="badge">ERROR</span>
     <h1>Akses tidak tersedia</h1>
@@ -51,7 +48,7 @@ function showError(message){
   `;
 }
 
-async function requestReset(){
+async function requestReset() {
   const button = document.getElementById("reset");
   const msg = document.getElementById("msg");
   button.disabled = true;
@@ -62,7 +59,7 @@ async function requestReset(){
     p_reason: "Salah akun Canva"
   });
 
-  if(error){
+  if (error) {
     msg.innerHTML = `<div class="box danger">${esc(error.message)}</div>`;
     button.disabled = false;
     button.textContent = "Salah akun Canva — Ajukan Reset";
@@ -77,50 +74,50 @@ async function requestReset(){
   button.textContent = "Reset Diminta";
 }
 
-/*
-  PENTING:
-  Begitu tombol "Lanjut ke Canva" ditekan, token langsung diubah
-  dari PENDING menjadi USED SEBELUM redirect ke Canva.
-
-  Jadi tidak ada lagi kondisi "menunggu konfirmasi".
-*/
-async function continueToCanva(){
+async function continueToCanva() {
   const button = document.getElementById("join");
   const msg = document.getElementById("msg");
-
   button.disabled = true;
   button.textContent = "Mengaktifkan akses...";
 
-  const { data, error } = await sb.rpc("confirm_access", {
-    p_access_token: token
-  });
+  try {
+    const response = await fetch(CONSUME_FUNCTION, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": SUPABASE_PUBLISHABLE_KEY,
+        "Authorization": "Bearer " + SUPABASE_PUBLISHABLE_KEY
+      },
+      body: JSON.stringify({ access_token: token })
+    });
 
-  if(error || data !== true){
-    msg.innerHTML = `
-      <div class="box danger">
-        ${esc(error?.message || "Akses gagal diaktifkan. Silakan coba lagi.")}
-      </div>
-    `;
+    const result = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+      throw new Error(result.error || "Akses gagal diaktifkan.");
+    }
+
+    // Server telah menandai token USED sebelum URL dikembalikan.
+    window.location.href = result.invite_url;
+  } catch (error) {
+    msg.innerHTML = `<div class="box danger">${esc(error.message)}</div>`;
     button.disabled = false;
     button.textContent = "Lanjut ke Canva";
-    return;
   }
-
-  // Setelah database berhasil menjadi USED, langsung redirect.
-  window.location.href = INVITE_URL;
 }
 
-async function load(){
-  if(!token){
+async function load() {
+  if (!token) {
     showError("Token akses tidak ditemukan pada URL.");
     return;
   }
 
+  // Hanya membaca detail token. Mutasi status tidak lagi dilakukan dari browser.
   const { data, error } = await sb.rpc("open_access", {
     p_access_token: token
   });
 
-  if(error || !data || data.length === 0){
+  if (error || !data || data.length === 0) {
     showError(error?.message || "Token tidak ditemukan atau tidak berlaku.");
     return;
   }
@@ -128,27 +125,18 @@ async function load(){
   const item = data[0];
   const status = item.access_status;
 
-  if(status === "USED"){
+  if (status === "USED") {
     app.innerHTML = `
       <span class="badge">SUDAH DIGUNAKAN</span>
       <h1>Akses sudah digunakan</h1>
-
       <div class="box info">
         <b>Order:</b> ${esc(item.order_code)}<br>
         <b>Email pembelian:</b> ${esc(item.customer_email)}
       </div>
-
-      <p>
-        Jika Anda salah akun Canva, ajukan reset. Tidak perlu membayar ulang.
-      </p>
-
-      <button id="reset" class="danger-btn">
-        Salah akun Canva — Ajukan Reset
-      </button>
-
+      <p>Jika Anda salah akun Canva, ajukan reset. Tidak perlu membayar ulang.</p>
+      <button id="reset" class="danger-btn">Salah akun Canva — Ajukan Reset</button>
       <div id="msg"></div>
     `;
-
     document.getElementById("reset").onclick = requestReset;
     return;
   }
@@ -156,28 +144,21 @@ async function load(){
   app.innerHTML = `
     <span class="badge">AKSES SIAP</span>
     <h1>Akses Canva</h1>
-
     <div class="box info">
       <b>Order:</b> ${esc(item.order_code)}<br>
       <b>Email pembelian:</b> ${esc(item.customer_email)}
     </div>
-
     <div class="box warn">
       <b>PENTING</b><br>
       Pastikan Anda sudah login Canva dengan akun:<br>
       <b>${esc(item.customer_email)}</b>
       <br><br>
-      Setelah tombol <b>Lanjut ke Canva</b> ditekan, kode akan langsung ditandai
-      sebagai <b>USED</b>.
+      Setelah <b>Lanjut ke Canva</b> ditekan, token akan langsung dikunci sebagai <b>USED</b>.
     </div>
-
     <button id="join">Lanjut ke Canva</button>
-
     <p class="small">
-      Jika Anda salah memilih akun Canva, gunakan tombol "Salah akun Canva — Ajukan Reset"
-      setelah redirect.
+      Proses penguncian token sekarang dilakukan server-side agar browser tidak dapat langsung mengubah status token.
     </p>
-
     <div id="msg"></div>
   `;
 
