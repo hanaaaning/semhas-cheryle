@@ -121,6 +121,7 @@ input{
 
 input:focus{
   border-color:#7c3aed;
+  box-shadow:0 0 0 3px rgba(124,58,237,.08);
 }
 
 .summary,
@@ -167,6 +168,7 @@ input:focus{
   color:#667085;
 }
 
+
 /* ==================================================
    RIWAYAT PEMBELIAN
    ================================================== */
@@ -212,7 +214,7 @@ input:focus{
 .history-table{
   width:100%;
   border-collapse:collapse;
-  min-width:820px;
+  min-width:980px;
 }
 
 .history-table th,
@@ -298,6 +300,7 @@ input:focus{
   line-height:1.5;
 }
 
+
 /* ==================================================
    HALAMAN AKSES
    ================================================== */
@@ -340,6 +343,7 @@ input:focus{
   cursor:not-allowed;
 }
 
+
 /* ==================================================
    RESPONSIVE
    ================================================== */
@@ -365,22 +369,27 @@ input:focus{
   .history-panel{
     padding:20px;
   }
+
 }
 </style>
 </head>
 
+
 <body>
 
 <div class="container">
+
 
 <!-- =================================================
      HEADER
      ================================================= -->
 
 <header>
+
   <div class="brand">
     Canva Premium Store
   </div>
+
 </header>
 
 
@@ -398,10 +407,13 @@ input:focus{
   </h1>
 
   <p>
+
     Pembayaran menggunakan
     <strong>Midtrans Sandbox</strong>.
+
     Saat ini pembayaran masih dalam
     mode pengujian.
+
   </p>
 
 </section>
@@ -500,6 +512,7 @@ input:focus{
     Checkout
   </h2>
 
+
   <div
     class="summary"
     id="summary"
@@ -567,7 +580,6 @@ input:focus{
 
 <!-- =================================================
      RIWAYAT PEMBELIAN
-     HANYA TAMPIL DI HALAMAN UTAMA
      ================================================= -->
 
 <section
@@ -586,9 +598,15 @@ input:focus{
       <div class="history-note">
 
         Masukkan
-        <strong>email pembelian</strong>
+        <strong>
+          email pembelian
+        </strong>
+
         ATAU
-        <strong>kode pembelian</strong>.
+
+        <strong>
+          kode pembelian
+        </strong>.
 
       </div>
 
@@ -613,7 +631,7 @@ input:focus{
 
     <input
       id="historyOrderCode"
-      placeholder="Contoh: INV-20260820030150-5F222C"
+      placeholder="Contoh: MYC-20260820030150-5F222C"
     >
 
 
@@ -661,6 +679,10 @@ input:focus{
           </th>
 
           <th>
+            Tim Canva
+          </th>
+
+          <th>
             Tanggal
           </th>
 
@@ -678,7 +700,7 @@ input:focus{
         <tr>
 
           <td
-            colspan="7"
+            colspan="8"
             class="muted"
           >
 
@@ -735,7 +757,7 @@ input:focus{
   >
 
     <strong>
-      PENDING
+      AKSES SIAP
     </strong>
 
     <br>
@@ -803,6 +825,7 @@ input:focus{
 const SUPABASE_URL =
   "https://yxybbsbjvtkpwcazairg.supabase.co";
 
+
 const SUPABASE_KEY =
   "sb_publishable_CqIJY0Dpwuvb6eF_wO-Axw_LjHi7jEz";
 
@@ -841,21 +864,38 @@ const supabaseClient =
 const products = {
 
   "1":{
-    name:"Canva 1 Bulan",
-    months:1,
-    price:3000
+    name:
+      "Canva 1 Bulan",
+
+    months:
+      1,
+
+    price:
+      3000
   },
+
 
   "2":{
-    name:"Canva 2 Bulan",
-    months:2,
-    price:6000
+    name:
+      "Canva 2 Bulan",
+
+    months:
+      2,
+
+    price:
+      6000
   },
 
+
   "3":{
-    name:"Canva 3 Bulan",
-    months:3,
-    price:8500
+    name:
+      "Canva 3 Bulan",
+
+    months:
+      3,
+
+    price:
+      8500
   }
 
 };
@@ -866,29 +906,41 @@ let selectedCode =
 
 
 /* ==================================================
-   HELPER
+   HELPERS
    ================================================== */
 
 const fmt =
-  n =>
+  number =>
     new Intl.NumberFormat(
       "id-ID"
-    ).format(n);
+    ).format(
+      number
+    );
 
 
 const esc =
-  s =>
+  value =>
     String(
-      s ?? ""
+      value ?? ""
     ).replace(
       /[&<>"']/g,
-      m => ({
-        "&":"&amp;",
-        "<":"&lt;",
-        ">":"&gt;",
-        '"':"&quot;",
-        "'":"&#039;"
-      }[m])
+      character => ({
+        "&":
+          "&amp;",
+
+        "<":
+          "&lt;",
+
+        ">":
+          "&gt;",
+
+        '"':
+          "&quot;",
+
+        "'":
+          "&#039;"
+
+      }[character])
     );
 
 
@@ -897,12 +949,13 @@ function show(
   ok
 ){
 
-  const m =
+  const message =
     document.getElementById(
       "message"
     );
 
-  m.className =
+
+  message.className =
     "message " +
     (
       ok
@@ -910,21 +963,24 @@ function show(
         : "err"
     );
 
-  m.innerHTML =
+
+  message.innerHTML =
     text;
 
-  m.style.display =
+
+  message.style.display =
     "block";
+
 }
 
 
 function showMessage(
-  el,
+  element,
   text,
   ok=false
 ){
 
-  el.className =
+  element.className =
     "message " +
     (
       ok
@@ -932,123 +988,163 @@ function showMessage(
         : "err"
     );
 
-  el.textContent =
+
+  element.textContent =
     text;
 
-  el.style.display =
+
+  element.style.display =
     "block";
+
 }
 
 
 function hideMessage(
-  el
+  element
 ){
 
-  el.className =
+  element.className =
     "message";
 
-  el.textContent =
+
+  element.textContent =
     "";
 
-  el.style.display =
+
+  element.style.display =
     "none";
+
 }
 
 
 /* ==================================================
-   RIWAYAT - STATUS PEMBAYARAN
+   HISTORY PAYMENT BADGE
    ================================================== */
 
 function historyStatusBadge(
   value
 ){
 
-  const v =
+  const status =
     String(
       value || ""
     ).toUpperCase();
 
 
-  let cls =
+  let className =
     "status-badge ";
 
 
   if(
-    v === "PAID"
+    status ===
+    "PAID"
   ){
-    cls +=
+
+    className +=
       "status-paid";
+
   }
 
   else if(
-    v === "PENDING"
+    status ===
+    "PENDING"
   ){
-    cls +=
+
+    className +=
       "status-pending";
+
   }
 
   else if(
-    v === "EXPIRED"
+    status ===
+    "EXPIRED"
   ){
-    cls +=
+
+    className +=
       "status-expired";
+
   }
 
   else if(
-    v === "CANCELLED"
+    status ===
+    "CANCELLED"
   ){
-    cls +=
+
+    className +=
       "status-cancelled";
+
   }
 
   else if(
-    v === "DENIED"
+    status ===
+    "DENIED"
   ){
-    cls +=
+
+    className +=
       "status-denied";
+
   }
 
   else{
-    cls +=
+
+    className +=
       "status-expired";
+
   }
 
 
   return `
-    <span class="${cls}">
-      ${esc(v || "-")}
+
+    <span
+      class="${className}"
+    >
+      ${esc(
+        status ||
+        "-"
+      )}
     </span>
+
   `;
+
 }
 
 
 /* ==================================================
-   RIWAYAT - STATUS AKSES
+   HISTORY ACCESS BADGE
    ================================================== */
 
 function historyAccessBadge(
   value
 ){
 
-  const v =
+  const status =
     String(
       value || ""
     ).toUpperCase();
 
 
-  const cls =
-    v === "USED"
+  const className =
+    status ===
+      "USED"
+
       ? "access-used"
+
       : "access-unused";
 
 
   return `
+
     <span
-      class="status-badge ${cls}"
+      class="status-badge ${className}"
     >
-      ${esc(v || "-")}
+      ${esc(
+        status ||
+        "-"
+      )}
     </span>
+
   `;
+
 }
 
 
@@ -1078,27 +1174,27 @@ async function loadPurchaseHistory(){
       .toUpperCase();
 
 
-  const btn =
+  const button =
     document.getElementById(
       "historyBtn"
     );
 
 
-  const msg =
+  const message =
     document.getElementById(
       "historyMessage"
     );
 
 
-  const body =
+  const tableBody =
     document.getElementById(
       "historyBody"
     );
 
 
-  /* ==============================
-     VALIDASI
-     ============================== */
+  /* ----------------------------------------------
+     WAJIB SALAH SATU
+     ---------------------------------------------- */
 
   if(
     !email &&
@@ -1106,12 +1202,13 @@ async function loadPurchaseHistory(){
   ){
 
     showMessage(
-      msg,
+      message,
       "Masukkan email pembelian atau kode pembelian.",
       false
     );
 
     return;
+
   }
 
 
@@ -1121,47 +1218,54 @@ async function loadPurchaseHistory(){
   ){
 
     showMessage(
-      msg,
+      message,
       "Gunakan salah satu saja: email pembelian ATAU kode pembelian.",
       false
     );
 
     return;
+
   }
 
 
-  btn.disabled =
+  button.disabled =
     true;
 
-  btn.textContent =
+
+  button.textContent =
     "Mencari...";
 
 
   hideMessage(
-    msg
+    message
   );
 
 
-  body.innerHTML = `
+  tableBody.innerHTML = `
+
     <tr>
+
       <td
-        colspan="7"
+        colspan="8"
         class="muted"
       >
         Mengambil riwayat...
       </td>
+
     </tr>
+
   `;
 
 
   try{
 
-    const res =
+    const response =
       await fetch(
         PURCHASE_HISTORY_URL,
         {
 
-          method:"POST",
+          method:
+            "POST",
 
           headers:{
 
@@ -1195,7 +1299,7 @@ async function loadPurchaseHistory(){
 
 
     const data =
-      await res
+      await response
         .json()
         .catch(
           () => ({})
@@ -1203,7 +1307,7 @@ async function loadPurchaseHistory(){
 
 
     if(
-      !res.ok
+      !response.ok
     ){
 
       throw new Error(
@@ -1226,40 +1330,45 @@ async function loadPurchaseHistory(){
       !rows.length
     ){
 
-      body.innerHTML = `
+      tableBody.innerHTML = `
+
         <tr>
+
           <td
-            colspan="7"
+            colspan="8"
             class="muted"
           >
             Pesanan tidak ditemukan.
           </td>
+
         </tr>
+
       `;
 
       return;
+
     }
 
 
-    /* ============================
-       TAMPILKAN RIWAYAT
-       ============================ */
+    /* ----------------------------------------------
+       RENDER HISTORY
+       ---------------------------------------------- */
 
-    body.innerHTML =
+    tableBody.innerHTML =
       rows
         .map(
-          o => {
+          order => {
 
-            const payment =
+            const paymentStatus =
               String(
-                o.payment_status ||
+                order.payment_status ||
                 ""
               ).toUpperCase();
 
 
-            const access =
+            const accessStatus =
               String(
-                o.access_status ||
+                order.access_status ||
                 ""
               ).toUpperCase();
 
@@ -1271,38 +1380,49 @@ async function loadPurchaseHistory(){
             /* PAID + UNUSED */
 
             if(
-              payment === "PAID" &&
-              access === "UNUSED" &&
-              o.access_url
+              paymentStatus ===
+                "PAID" &&
+
+              accessStatus ===
+                "UNUSED" &&
+
+              order.access_url
             ){
 
               action = `
+
                 <a
                   class="history-action"
                   href="${esc(
-                    o.access_url
+                    order.access_url
                   )}"
                 >
                   Gabung ke Canva
                 </a>
+
               `;
 
             }
 
 
-            /* PAID + USED */
+            /* USED */
 
             else if(
-              payment === "PAID" &&
-              access === "USED"
+              paymentStatus ===
+                "PAID" &&
+
+              accessStatus ===
+                "USED"
             ){
 
               action = `
+
                 <span
                   class="history-action-disabled"
                 >
                   Sudah digunakan
                 </span>
+
               `;
 
             }
@@ -1311,15 +1431,18 @@ async function loadPurchaseHistory(){
             /* PENDING */
 
             else if(
-              payment === "PENDING"
+              paymentStatus ===
+                "PENDING"
             ){
 
               action = `
+
                 <span
                   class="history-action-disabled"
                 >
                   Menunggu pembayaran
                 </span>
+
               `;
 
             }
@@ -1328,20 +1451,67 @@ async function loadPurchaseHistory(){
             /* EXPIRED */
 
             else if(
-              payment === "EXPIRED" ||
-              payment === "CANCELLED" ||
-              payment === "DENIED"
+              paymentStatus ===
+                "EXPIRED" ||
+
+              paymentStatus ===
+                "CANCELLED" ||
+
+              paymentStatus ===
+                "DENIED"
             ){
 
               action = `
+
                 <span
                   class="history-action-disabled"
                 >
                   Tidak tersedia
                 </span>
+
               `;
 
             }
+
+
+            const team =
+              order.canva_team_name
+
+                ? esc(
+                    order.canva_team_name
+                  )
+
+                : `
+
+                  <span
+                    class="muted"
+                  >
+                    Belum tercatat
+                  </span>
+
+                `;
+
+
+            const date =
+              order.paid_at
+
+                ? esc(
+                    new Date(
+                      order.paid_at
+                    )
+                    .toLocaleString(
+                      "id-ID"
+                    )
+                  )
+
+                : esc(
+                    new Date(
+                      order.created_at
+                    )
+                    .toLocaleString(
+                      "id-ID"
+                    )
+                  );
 
 
             return `
@@ -1352,7 +1522,7 @@ async function loadPurchaseHistory(){
 
                   <strong>
                     ${esc(
-                      o.order_code
+                      order.order_code
                     )}
                   </strong>
 
@@ -1362,7 +1532,7 @@ async function loadPurchaseHistory(){
                     class="muted"
                   >
                     ${esc(
-                      o.customer_email ||
+                      order.customer_email ||
                       ""
                     )}
                   </span>
@@ -1371,39 +1541,48 @@ async function loadPurchaseHistory(){
 
 
                 <td>
+
                   ${esc(
-                    o.product_name ||
+                    order.product_name ||
                     "-"
                   )}
+
                 </td>
 
 
                 <td>
+
                   Rp${fmt(
-                    o.amount
+                    order.amount
                   )}
+
                 </td>
 
 
                 <td>
 
                   ${historyStatusBadge(
-                    o.payment_status
+                    order.payment_status
                   )}
 
                   ${
-                    o.payment_method
-                    ? `
-                      <br>
-                      <span
-                        class="muted"
-                      >
-                        ${esc(
-                          o.payment_method
-                        )}
-                      </span>
-                    `
-                    : ""
+                    order.payment_method
+
+                      ? `
+
+                        <br>
+
+                        <span
+                          class="muted"
+                        >
+                          ${esc(
+                            order.payment_method
+                          )}
+                        </span>
+
+                      `
+
+                      : ""
                   }
 
                 </td>
@@ -1412,7 +1591,7 @@ async function loadPurchaseHistory(){
                 <td>
 
                   ${historyAccessBadge(
-                    o.access_status
+                    order.access_status
                   )}
 
                 </td>
@@ -1420,34 +1599,23 @@ async function loadPurchaseHistory(){
 
                 <td>
 
-                  ${
-                    o.paid_at
-
-                    ? esc(
-                        new Date(
-                          o.paid_at
-                        ).toLocaleString(
-                          "id-ID"
-                        )
-                      )
-
-                    : esc(
-                        new Date(
-                          o.created_at
-                        ).toLocaleString(
-                          "id-ID"
-                        )
-                      )
-
-                  }
+                  ${team}
 
                 </td>
 
 
                 <td>
-                  ${action}
+
+                  ${date}
+
                 </td>
 
+
+                <td>
+
+                  ${action}
+
+                </td>
 
               </tr>
 
@@ -1459,43 +1627,46 @@ async function loadPurchaseHistory(){
 
 
     showMessage(
-      msg,
+      message,
       `${rows.length} riwayat pembelian ditemukan.`,
       true
     );
 
   }
 
+  catch(error){
 
-  catch(e){
+    tableBody.innerHTML = `
 
-    body.innerHTML = `
       <tr>
+
         <td
-          colspan="7"
+          colspan="8"
           class="muted"
         >
           Tidak dapat mengambil riwayat.
         </td>
+
       </tr>
+
     `;
 
 
     showMessage(
-      msg,
-      e.message,
+      message,
+      error.message,
       false
     );
 
   }
 
-
   finally{
 
-    btn.disabled =
+    button.disabled =
       false;
 
-    btn.textContent =
+
+    button.textContent =
       "Cek Riwayat";
 
   }
@@ -1504,7 +1675,7 @@ async function loadPurchaseHistory(){
 
 
 /* ==================================================
-   EVENT RIWAYAT
+   HISTORY EVENTS
    ================================================== */
 
 document
@@ -1525,13 +1696,15 @@ document
   id => {
 
     document
-      .getElementById(id)
+      .getElementById(
+        id
+      )
       .addEventListener(
         "keydown",
-        e => {
+        event => {
 
           if(
-            e.key ===
+            event.key ===
             "Enter"
           ){
 
@@ -1555,16 +1728,16 @@ document
     "[data-package]"
   )
   .forEach(
-    btn => {
+    button => {
 
-      btn.onclick =
+      button.onclick =
         () => {
 
           selectedCode =
-            btn.dataset.package;
+            button.dataset.package;
 
 
-          const p =
+          const product =
             products[
               selectedCode
             ];
@@ -1577,13 +1750,13 @@ document
             .innerHTML = `
 
               <strong>
-                ${p.name}
+                ${product.name}
               </strong>
 
               <br>
 
               Durasi:
-              ${p.months}
+              ${product.months}
               bulan
 
               <br>
@@ -1591,24 +1764,24 @@ document
               Total:
               <strong>
                 Rp${fmt(
-                  p.price
+                  product.price
                 )}
               </strong>
 
             `;
 
 
-          const panel =
+          const checkout =
             document.getElementById(
               "checkout"
             );
 
 
-          panel.style.display =
+          checkout.style.display =
             "block";
 
 
-          panel.scrollIntoView({
+          checkout.scrollIntoView({
             behavior:
               "smooth"
           });
@@ -1620,7 +1793,7 @@ document
 
 
 /* ==================================================
-   PEMBAYARAN MIDTRANS
+   PAYMENT
    ================================================== */
 
 document
@@ -1648,7 +1821,7 @@ document
         .trim();
 
 
-    const pay =
+    const payButton =
       document.getElementById(
         "payBtn"
       );
@@ -1667,7 +1840,8 @@ document
 
 
     if(
-      name.length < 2
+      name.length <
+      2
     ){
 
       return show(
@@ -1693,21 +1867,23 @@ document
     }
 
 
-    pay.disabled =
+    payButton.disabled =
       true;
 
-    pay.textContent =
+
+    payButton.textContent =
       "Membuat pembayaran...";
 
 
     try{
 
-      const res =
+      const response =
         await fetch(
           CREATE_ORDER_URL,
           {
 
-            method:"POST",
+            method:
+              "POST",
 
             headers:{
 
@@ -1742,7 +1918,7 @@ document
 
 
       const data =
-        await res
+        await response
           .json()
           .catch(
             () => ({})
@@ -1750,7 +1926,7 @@ document
 
 
       if(
-        !res.ok
+        !response.ok
       ){
 
         throw new Error(
@@ -1833,26 +2009,18 @@ document
         data.snap_token,
         {
 
-          /* ======================
-             SUCCESS
-             ====================== */
+          /* SUCCESS */
 
           onSuccess:
-            async function(
-              result
-            ){
-
-              console.log(
-                "MIDTRANS SUCCESS",
-                result
-              );
-
+            async function(){
 
               show(
                 `<strong>
                   Pembayaran berhasil!
                 </strong>
+
                 <br>
+
                 Sistem sedang memproses
                 akses Canva...`,
                 true
@@ -1867,26 +2035,18 @@ document
             },
 
 
-          /* ======================
-             PENDING
-             ====================== */
+          /* PENDING */
 
           onPending:
-            function(
-              result
-            ){
-
-              console.log(
-                "MIDTRANS PENDING",
-                result
-              );
-
+            function(){
 
               show(
                 `<strong>
                   Pembayaran belum selesai.
                 </strong>
+
                 <br>
+
                 Silakan selesaikan
                 pembayaran QRIS.`,
                 false
@@ -1895,26 +2055,18 @@ document
             },
 
 
-          /* ======================
-             ERROR
-             ====================== */
+          /* ERROR */
 
           onError:
-            function(
-              result
-            ){
-
-              console.error(
-                "MIDTRANS ERROR",
-                result
-              );
-
+            function(){
 
               show(
                 `<strong>
                   Pembayaran gagal.
                 </strong>
+
                 <br>
+
                 Silakan coba lagi.`,
                 false
               );
@@ -1922,9 +2074,7 @@ document
             },
 
 
-          /* ======================
-             CLOSE
-             ====================== */
+          /* CLOSE */
 
           onClose:
             function(){
@@ -1942,23 +2092,22 @@ document
 
     }
 
-
-    catch(e){
+    catch(error){
 
       show(
-        e.message,
+        error.message,
         false
       );
 
     }
 
-
     finally{
 
-      pay.disabled =
+      payButton.disabled =
         false;
 
-      pay.textContent =
+
+      payButton.textContent =
         "Bayar Sekarang";
 
     }
@@ -1967,7 +2116,7 @@ document
 
 
 /* ==================================================
-   MENUNGGU WEBHOOK + GET ACCESS
+   MENUNGGU WEBHOOK
    ================================================== */
 
 async function waitForAccess(
@@ -1978,24 +2127,27 @@ async function waitForAccess(
   const maxAttempts =
     12;
 
+
   const delay =
     2500;
 
 
   for(
     let attempt = 1;
-    attempt <= maxAttempts;
+    attempt <=
+      maxAttempts;
     attempt++
   ){
 
     try{
 
-      const res =
+      const response =
         await fetch(
           GET_ACCESS_URL,
           {
 
-            method:"POST",
+            method:
+              "POST",
 
             headers:{
 
@@ -2027,7 +2179,7 @@ async function waitForAccess(
 
 
       const data =
-        await res
+        await response
           .json()
           .catch(
             () => ({})
@@ -2041,10 +2193,6 @@ async function waitForAccess(
       );
 
 
-      /* ========================
-         ACCESS READY
-         ======================== */
-
       if(
         data.status ===
         "READY"
@@ -2054,8 +2202,11 @@ async function waitForAccess(
           `<strong>
             Pembayaran berhasil! 🎉
           </strong>
+
           <br>
+
           Akses Canva Anda sudah siap.
+
           <br>
           <br>
 
@@ -2070,7 +2221,7 @@ async function waitForAccess(
               padding:12px 18px;
               border-radius:10px;
               text-decoration:none;
-              font-weight:700
+              font-weight:700;
             "
           >
             Buka Akses Canva
@@ -2084,10 +2235,6 @@ async function waitForAccess(
       }
 
 
-      /* ========================
-         SUDAH USED
-         ======================== */
-
       if(
         data.status ===
         "USED"
@@ -2100,14 +2247,11 @@ async function waitForAccess(
           false
         );
 
+
         return;
 
       }
 
-
-      /* ========================
-         MASIH PROCESSING
-         ======================== */
 
       if(
         data.status ===
@@ -2118,7 +2262,9 @@ async function waitForAccess(
           `<strong>
             Pembayaran berhasil.
           </strong>
+
           <br>
+
           Akses sedang dibuat otomatis...`,
           true
         );
@@ -2126,7 +2272,6 @@ async function waitForAccess(
       }
 
     }
-
 
     catch(error){
 
@@ -2149,16 +2294,15 @@ async function waitForAccess(
   }
 
 
-  /* ==========================
-     TIMEOUT
-     ========================== */
-
   show(
     `<strong>
       Pembayaran sudah dilakukan.
     </strong>
+
     <br>
+
     Akses masih sedang diproses.
+
     Silakan cek riwayat pembelian
     beberapa saat lagi.`,
     true
@@ -2168,7 +2312,7 @@ async function waitForAccess(
 
 
 /* ==================================================
-   BACA ?access=TOKEN
+   ACCESS TOKEN
    ================================================== */
 
 const accessToken =
@@ -2184,9 +2328,6 @@ const accessToken =
    ================================================== */
 
 async function loadAccessPage(){
-
-  /* Tidak ada token =
-     halaman toko normal */
 
   if(
     !accessToken
@@ -2204,9 +2345,9 @@ async function loadAccessPage(){
   }
 
 
-  /* ==========================
-     KALAU ADA TOKEN
-     ========================== */
+  /* -----------------------------------------------
+     TOKEN ADA
+     ----------------------------------------------- */
 
   document
     .getElementById(
@@ -2232,8 +2373,7 @@ async function loadAccessPage(){
     "none";
 
 
-  /* Riwayat tidak
-     ditampilkan di halaman akses */
+  /* Hide history on access page */
 
   document
     .getElementById(
@@ -2253,21 +2393,17 @@ async function loadAccessPage(){
     "block";
 
 
-  const info =
+  const information =
     document.getElementById(
       "accessInfo"
     );
 
 
-  info.innerHTML =
+  information.innerHTML =
     "Memeriksa akses...";
 
 
   try{
-
-    /* ========================
-       CEK TOKEN
-       ======================== */
 
     const {
       data,
@@ -2331,9 +2467,9 @@ async function loadAccessPage(){
       "-";
 
 
-    /* ========================
-       SUDAH USED
-       ======================== */
+    /* -----------------------------------------
+       USED
+       ----------------------------------------- */
 
     if(
       status ===
@@ -2345,21 +2481,22 @@ async function loadAccessPage(){
         email
       );
 
+
       return;
 
     }
 
 
-    /* ========================
+    /* -----------------------------------------
        UNUSED
-       ======================== */
+       ----------------------------------------- */
 
     if(
       status ===
       "UNUSED"
     ){
 
-      info.innerHTML = `
+      information.innerHTML = `
 
         <strong>
           Order:
@@ -2395,17 +2532,12 @@ async function loadAccessPage(){
     }
 
 
-    /* ========================
-       STATUS TIDAK DIKENAL
-       ======================== */
-
     throw new Error(
       "ACCESS_STATUS_" +
       status
     );
 
   }
-
 
   catch(error){
 
@@ -2435,9 +2567,11 @@ async function loadAccessPage(){
       "AKSES TIDAK VALID";
 
 
-    info.innerHTML = `
+    information.innerHTML = `
 
-      <div class="access-error">
+      <div
+        class="access-error"
+      >
 
         <strong>
           Token akses tidak valid
@@ -2548,35 +2682,35 @@ function showAccessUsed(
     `;
 
 
-  const btn =
+  const button =
     document.getElementById(
       "continueCanvaBtn"
     );
 
 
-  btn.textContent =
+  button.textContent =
     "Akses Sudah Digunakan";
 
 
-  btn.disabled =
+  button.disabled =
     true;
 
 
-  const msg =
+  const message =
     document.getElementById(
       "accessMessage"
     );
 
 
-  msg.className =
+  message.className =
     "message ok";
 
 
-  msg.style.display =
+  message.style.display =
     "block";
 
 
-  msg.innerHTML = `
+  message.innerHTML = `
 
     Token ini sudah digunakan.
 
@@ -2589,7 +2723,7 @@ function showAccessUsed(
 
 
 /* ==================================================
-   TOMBOL LANJUT KE CANVA
+   CONSUME ACCESS
    ================================================== */
 
 document
@@ -2599,34 +2733,35 @@ document
   .onclick =
   async () => {
 
-    const btn =
+    const button =
       document.getElementById(
         "continueCanvaBtn"
       );
 
 
-    const msg =
+    const message =
       document.getElementById(
         "accessMessage"
       );
 
 
-    btn.disabled =
+    button.disabled =
       true;
 
 
-    btn.textContent =
+    button.textContent =
       "Memproses akses...";
 
 
     try{
 
-      const res =
+      const response =
         await fetch(
           CONSUME_ACCESS_URL,
           {
 
-            method:"POST",
+            method:
+              "POST",
 
             headers:{
 
@@ -2655,7 +2790,7 @@ document
 
 
       const data =
-        await res
+        await response
           .json()
           .catch(
             () => ({})
@@ -2663,7 +2798,7 @@ document
 
 
       if(
-        !res.ok
+        !response.ok
       ){
 
         throw new Error(
@@ -2693,15 +2828,17 @@ document
 
 
       /*
-        Server mengubah token
-        menjadi USED terlebih dahulu.
+        consume-access sudah:
+        1. memverifikasi pembayaran
+        2. mengunci token USED
+        3. menyimpan nama tim Canva
+        4. mengembalikan link tim aktif
       */
 
       window.location.href =
         accessUrl;
 
     }
-
 
     catch(error){
 
@@ -2711,34 +2848,34 @@ document
       );
 
 
-      btn.disabled =
+      button.disabled =
         false;
 
 
-      btn.textContent =
+      button.textContent =
         "Lanjut ke Canva";
 
 
-      msg.className =
+      message.className =
         "message err";
 
 
-      msg.style.display =
+      message.style.display =
         "block";
 
 
-      msg.innerHTML =
+      message.innerHTML =
         esc(
           error.message
         );
 
     }
 
-};
+  };
 
 
 /* ==================================================
-   JALANKAN CEK TOKEN
+   RUN ACCESS CHECK
    ================================================== */
 
 loadAccessPage();
