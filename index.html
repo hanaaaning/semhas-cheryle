@@ -4,490 +4,1911 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Canva Premium Store V8</title>
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#f7f7fb;color:#172033;font-family:Arial,Helvetica,sans-serif}
-.container{width:min(1050px,92%);margin:0 auto}
-header{padding:28px 0 18px}.brand{font-size:24px;font-weight:800}
-.hero{padding:28px 0 16px}.hero h1{font-size:42px;line-height:1.08;margin:0 0 12px}.hero p{font-size:17px;color:#697386;line-height:1.6}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:28px 0}
-.card{background:#fff;border:1px solid #eceef3;border-radius:20px;padding:24px;box-shadow:0 12px 40px rgba(0,0,0,.05)}
-.card h2{margin:0 0 8px;font-size:24px}.price{font-size:32px;font-weight:800;margin:16px 0}
-.card ul{padding-left:20px;color:#667085;line-height:1.8}
-button{width:100%;border:0;border-radius:12px;background:#7c3aed;color:#fff;padding:14px;font-size:16px;font-weight:700;cursor:pointer}
-button:hover{background:#6d28d9}.panel{display:none;background:#fff;border-radius:20px;padding:26px;margin:22px 0 40px;border:1px solid #eceef3}
-label{display:block;font-weight:700;margin:14px 0 7px}input{width:100%;padding:14px;border:1px solid #d6dae3;border-radius:11px;font-size:15px;outline:none}
-.summary,.orderbox,.testbox{padding:14px;border-radius:12px;margin:16px 0;line-height:1.7}.summary{background:#f6f5ff}.orderbox{background:#eef2ff}.testbox{background:#fff7ed;color:#9a3412}
-.message{display:none;margin-top:16px;padding:14px;border-radius:12px;line-height:1.5}.ok{background:#ecfdf5;color:#065f46}.err{background:#fff1f2;color:#9f1239}
-.small{font-size:12px;color:#7b8491;margin-top:12px;line-height:1.5}
-@media(max-width:760px){.grid{grid-template-columns:1fr}.hero h1{font-size:34px}}
+body{
+  margin:0;
+  background:#f7f7fb;
+  color:#172033;
+  font-family:Arial,Helvetica,sans-serif
+}
+.container{
+  width:min(1050px,92%);
+  margin:0 auto
+}
+header{
+  padding:28px 0 18px
+}
+.brand{
+  font-size:24px;
+  font-weight:800
+}
+.hero{
+  padding:28px 0 16px
+}
+.hero h1{
+  font-size:42px;
+  line-height:1.08;
+  margin:0 0 12px
+}
+.hero p{
+  font-size:17px;
+  color:#697386;
+  line-height:1.6
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+  margin:28px 0
+}
+.card{
+  background:#fff;
+  border:1px solid #eceef3;
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 12px 40px rgba(0,0,0,.05)
+}
+.card h2{
+  margin:0 0 8px;
+  font-size:24px
+}
+.price{
+  font-size:32px;
+  font-weight:800;
+  margin:16px 0
+}
+.card ul{
+  padding-left:20px;
+  color:#667085;
+  line-height:1.8
+}
+button{
+  width:100%;
+  border:0;
+  border-radius:12px;
+  background:#7c3aed;
+  color:#fff;
+  padding:14px;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer
+}
+button:hover{
+  background:#6d28d9
+}
+button:disabled{
+  background:#c7cad3;
+  cursor:not-allowed
+}
+.panel{
+  display:none;
+  background:#fff;
+  border-radius:20px;
+  padding:26px;
+  margin:22px 0 40px;
+  border:1px solid #eceef3
+}
+label{
+  display:block;
+  font-weight:700;
+  margin:14px 0 7px
+}
+input{
+  width:100%;
+  padding:14px;
+  border:1px solid #d6dae3;
+  border-radius:11px;
+  font-size:15px;
+  outline:none
+}
+.summary,
+.orderbox,
+.testbox{
+  padding:14px;
+  border-radius:12px;
+  margin:16px 0;
+  line-height:1.7
+}
+.summary{
+  background:#f6f5ff
+}
+.orderbox{
+  background:#eef2ff
+}
+.testbox{
+  background:#fff7ed;
+  color:#9a3412
+}
+.message{
+  display:none;
+  margin-top:16px;
+  padding:14px;
+  border-radius:12px;
+  line-height:1.5
+}
+.message.ok{
+  background:#ecfdf5;
+  color:#065f46
+}
+.message.err{
+  background:#fff1f2;
+  color:#9f1239
+}
+.small{
+  font-size:12px;
+  color:#7b8491;
+  margin-top:12px;
+  line-height:1.5
+}
+
+/* =========================
+   HISTORY
+   ========================= */
+
+.history-panel{
+  display:block;
+  background:#fff;
+  border-radius:20px;
+  padding:26px;
+  margin:22px 0 40px;
+  border:1px solid #eceef3
+}
+.history-head{
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  align-items:flex-end;
+  flex-wrap:wrap
+}
+.history-form{
+  display:grid;
+  grid-template-columns:1fr 1fr auto;
+  gap:10px;
+  margin-top:16px
+}
+.history-table-wrap{
+  overflow:auto;
+  margin-top:18px
+}
+.history-table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:820px
+}
+.history-table th,
+.history-table td{
+  padding:12px;
+  border-bottom:1px solid #edf0f4;
+  text-align:left;
+  font-size:13px
+}
+.history-table th{
+  background:#fafafa;
+  color:#667085;
+  font-size:11px;
+  text-transform:uppercase
+}
+.status-badge{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:800
+}
+.status-paid{
+  background:#dcfce7;
+  color:#166534
+}
+.status-pending{
+  background:#fef3c7;
+  color:#92400e
+}
+.status-expired,
+.status-cancelled,
+.status-denied{
+  background:#f3f4f6;
+  color:#374151
+}
+.access-used{
+  background:#ede9fe;
+  color:#6d28d9
+}
+.access-unused{
+  background:#e0f2fe;
+  color:#075985
+}
+.history-action{
+  display:inline-block;
+  background:#7c3aed;
+  color:#fff;
+  padding:8px 11px;
+  border-radius:9px;
+  text-decoration:none;
+  font-weight:700;
+  font-size:12px;
+  white-space:nowrap
+}
+.history-action:hover{
+  background:#6d28d9
+}
+.history-action-disabled{
+  display:inline-block;
+  background:#eef0f4;
+  color:#667085;
+  padding:8px 11px;
+  border-radius:9px;
+  font-size:12px;
+  white-space:nowrap
+}
+.history-note{
+  margin-top:12px;
+  font-size:12px;
+  color:#667085;
+  line-height:1.5
+}
+
+/* =========================
+   ACCESS PAGE
+   ========================= */
+
+.access-badge{
+  display:inline-block;
+  background:#ede9fe;
+  color:#6d28d9;
+  border-radius:999px;
+  padding:9px 16px;
+  font-weight:800;
+  margin-bottom:18px;
+  letter-spacing:.2px
+}
+#accessTitle{
+  font-size:38px;
+  margin:0 0 22px
+}
+.access-warning{
+  background:#fff7ed;
+  color:#9a3412;
+  border-radius:16px;
+  padding:18px;
+  margin:18px 0 22px;
+  line-height:1.55
+}
+.access-warning strong:first-child{
+  font-size:18px
+}
+.access-error{
+  background:#fff1f2;
+  color:#9f1239;
+  border-radius:14px;
+  padding:16px;
+  line-height:1.5;
+  margin-top:16px
+}
+.access-used{
+  background:#fff;
+  color:#172033;
+  border:1px solid #eceef3;
+  border-radius:20px;
+  padding:28px;
+  margin:22px 0 40px
+}
+.access-used .access-badge{
+  margin-bottom:16px
+}
+#accessPanel button:disabled{
+  background:#c7cad3;
+  cursor:not-allowed
+}
+
+@media(max-width:760px){
+  .grid{
+    grid-template-columns:1fr
+  }
+  .hero h1{
+    font-size:34px
+  }
+  .history-form{
+    grid-template-columns:1fr
+  }
+  .history-panel{
+    padding:20px
+  }
+}
 </style>
 </head>
 
 <body>
+
 <div class="container">
-<header><div class="brand">Canva Premium Store</div></header>
+
+<header>
+  <div class="brand">Canva Premium Store</div>
+</header>
+
+<!-- =========================
+     HALAMAN TOKO
+     ========================= -->
 
 <section class="hero" id="storeHero">
   <h1>Pilih paket Canva Premium</h1>
-  <p>Versi ini menggunakan <strong>Midtrans Sandbox</strong>. Pembayaran masih dalam mode pengujian dan tidak menggunakan uang sungguhan.</p>
+
+  <p>
+    Versi ini menggunakan
+    <strong>Midtrans Sandbox</strong>.
+    Pembayaran masih dalam mode pengujian
+    dan tidak menggunakan uang sungguhan.
+  </p>
 </section>
 
 <section class="grid" id="productGrid">
-  <article class="card"><h2>1 Bulan</h2><p>Akses 1 bulan</p><div class="price">Rp3.000</div><button data-package="1">Beli Sekarang</button></article>
-  <article class="card"><h2>2 Bulan</h2><p>Akses 2 bulan</p><div class="price">Rp6.000</div><button data-package="2">Beli Sekarang</button></article>
-  <article class="card"><h2>3 Bulan</h2><p>Akses 3 bulan</p><div class="price">Rp8.500</div><button data-package="3">Beli Sekarang</button></article>
+
+  <article class="card">
+    <h2>1 Bulan</h2>
+    <p>Akses 1 bulan</p>
+    <div class="price">Rp3.000</div>
+    <button data-package="1">
+      Beli Sekarang
+    </button>
+  </article>
+
+  <article class="card">
+    <h2>2 Bulan</h2>
+    <p>Akses 2 bulan</p>
+    <div class="price">Rp6.000</div>
+    <button data-package="2">
+      Beli Sekarang
+    </button>
+  </article>
+
+  <article class="card">
+    <h2>3 Bulan</h2>
+    <p>Akses 3 bulan</p>
+    <div class="price">Rp8.500</div>
+    <button data-package="3">
+      Beli Sekarang
+    </button>
+  </article>
+
 </section>
+
+<!-- =========================
+     CHECKOUT
+     ========================= -->
 
 <section class="panel" id="checkout">
+
   <h2>Checkout</h2>
+
   <div class="summary" id="summary"></div>
-  <label for="name">Nama</label><input id="name" placeholder="Nama Anda">
-  <label for="email">Email Canva</label><input id="email" type="email" placeholder="email Canva">
-  <button id="payBtn">Bayar Sekarang</button>
-  <div id="orderbox" class="orderbox" style="display:none"></div>
-  <div id="message" class="message"></div>
-  <div class="testbox"><strong>Mode Sandbox:</strong> pembayaran diproses melalui halaman Midtrans Sandbox. Untuk akses Canva otomatis, notifikasi pembayaran dari Midtrans diproses oleh webhook server.</div>
-</section>
 
-<section class="panel" id="accessPanel" style="display:none">
-  <div class="access-badge" id="accessBadge">AKSES SIAP</div>
-  <h1 id="accessTitle">Akses Canva</h1>
+  <label for="name">
+    Nama
+  </label>
 
-  <div class="summary" id="accessInfo"></div>
+  <input
+    id="name"
+    placeholder="Nama Anda"
+  >
 
-  <div class="access-warning" id="accessWarning">
-    <strong>PENDING</strong><br>
-    Pastikan Anda sudah login Canva dengan akun yang sesuai dengan email pembelian.<br><br>
-    Setelah <strong>Lanjut ke Canva</strong> ditekan, token akan langsung dikunci sebagai <strong>USED</strong>.
+  <label for="email">
+    Email Canva
+  </label>
+
+  <input
+    id="email"
+    type="email"
+    placeholder="email Canva"
+  >
+
+  <button id="payBtn">
+    Bayar Sekarang
+  </button>
+
+  <div
+    id="orderbox"
+    class="orderbox"
+    style="display:none"
+  ></div>
+
+  <div
+    id="message"
+    class="message"
+  ></div>
+
+  <div class="testbox">
+    <strong>Mode Sandbox:</strong>
+    pembayaran diproses melalui halaman
+    Midtrans Sandbox. Untuk akses Canva otomatis,
+    notifikasi pembayaran dari Midtrans diproses
+    oleh webhook server.
   </div>
 
-  <button id="continueCanvaBtn">Lanjut ke Canva</button>
-
-  <div class="message" id="accessMessage"></div>
 </section>
 
-<style>
-.access-badge{
-  display:inline-block;background:#ede9fe;color:#6d28d9;
-  border-radius:999px;padding:9px 16px;font-weight:800;
-  margin-bottom:18px;letter-spacing:.2px
-}
-#accessTitle{font-size:38px;margin:0 0 22px}
-.access-warning{
-  background:#fff7ed;color:#9a3412;border-radius:16px;
-  padding:18px;margin:18px 0 22px;line-height:1.55
-}
-.access-warning strong:first-child{font-size:18px}
-.access-error{
-  background:#fff1f2;color:#9f1239;border-radius:14px;
-  padding:16px;line-height:1.5;margin-top:16px
-}
-.access-used{
-  background:#fff;color:#172033;border:1px solid #eceef3;
-  border-radius:20px;padding:28px;margin:22px 0 40px
-}
-.access-used .access-badge{margin-bottom:16px}
-#accessPanel button:disabled{background:#c7cad3;cursor:not-allowed}
-</style>
+<!-- =========================
+     RIWAYAT PEMBELIAN
+     ========================= -->
 
-<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="Mid-client-0b04AvipKr4ASqQw"></script>
+<section class="history-panel" id="historyPanel">
+
+  <div class="history-head">
+
+    <div>
+
+      <h2>
+        Riwayat Pembelian
+      </h2>
+
+      <div class="history-note">
+        Masukkan email pembelian atau kode pembelian.
+        Riwayat hanya menampilkan data pesanan,
+        tanpa access token.
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="history-form">
+
+    <input
+      id="historyEmail"
+      type="email"
+      placeholder="Email pembelian"
+    >
+
+    <input
+      id="historyOrderCode"
+      placeholder="Kode pembelian, contoh INV-20260820030150-5F222C"
+    >
+
+    <button id="historyBtn">
+      Cek Riwayat
+    </button>
+
+  </div>
+
+  <div
+    id="historyMessage"
+    class="message"
+  ></div>
+
+  <div class="history-table-wrap">
+
+    <table class="history-table">
+
+      <thead>
+        <tr>
+          <th>Order</th>
+          <th>Paket</th>
+          <th>Nominal</th>
+          <th>Pembayaran</th>
+          <th>Akses</th>
+          <th>Tanggal</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+
+      <tbody id="historyBody">
+
+        <tr>
+
+          <td
+            colspan="7"
+            class="muted"
+          >
+            Masukkan email atau kode pembelian
+            untuk melihat riwayat.
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</section>
+
+<!-- =========================
+     HALAMAN AKSES
+     ========================= -->
+
+<section
+  class="panel"
+  id="accessPanel"
+  style="display:none"
+>
+
+  <div
+    class="access-badge"
+    id="accessBadge"
+  >
+    AKSES SIAP
+  </div>
+
+  <h1 id="accessTitle">
+    Akses Canva
+  </h1>
+
+  <div
+    class="summary"
+    id="accessInfo"
+  ></div>
+
+  <div
+    class="access-warning"
+    id="accessWarning"
+  >
+    <strong>PENDING</strong><br>
+
+    Pastikan Anda sudah login Canva
+    dengan akun yang sesuai dengan
+    email pembelian.
+
+    <br><br>
+
+    Setelah
+    <strong>Lanjut ke Canva</strong>
+    ditekan, token akan langsung
+    dikunci sebagai <strong>USED</strong>.
+  </div>
+
+  <button id="continueCanvaBtn">
+    Lanjut ke Canva
+  </button>
+
+  <div
+    class="message"
+    id="accessMessage"
+  ></div>
+
+</section>
+
+<!-- =========================
+     MIDTRANS
+     ========================= -->
+
+<script
+  src="https://app.sandbox.midtrans.com/snap/snap.js"
+  data-client-key="Mid-client-0b04AvipKr4ASqQw">
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
-const SUPABASE_URL="https://yxybbsbjvtkpwcazairg.supabase.co";
-const SUPABASE_KEY="sb_publishable_CqIJY0Dpwuvb6eF_wO-Axw_LjHi7jEz";
-const CREATE_ORDER_URL=SUPABASE_URL+"/functions/v1/create-order";
 
-const supabaseClient = window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+/* =========================
+   KONFIGURASI
+   ========================= */
 
-const products={
-  "1":{name:"Canva 1 Bulan",months:1,price:3000},
-  "2":{name:"Canva 2 Bulan",months:2,price:6000},
-  "3":{name:"Canva 3 Bulan",months:3,price:8500}
+const SUPABASE_URL =
+  "https://yxybbsbjvtkpwcazairg.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_CqIJY0Dpwuvb6eF_wO-Axw_LjHi7jEz";
+
+const CREATE_ORDER_URL =
+  SUPABASE_URL + "/functions/v1/create-order";
+
+const PURCHASE_HISTORY_URL =
+  SUPABASE_URL + "/functions/v1/purchase-history";
+
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+/* =========================
+   PRODUK
+   ========================= */
+
+const products = {
+
+  "1": {
+    name:"Canva 1 Bulan",
+    months:1,
+    price:3000
+  },
+
+  "2": {
+    name:"Canva 2 Bulan",
+    months:2,
+    price:6000
+  },
+
+  "3": {
+    name:"Canva 3 Bulan",
+    months:3,
+    price:8500
+  }
+
 };
 
-let selectedCode=null;
+let selectedCode = null;
 
-const fmt=n=>new Intl.NumberFormat("id-ID").format(n);
-const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({
-  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-}[m]));
+/* =========================
+   HELPERS
+   ========================= */
+
+const fmt = n =>
+  new Intl.NumberFormat(
+    "id-ID"
+  ).format(n);
+
+const esc = s =>
+  String(s ?? "").replace(
+    /[&<>"']/g,
+    m => ({
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#039;"
+    }[m])
+  );
 
 function show(text,ok){
-  const m=document.getElementById("message");
-  m.className="message "+(ok?"ok":"err");
-  m.innerHTML=text;
-  m.style.display="block";
+
+  const m =
+    document.getElementById("message");
+
+  m.className =
+    "message " +
+    (ok ? "ok" : "err");
+
+  m.innerHTML = text;
+
+  m.style.display =
+    "block";
 }
+
+function showMessage(
+  el,
+  text,
+  ok=false
+){
+
+  el.className =
+    "message " +
+    (ok ? "ok" : "err");
+
+  el.textContent = text;
+
+  el.style.display =
+    "block";
+}
+
+function hideMessage(el){
+
+  el.className =
+    "message";
+
+  el.textContent =
+    "";
+
+  el.style.display =
+    "none";
+}
+
+/* =========================
+   HISTORY STATUS
+   ========================= */
+
+function historyStatusBadge(value){
+
+  const v =
+    String(value || "")
+      .toUpperCase();
+
+  let cls =
+    "status-badge ";
+
+  if(v === "PAID")
+    cls += "status-paid";
+
+  else if(v === "PENDING")
+    cls += "status-pending";
+
+  else if(v === "EXPIRED")
+    cls += "status-expired";
+
+  else if(v === "CANCELLED")
+    cls += "status-cancelled";
+
+  else if(v === "DENIED")
+    cls += "status-denied";
+
+  else
+    cls += "status-expired";
+
+  return `
+    <span class="${cls}">
+      ${esc(v || "-")}
+    </span>
+  `;
+}
+
+function historyAccessBadge(value){
+
+  const v =
+    String(value || "")
+      .toUpperCase();
+
+  const cls =
+    v === "USED"
+      ? "access-used"
+      : "access-unused";
+
+  return `
+    <span class="status-badge ${cls}">
+      ${esc(v || "-")}
+    </span>
+  `;
+}
+
+/* =========================
+   HISTORY PEMBELIAN
+   ========================= */
+
+async function loadPurchaseHistory(){
+
+  const email =
+    document
+      .getElementById("historyEmail")
+      .value
+      .trim()
+      .toLowerCase();
+
+  const orderCode =
+    document
+      .getElementById("historyOrderCode")
+      .value
+      .trim()
+      .toUpperCase();
+
+  const btn =
+    document.getElementById(
+      "historyBtn"
+    );
+
+  const msg =
+    document.getElementById(
+      "historyMessage"
+    );
+
+  const body =
+    document.getElementById(
+      "historyBody"
+    );
+
+  if(!email && !orderCode){
+
+    showMessage(
+      msg,
+      "Masukkan email pembelian atau kode pembelian.",
+      false
+    );
+
+    return;
+  }
+
+  btn.disabled = true;
+
+  btn.textContent =
+    "Mencari...";
+
+  hideMessage(msg);
+
+  body.innerHTML = `
+    <tr>
+      <td
+        colspan="7"
+        class="muted"
+      >
+        Mengambil riwayat...
+      </td>
+    </tr>
+  `;
+
+  try{
+
+    const res =
+      await fetch(
+        PURCHASE_HISTORY_URL,
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "application/json",
+
+            "apikey":
+              SUPABASE_KEY,
+
+            "Authorization":
+              "Bearer " +
+              SUPABASE_KEY
+          },
+
+          body:
+            JSON.stringify({
+
+              email:
+                email || undefined,
+
+              order_code:
+                orderCode || undefined
+
+            })
+        }
+      );
+
+    const data =
+      await res
+        .json()
+        .catch(() => ({}));
+
+    if(!res.ok){
+
+      throw new Error(
+        data.error ||
+        "Gagal mengambil riwayat."
+      );
+
+    }
+
+    const rows =
+      Array.isArray(data.orders)
+        ? data.orders
+        : [];
+
+    if(!rows.length){
+
+      body.innerHTML = `
+        <tr>
+          <td
+            colspan="7"
+            class="muted"
+          >
+            Pesanan tidak ditemukan.
+          </td>
+        </tr>
+      `;
+
+      return;
+    }
+
+    body.innerHTML =
+      rows.map(o => {
+
+        const payment =
+          String(
+            o.payment_status || ""
+          ).toUpperCase();
+
+        const access =
+          String(
+            o.access_status || ""
+          ).toUpperCase();
+
+        let action =
+          `<span class="muted">-</span>`;
+
+        /* PAID + UNUSED */
+
+        if(
+          payment === "PAID" &&
+          access === "UNUSED" &&
+          o.access_url
+        ){
+
+          action = `
+            <a
+              class="history-action"
+              href="${esc(o.access_url)}"
+            >
+              Gabung ke Canva
+            </a>
+          `;
+
+        }
+
+        /* PAID + USED */
+
+        else if(
+          payment === "PAID" &&
+          access === "USED"
+        ){
+
+          action = `
+            <span
+              class="history-action-disabled"
+            >
+              Sudah digunakan
+            </span>
+          `;
+
+        }
+
+        /* PENDING */
+
+        else if(
+          payment === "PENDING"
+        ){
+
+          action = `
+            <span
+              class="history-action-disabled"
+            >
+              Menunggu pembayaran
+            </span>
+          `;
+
+        }
+
+        /* EXPIRED */
+
+        else if(
+          payment === "EXPIRED" ||
+          payment === "CANCELLED" ||
+          payment === "DENIED"
+        ){
+
+          action = `
+            <span
+              class="history-action-disabled"
+            >
+              Tidak tersedia
+            </span>
+          `;
+
+        }
+
+        return `
+
+          <tr>
+
+            <td>
+
+              <strong>
+                ${esc(o.order_code)}
+              </strong>
+
+              <br>
+
+              <span class="muted">
+                ${esc(o.customer_email || "")}
+              </span>
+
+            </td>
+
+            <td>
+              ${esc(o.product_name || "-")}
+            </td>
+
+            <td>
+              Rp${fmt(o.amount)}
+            </td>
+
+            <td>
+
+              ${historyStatusBadge(
+                o.payment_status
+              )}
+
+              ${
+                o.payment_method
+                ? `
+                  <br>
+                  <span class="muted">
+                    ${esc(o.payment_method)}
+                  </span>
+                `
+                : ""
+              }
+
+            </td>
+
+            <td>
+              ${historyAccessBadge(
+                o.access_status
+              )}
+            </td>
+
+            <td>
+
+              ${
+                o.paid_at
+
+                ? esc(
+                    new Date(
+                      o.paid_at
+                    ).toLocaleString(
+                      "id-ID"
+                    )
+                  )
+
+                : esc(
+                    new Date(
+                      o.created_at
+                    ).toLocaleString(
+                      "id-ID"
+                    )
+                  )
+              }
+
+            </td>
+
+            <td>
+              ${action}
+            </td>
+
+          </tr>
+
+        `;
+
+      }).join("");
+
+    showMessage(
+      msg,
+      `${rows.length} riwayat pembelian ditemukan.`,
+      true
+    );
+
+  }
+
+  catch(e){
+
+    body.innerHTML = `
+      <tr>
+        <td
+          colspan="7"
+          class="muted"
+        >
+          Tidak dapat mengambil riwayat.
+        </td>
+      </tr>
+    `;
+
+    showMessage(
+      msg,
+      e.message,
+      false
+    );
+
+  }
+
+  finally{
+
+    btn.disabled =
+      false;
+
+    btn.textContent =
+      "Cek Riwayat";
+
+  }
+
+}
+
+document
+  .getElementById(
+    "historyBtn"
+  )
+  .addEventListener(
+    "click",
+    loadPurchaseHistory
+  );
+
+[
+  "historyEmail",
+  "historyOrderCode"
+]
+.forEach(id => {
+
+  document
+    .getElementById(id)
+    .addEventListener(
+      "keydown",
+      e => {
+
+        if(e.key === "Enter")
+          loadPurchaseHistory();
+
+      }
+    );
+
+});
 
 /* =========================
    CHECKOUT MIDTRANS
    ========================= */
 
-document.querySelectorAll("[data-package]").forEach(btn=>btn.onclick=()=>{
-  selectedCode=btn.dataset.package;
-  const p=products[selectedCode];
+document
+  .querySelectorAll(
+    "[data-package]"
+  )
+  .forEach(btn => {
 
-  document.getElementById("summary").innerHTML=
-    `<strong>${p.name}</strong><br>Durasi: ${p.months} bulan<br>Total: <strong>Rp${fmt(p.price)}</strong>`;
+    btn.onclick = () => {
 
-  const panel=document.getElementById("checkout");
-  panel.style.display="block";
-  panel.scrollIntoView({behavior:"smooth"});
-});
+      selectedCode =
+        btn.dataset.package;
 
-document.getElementById("payBtn").onclick=async()=>{
-  const name=document.getElementById("name").value.trim();
-  const email=document.getElementById("email").value.trim();
-  const pay=document.getElementById("payBtn");
+      const p =
+        products[selectedCode];
 
-  if(!selectedCode) return show("Pilih paket terlebih dahulu.",false);
-  if(name.length<2) return show("Nama tidak valid.",false);
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
-    return show("Email tidak valid.",false);
+      document
+        .getElementById(
+          "summary"
+        )
+        .innerHTML = `
 
-  pay.disabled=true;
-  pay.textContent="Membuat pembayaran...";
+          <strong>
+            ${p.name}
+          </strong>
 
-  try{
-    const res=await fetch(CREATE_ORDER_URL,{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json",
-        "apikey":SUPABASE_KEY,
-        "Authorization":"Bearer "+SUPABASE_KEY
-      },
-      body:JSON.stringify({
-        package_code:selectedCode,
-        customer_name:name,
-        customer_email:email
-      })
-    });
+          <br>
 
-    const data=await res.json().catch(()=>({}));
+          Durasi:
+          ${p.months}
+          bulan
 
-    if(!res.ok)
-      throw new Error(data.error||"Gagal membuat pembayaran.");
+          <br>
 
-    document.getElementById("orderbox").style.display="block";
-    document.getElementById("orderbox").innerHTML=
-      `<strong>Order:</strong> ${esc(data.order_code)}<br>`+
-      `<strong>Total:</strong> Rp${fmt(data.amount)}<br>`+
-      `<strong>Status:</strong> ${esc(data.status||"PENDING")}`;
+          Total:
+          <strong>
+            Rp${fmt(p.price)}
+          </strong>
 
-    if(!data.snap_token)
-      throw new Error("Snap token tidak diterima dari server.");
+        `;
 
-    show(
-      `<strong>Pesanan berhasil dibuat.</strong><br>`+
-      `Jendela pembayaran Midtrans akan dibuka.`,true
-    );
-
-    window.snap.pay(data.snap_token,{
-      onSuccess: async function(result){
-        console.log("MIDTRANS SUCCESS", result);
-        
-        show(
-          `<strong>Pembayaran berhasil! 🎉</strong><br>`+
-          `Pembayaran sedang dikonfirmasi oleh sistem...`, true
+      const panel =
+        document.getElementById(
+          "checkout"
         );
 
-        await waitForAccess(
-          data.order_code,
-          email
-        );
-      },
-      onPending:function(result){
-        console.log("MIDTRANS PENDING",result);
-        show(
-          `<strong>Pembayaran belum selesai.</strong><br>`+
-          `Silakan selesaikan pembayaran pada metode yang dipilih.`,false
-        );
-      },
-      onError:function(result){
-        console.error("MIDTRANS ERROR",result);
-        show(
-          `<strong>Pembayaran gagal.</strong><br>Silakan coba lagi.`,false
-        );
-      },
-      onClose:function(){
-        show(
-          `Jendela pembayaran ditutup. Jika pembayaran belum selesai, `+
-          `Anda dapat mencoba tombol Bayar Sekarang lagi.`,false
-        );
-      }
-    });
+      panel.style.display =
+        "block";
 
-  }catch(e){
-    show(e.message,false);
-  }finally{
-    pay.disabled=false;
-    pay.textContent="Bayar Sekarang";
-  }
-};
+      panel.scrollIntoView({
+        behavior:"smooth"
+      });
+
+    };
+
+  });
 
 /* =========================
-   AKSES ?access=TOKEN
+   BAYAR
    ========================= */
 
-const accessToken=new URLSearchParams(window.location.search).get("access");
+document
+  .getElementById(
+    "payBtn"
+  )
+  .onclick = async () => {
 
-async function loadAccessPage(){
-  if(!accessToken) return;
+    const name =
+      document
+        .getElementById("name")
+        .value
+        .trim();
 
-  // Jika ada token akses, jangan tampilkan halaman belanja.
-  document.getElementById("storeHero").style.display="none";
-  document.getElementById("productGrid").style.display="none";
-  document.getElementById("checkout").style.display="none";
+    const email =
+      document
+        .getElementById("email")
+        .value
+        .trim();
 
-  const panel=document.getElementById("accessPanel");
-  panel.style.display="block";
+    const pay =
+      document.getElementById(
+        "payBtn"
+      );
 
-  const info=document.getElementById("accessInfo");
-  info.innerHTML="Memeriksa akses...";
+    if(!selectedCode){
 
-  try{
-    /*
-      open_access adalah fungsi database yang sebelumnya sudah kita
-      perbaiki. Fungsi ini menerima p_access_token.
-    */
-    const {data,error}=await supabaseClient.rpc("open_access",{
-      p_access_token:accessToken
-    });
+      return show(
+        "Pilih paket terlebih dahulu.",
+        false
+      );
 
-    if(error) throw error;
-
-    const row=Array.isArray(data)?data[0]:data;
-
-    if(!row)
-      throw new Error("TOKEN_NOT_FOUND");
-
-    const status=String(
-      row.access_status ?? row.status ?? ""
-    ).toUpperCase();
-
-    const orderCode=row.order_code || row.order || "-";
-    const email=row.customer_email || row.email || "-";
-
-    // USED = sudah pernah diklik Lanjut ke Canva.
-    if(status==="USED"){
-      showAccessUsed(orderCode,email);
-      return;
     }
 
-    // UNUSED/PENDING tetap dianggap siap.
-    if(status==="UNUSED" || status==="PENDING" || status===""){
-      document.getElementById("accessInfo").innerHTML=
-        `<strong>Order:</strong> ${esc(orderCode)}<br>`+
-        `<strong>Email pembelian:</strong> ${esc(email)}`;
+    if(name.length < 2){
 
-      document.getElementById("continueCanvaBtn").style.display="block";
-      return;
+      return show(
+        "Nama tidak valid.",
+        false
+      );
+
     }
 
-    throw new Error("ACCESS_STATUS_"+status);
+    if(
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        .test(email)
+    ){
 
-  }catch(error){
-    console.error("ACCESS CHECK ERROR",error);
+      return show(
+        "Email tidak valid.",
+        false
+      );
 
-    panel.style.display="block";
-    document.getElementById("accessTitle").textContent="Akses tidak dapat digunakan";
-    document.getElementById("accessBadge").textContent="AKSES TIDAK VALID";
-    document.getElementById("accessInfo").innerHTML=
-      `<div class="access-error">`+
-      `<strong>Token akses tidak valid atau sudah tidak tersedia.</strong><br>`+
-      `Silakan hubungi admin jika Anda merasa ini adalah kesalahan.`+
-      `</div>`;
+    }
 
-    document.getElementById("accessWarning").style.display="none";
-    document.getElementById("continueCanvaBtn").style.display="none";
-  }
-}
+    pay.disabled =
+      true;
 
-function showAccessUsed(orderCode,email){
-  document.getElementById("accessBadge").textContent="SUDAH DIGUNAKAN";
-  document.getElementById("accessTitle").textContent="Akses sudah digunakan";
-
-  document.getElementById("accessInfo").innerHTML=
-    `<strong>Order:</strong> ${esc(orderCode)}<br>`+
-    `<strong>Email pembelian:</strong> ${esc(email)}`;
-
-  document.getElementById("accessWarning").style.display="block";
-  document.getElementById("accessWarning").innerHTML=
-    `Jika Anda salah akun Canva, ajukan reset. Tidak perlu membayar ulang.`;
-
-  const btn=document.getElementById("continueCanvaBtn");
-  btn.textContent="Akses Sudah Digunakan";
-  btn.disabled=true;
-
-  const m=document.getElementById("accessMessage");
-  m.className="message ok";
-  m.style.display="block";
-  m.innerHTML=
-    `Token ini sudah digunakan. Jika akun Canva yang digunakan salah, `+
-    `hubungi admin untuk proses reset.`;
-}
-
-/*
-  Tombol ini adalah satu-satunya titik yang mengubah token menjadi USED.
-  consume-access harus melakukan update server-side dan mengembalikan
-  access_url/invite_url dari server.
-*/
-document.getElementById("continueCanvaBtn").onclick=async()=>{
-  const btn=document.getElementById("continueCanvaBtn");
-  const msg=document.getElementById("accessMessage");
-
-  btn.disabled=true;
-  btn.textContent="Memproses akses...";
-
-  try{
-    const res=await fetch(
-      SUPABASE_URL+"/functions/v1/consume-access",
-      {
-        method:"POST",
-        headers:{
-          "Content-Type":"application/json",
-          "apikey":SUPABASE_KEY,
-          "Authorization":"Bearer "+SUPABASE_KEY
-        },
-        body:JSON.stringify({
-          access_token:accessToken
-        })
-      }
-    );
-
-    const data=await res.json().catch(()=>({}));
-
-    if(!res.ok)
-      throw new Error(data.error||"Akses tidak dapat digunakan.");
-
-    /*
-      Nama URL dibuat fleksibel supaya cocok dengan response
-      function consume-access yang sudah ada.
-    */
-    const accessUrl=
-      data.access_url ||
-      data.invite_url ||
-      data.canva_url ||
-      data.url;
-
-    if(!accessUrl)
-      throw new Error("Link Canva tidak diterima dari server.");
-
-    // Token sudah dikunci oleh server sebelum browser diarahkan.
-    window.location.href=accessUrl;
-
-  }catch(error){
-    console.error("CONSUME ACCESS ERROR",error);
-
-    btn.disabled=false;
-    btn.textContent="Lanjut ke Canva";
-
-    msg.className="message err";
-    msg.style.display="block";
-    msg.innerHTML=esc(error.message);
-  }
-};
-
-async function waitForAccess(orderCode, email){
-
-  const maxAttempts = 12;
-  const delay = 2500;
-
-  for(let attempt = 1; attempt <= maxAttempts; attempt++){
+    pay.textContent =
+      "Membuat pembayaran...";
 
     try{
 
-      const res = await fetch(
-        SUPABASE_URL +
-        "/functions/v1/get-access",
-        {
-          method: "POST",
+      const res =
+        await fetch(
+          CREATE_ORDER_URL,
+          {
 
-          headers: {
-            "Content-Type": "application/json",
-            "apikey": SUPABASE_KEY,
-            "Authorization":
-              "Bearer " + SUPABASE_KEY
+            method:"POST",
+
+            headers:{
+              "Content-Type":
+                "application/json",
+
+              "apikey":
+                SUPABASE_KEY,
+
+              "Authorization":
+                "Bearer " +
+                SUPABASE_KEY
+            },
+
+            body:
+              JSON.stringify({
+
+                package_code:
+                  selectedCode,
+
+                customer_name:
+                  name,
+
+                customer_email:
+                  email
+
+              })
+
+          }
+        );
+
+      const data =
+        await res
+          .json()
+          .catch(() => ({}));
+
+      if(!res.ok){
+
+        throw new Error(
+          data.error ||
+          "Gagal membuat pembayaran."
+        );
+
+      }
+
+      document
+        .getElementById(
+          "orderbox"
+        )
+        .style.display =
+        "block";
+
+      document
+        .getElementById(
+          "orderbox"
+        )
+        .innerHTML = `
+
+          <strong>
+            Order:
+          </strong>
+
+          ${esc(data.order_code)}
+
+          <br>
+
+          <strong>
+            Total:
+          </strong>
+
+          Rp${fmt(data.amount)}
+
+          <br>
+
+          <strong>
+            Status:
+          </strong>
+
+          ${esc(
+            data.status ||
+            "PENDING"
+          )}
+
+        `;
+
+      if(!data.snap_token){
+
+        throw new Error(
+          "Snap token tidak diterima dari server."
+        );
+
+      }
+
+      show(
+        `<strong>
+          Pesanan berhasil dibuat.
+        </strong>
+        <br>
+        Jendela pembayaran Midtrans akan dibuka.`,
+        true
+      );
+
+      window.snap.pay(
+        data.snap_token,
+        {
+
+          onSuccess:function(result){
+
+            console.log(
+              "MIDTRANS SUCCESS",
+              result
+            );
+
+            show(
+              `<strong>
+                Pembayaran berhasil!
+              </strong>
+              <br>
+              Order
+              ${esc(data.order_code)}
+              telah dibayar.
+              Sistem sedang memproses
+              akses Canva.`,
+              true
+            );
+
           },
 
-          body: JSON.stringify({
-            order_code: orderCode,
-            customer_email: email
-          })
+          onPending:function(result){
+
+            console.log(
+              "MIDTRANS PENDING",
+              result
+            );
+
+            show(
+              `<strong>
+                Pembayaran belum selesai.
+              </strong>
+              <br>
+              Silakan selesaikan
+              pembayaran pada metode
+              yang dipilih.`,
+              false
+            );
+
+          },
+
+          onError:function(result){
+
+            console.error(
+              "MIDTRANS ERROR",
+              result
+            );
+
+            show(
+              `<strong>
+                Pembayaran gagal.
+              </strong>
+              <br>
+              Silakan coba lagi.`,
+              false
+            );
+
+          },
+
+          onClose:function(){
+
+            show(
+              `Jendela pembayaran ditutup.
+              Jika pembayaran belum selesai,
+              Anda dapat mencoba tombol
+              Bayar Sekarang lagi.`,
+              false
+            );
+
+          }
+
         }
       );
 
-      const data = await res.json();
-
-      console.log(
-        "ACCESS CHECK",
-        attempt,
-        data
-      );
-
-      if(data.status === "READY"){
-
-        show(
-          `<strong>Pembayaran berhasil! 🎉</strong><br>`+
-          `Akses Canva Anda sudah siap.<br><br>`+
-          `<a href="${esc(data.access_url)}"`+
-          ` style="display:inline-block;`+
-          `background:#7c3aed;color:white;`+
-          `padding:12px 18px;`+
-          `border-radius:10px;`+
-          `text-decoration:none;`+
-          `font-weight:700">`+
-          `Buka Akses Canva`+
-          `</a>`,
-          true
-        );
-
-        return;
-      }
-
-      if(data.status === "USED"){
-
-        show(
-          `<strong>Akses sudah digunakan.</strong>`,
-          false
-        );
-
-        return;
-      }
-
-      if(data.status === "PROCESSING"){
-
-        show(
-          `<strong>Pembayaran berhasil.</strong><br>`+
-          `Akses sedang dibuat otomatis...`,
-          true
-        );
-      }
-
-    }catch(error){
-
-      console.error(
-        "GET ACCESS ERROR:",
-        error
-      );
     }
 
-    await new Promise(
-      resolve => setTimeout(resolve, delay)
+    catch(e){
+
+      show(
+        e.message,
+        false
+      );
+
+    }
+
+    finally{
+
+      pay.disabled =
+        false;
+
+      pay.textContent =
+        "Bayar Sekarang";
+
+    }
+
+  };
+
+/* =========================
+   AKSES TOKEN
+   ========================= */
+
+const accessToken =
+  new URLSearchParams(
+    window.location.search
+  ).get("access");
+
+async function loadAccessPage(){
+
+  if(!accessToken)
+    return;
+
+  /* Sembunyikan toko */
+
+  document
+    .getElementById(
+      "storeHero"
+    )
+    .style.display =
+    "none";
+
+  document
+    .getElementById(
+      "productGrid"
+    )
+    .style.display =
+    "none";
+
+  document
+    .getElementById(
+      "checkout"
+    )
+    .style.display =
+    "none";
+
+  const panel =
+    document.getElementById(
+      "accessPanel"
     );
+
+  panel.style.display =
+    "block";
+
+  const historyPanel =
+    document.getElementById(
+      "historyPanel"
+    );
+
+  if(historyPanel)
+    historyPanel.style.display =
+      "block";
+
+  const info =
+    document.getElementById(
+      "accessInfo"
+    );
+
+  info.innerHTML =
+    "Memeriksa akses...";
+
+  try{
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .rpc(
+          "open_access",
+          {
+            p_access_token:
+              accessToken
+          }
+        );
+
+    if(error)
+      throw error;
+
+    const row =
+      Array.isArray(data)
+        ? data[0]
+        : data;
+
+    if(!row)
+      throw new Error(
+        "TOKEN_NOT_FOUND"
+      );
+
+    const status =
+      String(
+        row.access_status ??
+        row.status ??
+        ""
+      ).toUpperCase();
+
+    const orderCode =
+      row.order_code ||
+      row.order ||
+      "-";
+
+    const email =
+      row.customer_email ||
+      row.email ||
+      "-";
+
+    /* USED */
+
+    if(status === "USED"){
+
+      showAccessUsed(
+        orderCode,
+        email
+      );
+
+      return;
+
+    }
+
+    /* UNUSED */
+
+    if(
+      status === "UNUSED" ||
+      status === "PENDING" ||
+      status === ""
+    ){
+
+      document
+        .getElementById(
+          "accessInfo"
+        )
+        .innerHTML = `
+
+          <strong>
+            Order:
+          </strong>
+
+          ${esc(orderCode)}
+
+          <br>
+
+          <strong>
+            Email pembelian:
+          </strong>
+
+          ${esc(email)}
+
+        `;
+
+      document
+        .getElementById(
+          "continueCanvaBtn"
+        )
+        .style.display =
+        "block";
+
+      return;
+
+    }
+
+    throw new Error(
+      "ACCESS_STATUS_" +
+      status
+    );
+
   }
 
-  show(
-    `<strong>Pembayaran sudah dilakukan.</strong><br>`+
-    `Akses masih sedang diproses. `+
-    `Silakan tunggu beberapa saat lalu cek kembali.`,
-    true
-  );
+  catch(error){
+
+    console.error(
+      "ACCESS CHECK ERROR:",
+      error
+    );
+
+    panel.style.display =
+      "block";
+
+    document
+      .getElementById(
+        "accessTitle"
+      )
+      .textContent =
+      "Akses tidak dapat digunakan";
+
+    document
+      .getElementById(
+        "accessBadge"
+      )
+      .textContent =
+      "AKSES TIDAK VALID";
+
+    document
+      .getElementById(
+        "accessInfo"
+      )
+      .innerHTML = `
+
+        <div class="access-error">
+
+          <strong>
+            Token akses tidak valid
+            atau sudah tidak tersedia.
+          </strong>
+
+          <br>
+
+          Silakan hubungi admin
+          jika Anda merasa
+          ini adalah kesalahan.
+
+        </div>
+
+      `;
+
+    document
+      .getElementById(
+        "accessWarning"
+      )
+      .style.display =
+      "none";
+
+    document
+      .getElementById(
+        "continueCanvaBtn"
+      )
+      .style.display =
+      "none";
+
+  }
+
 }
-  
+
+/* =========================
+   SUDAH DIGUNAKAN
+   ========================= */
+
+function showAccessUsed(
+  orderCode,
+  email
+){
+
+  document
+    .getElementById(
+      "accessBadge"
+    )
+    .textContent =
+    "SUDAH DIGUNAKAN";
+
+  document
+    .getElementById(
+      "accessTitle"
+    )
+    .textContent =
+    "Akses sudah digunakan";
+
+  document
+    .getElementById(
+      "accessInfo"
+    )
+    .innerHTML = `
+
+      <strong>
+        Order:
+      </strong>
+
+      ${esc(orderCode)}
+
+      <br>
+
+      <strong>
+        Email pembelian:
+      </strong>
+
+      ${esc(email)}
+
+    `;
+
+  document
+    .getElementById(
+      "accessWarning"
+    )
+    .style.display =
+    "block";
+
+  document
+    .getElementById(
+      "accessWarning"
+    )
+    .innerHTML =
+
+    `Jika Anda salah akun Canva,
+    ajukan reset.
+    Tidak perlu membayar ulang.`;
+
+  const btn =
+    document.getElementById(
+      "continueCanvaBtn"
+    );
+
+  btn.textContent =
+    "Akses Sudah Digunakan";
+
+  btn.disabled =
+    true;
+
+  const m =
+    document.getElementById(
+      "accessMessage"
+    );
+
+  m.className =
+    "message ok";
+
+  m.style.display =
+    "block";
+
+  m.innerHTML =
+    `Token ini sudah digunakan.
+    Jika akun Canva yang digunakan salah,
+    hubungi admin untuk proses reset.`;
+
+}
+
+/* =========================
+   GABUNG KE CANVA
+   ========================= */
+
+document
+  .getElementById(
+    "continueCanvaBtn"
+  )
+  .onclick =
+  async () => {
+
+    const btn =
+      document.getElementById(
+        "continueCanvaBtn"
+      );
+
+    const msg =
+      document.getElementById(
+        "accessMessage"
+      );
+
+    btn.disabled =
+      true;
+
+    btn.textContent =
+      "Memproses akses...";
+
+    try{
+
+      const res =
+        await fetch(
+          SUPABASE_URL +
+          "/functions/v1/consume-access",
+          {
+
+            method:"POST",
+
+            headers:{
+              "Content-Type":
+                "application/json",
+
+              "apikey":
+                SUPABASE_KEY,
+
+              "Authorization":
+                "Bearer " +
+                SUPABASE_KEY
+            },
+
+            body:
+              JSON.stringify({
+
+                access_token:
+                  accessToken
+
+              })
+
+          }
+        );
+
+      const data =
+        await res
+          .json()
+          .catch(() => ({}));
+
+      if(!res.ok){
+
+        throw new Error(
+          data.error ||
+          "Akses tidak dapat digunakan."
+        );
+
+      }
+
+      const accessUrl =
+        data.access_url ||
+        data.invite_url ||
+        data.canva_url ||
+        data.url;
+
+      if(!accessUrl){
+
+        throw new Error(
+          "Link Canva tidak diterima dari server."
+        );
+
+      }
+
+      /*
+        Token dikunci server-side
+        sebelum browser diarahkan.
+      */
+
+      window.location.href =
+        accessUrl;
+
+    }
+
+    catch(error){
+
+      console.error(
+        "CONSUME ACCESS ERROR:",
+        error
+      );
+
+      btn.disabled =
+        false;
+
+      btn.textContent =
+        "Lanjut ke Canva";
+
+      msg.className =
+        "message err";
+
+      msg.style.display =
+        "block";
+
+      msg.innerHTML =
+        esc(error.message);
+
+    }
+
+  };
+
 loadAccessPage();
+
 </script>
+
 </div>
 </body>
 </html>
