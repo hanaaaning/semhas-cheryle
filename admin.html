@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Canva Premium Admin</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f7f7fb;color:#172033;font-family:Arial,Helvetica,sans-serif}
+.container{width:min(1200px,94%);margin:0 auto}
+header{padding:28px 0 18px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.brand{font-size:24px;font-weight:800}
+.subtitle{color:#667085;font-size:14px;margin-top:4px}
+.card{background:#fff;border:1px solid #e9eaf0;border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.05)}
+.login-card{max-width:520px;margin:70px auto;padding:28px}
+h1,h2{margin-top:0}
+label{display:block;font-weight:700;margin:14px 0 7px}
+input{width:100%;padding:13px;border:1px solid #d7dbe4;border-radius:10px;font-size:15px;outline:none}
+input:focus{border-color:#7c3aed;box-shadow:0 0 0 3px rgba(124,58,237,.10)}
+button{border:0;border-radius:10px;background:#7c3aed;color:#fff;padding:12px 16px;font-size:14px;font-weight:700;cursor:pointer}
+button:hover{background:#6d28d9}
+button:disabled{background:#c7cad3;cursor:not-allowed}
+button.secondary{background:#111827}
+button.secondary:hover{background:#0b1220}
+button.danger{background:#be123c}
+button.danger:hover{background:#9f1239}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.message{margin-top:14px;padding:13px;border-radius:10px;display:none;line-height:1.45}
+.message.ok{display:block;background:#ecfdf5;color:#065f46}
+.message.err{display:block;background:#fff1f2;color:#9f1239}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:22px 0 14px}
+.search{max-width:420px;flex:1}
+.table-wrap{overflow:auto}
+table{width:100%;border-collapse:collapse;min-width:980px}
+th,td{padding:13px 12px;border-bottom:1px solid #edf0f4;text-align:left;vertical-align:top}
+th{background:#fafafa;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:#667085}
+td{font-size:13px}
+.muted{color:#667085}
+.badge{display:inline-block;padding:5px 9px;border-radius:999px;font-size:11px;font-weight:800}
+.badge.paid{background:#dcfce7;color:#166534}
+.badge.pending{background:#fef3c7;color:#92400e}
+.badge.used{background:#ede9fe;color:#6d28d9}
+.badge.unused{background:#e0f2fe;color:#075985}
+.badge.other{background:#f3f4f6;color:#374151}
+.small-btn{padding:8px 10px;font-size:12px}
+.top-note{padding:12px 14px;border-radius:10px;background:#fff7ed;color:#9a3412;margin-bottom:14px;font-size:13px}
+.hidden{display:none!important}
+code{background:#f3f4f6;border-radius:5px;padding:2px 5px}
+@media(max-width:700px){header{align-items:flex-start;flex-direction:column}.login-card{margin:30px auto;padding:22px}}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <div>
+    <div class="brand">Canva Premium Admin</div>
+    <div class="subtitle">Kelola pesanan dan reset akses pembeli</div>
+  </div>
+  <button id="logoutBtn" class="secondary hidden">Keluar</button>
+</header>
+
+<section id="loginCard" class="card login-card">
+  <h2>Login Admin</h2>
+  <p class="muted">Masukkan Admin Key yang kamu simpan di Supabase Secret <code>ADMIN_PANEL_KEY</code>.</p>
+  <label for="adminKey">Admin Key</label>
+  <input id="adminKey" type="password" autocomplete="off" placeholder="Masukkan Admin Key">
+  <div class="actions" style="margin-top:16px">
+    <button id="loginBtn">Masuk</button>
+  </div>
+  <div id="loginMessage" class="message"></div>
+</section>
+
+<section id="app" class="hidden">
+  <div class="top-note">
+    Admin Key hanya digunakan saat request ke server. Jangan menaruh Admin Key langsung di file HTML.
+  </div>
+
+  <div class="toolbar">
+    <div class="actions">
+      <button id="refreshBtn">Refresh Pesanan</button>
+    </div>
+    <input id="search" class="search" placeholder="Cari order, nama, atau email...">
+  </div>
+
+  <div id="appMessage" class="message"></div>
+
+  <div class="card table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Order</th>
+          <th>Pembeli</th>
+          <th>Paket</th>
+          <th>Nominal</th>
+          <th>Pembayaran</th>
+          <th>Akses</th>
+          <th>Dibayar</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="ordersBody">
+        <tr><td colspan="8" class="muted">Belum ada data.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+</div>
+
+<script>
+const SUPABASE_URL="https://yxybbsbjvtkpwcazairg.supabase.co";
+const ADMIN_API_URL=SUPABASE_URL+"/functions/v1/admin-api";
+
+let adminKey="";
+let orders=[];
+
+const $=id=>document.getElementById(id);
+
+function escapeHtml(value){
+  return String(value??"").replace(/[&<>"']/g,m=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  }[m]));
+}
+
+function showMessage(el,text,ok=false){
+  el.className="message "+(ok?"ok":"err");
+  el.textContent=text;
+}
+
+function hideMessage(el){
+  el.className="message";
+  el.textContent="";
+}
+
+function rupiah(value){
+  return new Intl.NumberFormat("id-ID").format(Number(value||0));
+}
+
+function formatDate(value){
+  if(!value)return"-";
+  const d=new Date(value);
+  if(Number.isNaN(d.getTime()))return value;
+  return d.toLocaleString("id-ID");
+}
+
+function statusBadge(value){
+  const v=String(value||"").toUpperCase();
+  let cls="other";
+  if(v==="PAID")cls="paid";
+  else if(v==="PENDING")cls="pending";
+  else if(v==="USED")cls="used";
+  else if(v==="UNUSED")cls="unused";
+  return `<span class="badge ${cls}">${escapeHtml(v||"-")}</span>`;
+}
+
+async function api(action,extra={}){
+  if(!adminKey)throw new Error("Admin belum login.");
+  const res=await fetch(ADMIN_API_URL,{
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json",
+      "x-admin-key":adminKey
+    },
+    body:JSON.stringify({action,...extra})
+  });
+  const data=await res.json().catch(()=>({}));
+  if(!res.ok)throw new Error(data.error||"Request gagal.");
+  return data;
+}
+
+async function loadOrders(){
+  $("refreshBtn").disabled=true;
+  $("refreshBtn").textContent="Memuat...";
+  try{
+    const data=await api("list");
+    orders=Array.isArray(data.orders)?data.orders:[];
+    renderOrders();
+    hideMessage($("appMessage"));
+  }catch(err){
+    showMessage($("appMessage"),err.message,false);
+    throw err;
+  }finally{
+    $("refreshBtn").disabled=false;
+    $("refreshBtn").textContent="Refresh Pesanan";
+  }
+}
+
+function renderOrders(){
+  const q=$("search").value.trim().toLowerCase();
+
+  const filtered=orders.filter(o=>{
+    const hay=[
+      o.order_code,o.customer_name,o.customer_email,
+      o.product_name,o.payment_status,o.access_status
+    ].join(" ").toLowerCase();
+    return hay.includes(q);
+  });
+
+  if(!filtered.length){
+    $("ordersBody").innerHTML='<tr><td colspan="8" class="muted">Tidak ada pesanan yang cocok.</td></tr>';
+    return;
+  }
+
+  $("ordersBody").innerHTML=filtered.map(o=>{
+    const paid=String(o.payment_status||"").toUpperCase()==="PAID";
+    const used=String(o.access_status||"").toUpperCase()==="USED";
+    const resetButton=(paid&&used)
+      ? `<button class="danger small-btn" data-reset="${escapeHtml(o.order_code)}">RESET AKSES</button>`
+      : `<span class="muted">-</span>`;
+
+    return `
+      <tr>
+        <td><strong>${escapeHtml(o.order_code)}</strong><br><span class="muted">${formatDate(o.created_at)}</span></td>
+        <td><strong>${escapeHtml(o.customer_name)}</strong><br>${escapeHtml(o.customer_email)}</td>
+        <td>${escapeHtml(o.product_name||"-")}</td>
+        <td>Rp${rupiah(o.amount)}</td>
+        <td>${statusBadge(o.payment_status)}${o.payment_method?`<br><span class="muted">${escapeHtml(o.payment_method)}</span>`:""}</td>
+        <td>${statusBadge(o.access_status)}</td>
+        <td>${formatDate(o.paid_at)}</td>
+        <td>${resetButton}</td>
+      </tr>`;
+  }).join("");
+
+  document.querySelectorAll("[data-reset]").forEach(btn=>{
+    btn.addEventListener("click",()=>resetAccess(btn.dataset.reset));
+  });
+}
+
+async function resetAccess(orderCode){
+  if(!window.confirm(
+    "Reset akses untuk "+orderCode+"?\n\n"+
+    "Token akan kembali menjadi UNUSED dan dapat digunakan lagi."
+  ))return;
+
+  try{
+    const data=await api("reset",{order_code:orderCode});
+    showMessage($("appMessage"),"Akses berhasil direset untuk "+orderCode+".",true);
+    await loadOrders();
+
+    if(data.access_url){
+      const openNow=window.confirm(
+        "Reset berhasil.\n\nBuka link akses yang sudah direset sekarang?"
+      );
+      if(openNow)window.open(data.access_url,"_blank");
+    }
+  }catch(err){
+    showMessage($("appMessage"),err.message,false);
+  }
+}
+
+$("loginBtn").addEventListener("click",async()=>{
+  const key=$("adminKey").value.trim();
+  if(!key){
+    showMessage($("loginMessage"),"Admin Key wajib diisi.",false);
+    return;
+  }
+
+  $("loginBtn").disabled=true;
+  $("loginBtn").textContent="Memeriksa...";
+  adminKey=key;
+
+  try{
+    await loadOrders();
+    $("loginCard").classList.add("hidden");
+    $("app").classList.remove("hidden");
+    $("logoutBtn").classList.remove("hidden");
+    hideMessage($("loginMessage"));
+  }catch{
+    adminKey="";
+    showMessage($("loginMessage"),"Admin Key salah atau server admin tidak dapat diakses.",false);
+  }finally{
+    $("loginBtn").disabled=false;
+    $("loginBtn").textContent="Masuk";
+  }
+});
+
+$("logoutBtn").addEventListener("click",()=>{
+  adminKey="";
+  orders=[];
+  $("adminKey").value="";
+  $("app").classList.add("hidden");
+  $("loginCard").classList.remove("hidden");
+  $("logoutBtn").classList.add("hidden");
+  $("ordersBody").innerHTML='<tr><td colspan="8" class="muted">Belum ada data.</td></tr>';
+});
+
+$("refreshBtn").addEventListener("click",loadOrders);
+$("search").addEventListener("input",renderOrders);
+$("adminKey").addEventListener("keydown",e=>{
+  if(e.key==="Enter")$("loginBtn").click();
+});
+</script>
+</body>
+</html>
