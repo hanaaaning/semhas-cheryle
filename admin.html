@@ -28,7 +28,7 @@ body{
 }
 
 .container{
-  width:min(1250px,94%);
+  width:min(1300px,94%);
   margin:0 auto;
 }
 
@@ -37,6 +37,7 @@ header{
   display:flex;
   justify-content:space-between;
   align-items:center;
+  gap:16px;
 }
 
 .brand{
@@ -67,11 +68,6 @@ header{
   display:none!important;
 }
 
-h1,
-h2{
-  margin-top:0;
-}
-
 label{
   display:block;
   font-weight:700;
@@ -94,11 +90,6 @@ select:focus{
   box-shadow:
     0 0 0 3px
     rgba(124,58,237,.10);
-}
-
-input[type="checkbox"]{
-  width:auto;
-  cursor:pointer;
 }
 
 button{
@@ -125,16 +116,12 @@ button.secondary{
   background:#111827;
 }
 
-button.secondary:hover{
-  background:#0b1220;
-}
-
 button.danger{
   background:#be123c;
 }
 
-button.danger:hover{
-  background:#9f1239;
+button.success{
+  background:#059669;
 }
 
 .actions{
@@ -172,25 +159,25 @@ button.danger:hover{
   font-size:13px;
 }
 
-.settings-card{
+.section-card{
   padding:22px;
   margin-bottom:18px;
 }
 
-.settings-title{
+.section-title{
   font-size:20px;
   font-weight:800;
   margin-bottom:6px;
 }
 
-.settings-subtitle{
+.section-subtitle{
   color:#667085;
   font-size:13px;
   line-height:1.5;
   margin-bottom:18px;
 }
 
-.active-team{
+.active-info{
   margin-top:14px;
   padding:13px 15px;
   border-radius:11px;
@@ -198,6 +185,39 @@ button.danger:hover{
   color:#4c1d95;
   font-size:13px;
   line-height:1.6;
+}
+
+.voucher-form{
+  display:grid;
+  grid-template-columns:1fr 180px auto;
+  gap:10px;
+  align-items:end;
+}
+
+.voucher-list{
+  margin-top:18px;
+  overflow:auto;
+}
+
+.voucher-table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:650px;
+}
+
+.voucher-table th,
+.voucher-table td{
+  padding:11px;
+  border-bottom:1px solid #edf0f4;
+  text-align:left;
+  font-size:13px;
+}
+
+.voucher-table th{
+  background:#fafafa;
+  color:#667085;
+  font-size:11px;
+  text-transform:uppercase;
 }
 
 .toolbar{
@@ -218,37 +238,29 @@ button.danger:hover{
   overflow:auto;
 }
 
-table{
+.order-table{
   width:100%;
   border-collapse:collapse;
-  min-width:1300px;
+  min-width:1500px;
 }
 
-th,
-td{
+.order-table th,
+.order-table td{
   padding:12px;
   border-bottom:1px solid #edf0f4;
   text-align:left;
   vertical-align:top;
-}
-
-th{
-  background:#fafafa;
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:.04em;
-  color:#667085;
-}
-
-td{
   font-size:12px;
 }
 
-.muted{
+.order-table th{
+  background:#fafafa;
   color:#667085;
+  font-size:11px;
+  text-transform:uppercase;
 }
 
-.badge{
+.status{
   display:inline-block;
   padding:5px 9px;
   border-radius:999px;
@@ -256,47 +268,41 @@ td{
   font-weight:800;
 }
 
-.badge.paid{
+.paid{
   background:#dcfce7;
   color:#166534;
 }
 
-.badge.pending{
+.pending{
   background:#fef3c7;
   color:#92400e;
 }
 
-.badge.used{
+.used{
   background:#ede9fe;
   color:#6d28d9;
 }
 
-.badge.unused{
+.unused{
   background:#e0f2fe;
   color:#075985;
 }
 
-.badge.other{
+.other{
   background:#f3f4f6;
   color:#374151;
 }
 
-.small-btn{
-  padding:8px 10px;
-  font-size:12px;
+.small{
+  padding:7px 10px;
+  font-size:11px;
 }
 
-.filterBtn{
-  background:#e5e7eb;
-  color:#374151;
+.muted{
+  color:#667085;
 }
 
-.filterBtn.active{
-  background:#7c3aed;
-  color:#fff;
-}
-
-@media(max-width:700px){
+@media(max-width:800px){
 
   header{
     align-items:flex-start;
@@ -308,15 +314,21 @@ td{
     padding:22px;
   }
 
+  .voucher-form{
+    grid-template-columns:1fr;
+  }
+
 }
 
 </style>
 
 </head>
 
+
 <body>
 
 <div class="container">
+
 
 <header>
 
@@ -327,8 +339,8 @@ td{
     </div>
 
     <div class="subtitle">
-      Kelola pesanan, akses, link tim,
-      masa billing, dan penghapusan order
+      Kelola pesanan, voucher,
+      akses, dan link tim Canva
     </div>
 
   </div>
@@ -344,9 +356,9 @@ td{
 </header>
 
 
-<!-- =================================================
+<!-- =====================================================
      LOGIN
-     ================================================= -->
+     ===================================================== -->
 
 <section
   id="loginCard"
@@ -358,43 +370,25 @@ td{
   </h2>
 
   <p class="muted">
-
-    Masukkan Admin Key yang kamu
-    simpan di Supabase Secret:
-
-    <strong>
-      ADMIN_PANEL_KEY
-    </strong>
-
+    Masukkan Admin Key.
   </p>
-
 
   <label for="adminKey">
     Admin Key
   </label>
 
-
   <input
     id="adminKey"
     type="password"
-    autocomplete="off"
     placeholder="Masukkan Admin Key"
   >
 
-
-  <div
-    class="actions"
+  <button
+    id="loginBtn"
     style="margin-top:16px"
   >
-
-    <button
-      id="loginBtn"
-    >
-      Masuk
-    </button>
-
-  </div>
-
+    Masuk
+  </button>
 
   <div
     id="loginMessage"
@@ -404,9 +398,9 @@ td{
 </section>
 
 
-<!-- =================================================
+<!-- =====================================================
      APP
-     ================================================= -->
+     ===================================================== -->
 
 <section
   id="app"
@@ -418,36 +412,32 @@ td{
   Admin Key hanya digunakan
   saat request ke server.
   Jangan menaruh Admin Key
-  di GitHub atau HTML.
+  di file HTML.
 
 </div>
 
 
-<!-- =================================================
+<!-- =====================================================
      TIM CANVA
-     ================================================= -->
+     ===================================================== -->
 
-<div class="card settings-card">
+<div class="card section-card">
 
-  <div class="settings-title">
+  <div class="section-title">
     Tim Canva Aktif
   </div>
 
-  <div class="settings-subtitle">
+  <div class="section-subtitle">
 
-    Setiap kali mendapatkan
-    link tim baru, masukkan
-    nama dan link terbaru.
+    Ganti nama dan link tim Canva
+    setiap kali mendapatkan tim baru.
 
   </div>
 
 
-  <label
-    for="canvaTeamName"
-  >
+  <label>
     Nama Tim Canva
   </label>
-
 
   <input
     id="canvaTeamName"
@@ -455,12 +445,9 @@ td{
   >
 
 
-  <label
-    for="canvaInviteUrl"
-  >
+  <label>
     Link Tim Canva
   </label>
-
 
   <input
     id="canvaInviteUrl"
@@ -478,9 +465,9 @@ td{
 
   <div
     id="inviteUpdated"
-    class="active-team"
+    class="active-info"
   >
-    Belum memuat pengaturan tim.
+    Belum ada tim aktif.
   </div>
 
 
@@ -492,9 +479,140 @@ td{
 </div>
 
 
-<!-- =================================================
-     TOOLBAR
-     ================================================= -->
+<!-- =====================================================
+     KANTONG VOUCHER
+     ===================================================== -->
+
+<div class="card section-card">
+
+  <div class="section-title">
+    Kantong Voucher
+  </div>
+
+  <div class="section-subtitle">
+
+    Buat kode promo potongan
+    <strong>Rp1.000</strong>
+    atau
+    <strong>Rp2.000</strong>.
+
+  </div>
+
+
+  <div class="voucher-form">
+
+    <div>
+
+      <label>
+        Kode Voucher
+      </label>
+
+      <input
+        id="voucherCode"
+        placeholder="Contoh: MYC1000"
+      >
+
+    </div>
+
+
+    <div>
+
+      <label>
+        Potongan
+      </label>
+
+      <select
+        id="voucherDiscount"
+      >
+
+        <option value="1000">
+          Rp1.000
+        </option>
+
+        <option value="2000">
+          Rp2.000
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <button
+      id="addVoucherBtn"
+    >
+      Tambah Voucher
+    </button>
+
+  </div>
+
+
+  <div
+    id="voucherMessage"
+    class="message"
+  ></div>
+
+
+  <div class="voucher-list">
+
+    <table class="voucher-table">
+
+      <thead>
+
+        <tr>
+
+          <th>
+            Kode
+          </th>
+
+          <th>
+            Potongan
+          </th>
+
+          <th>
+            Status
+          </th>
+
+          <th>
+            Dibuat
+          </th>
+
+          <th>
+            Aksi
+          </th>
+
+        </tr>
+
+      </thead>
+
+
+      <tbody
+        id="voucherBody"
+      >
+
+        <tr>
+
+          <td
+            colspan="5"
+            class="muted"
+          >
+            Belum ada voucher.
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     ORDER TOOLBAR
+     ===================================================== -->
 
 <div class="toolbar">
 
@@ -591,13 +709,15 @@ td{
 ></div>
 
 
-<!-- =================================================
-     TABLE
-     ================================================= -->
+<!-- =====================================================
+     ORDER TABLE
+     ===================================================== -->
 
 <div class="card table-wrap">
 
-<table>
+<table
+  class="order-table"
+>
 
 <thead>
 
@@ -608,56 +728,49 @@ td{
     <input
       type="checkbox"
       id="selectAll"
-      title="Pilih semua"
     >
 
   </th>
-
 
   <th>
     Order
   </th>
 
-
   <th>
     Pembeli
   </th>
-
 
   <th>
     Paket
   </th>
 
-
   <th>
     Nominal
   </th>
 
+  <th>
+    Voucher
+  </th>
 
   <th>
     Pembayaran
   </th>
 
-
   <th>
     Akses
   </th>
-
 
   <th>
     Tim Canva
   </th>
 
-
   <th>
     Dibayar
   </th>
 
-
   <th>
     Masa Billing
   </th>
-
 
   <th>
     Aksi
@@ -668,12 +781,14 @@ td{
 </thead>
 
 
-<tbody id="ordersBody">
+<tbody
+  id="ordersBody"
+>
 
 <tr>
 
   <td
-    colspan="11"
+    colspan="12"
     class="muted"
   >
     Belum ada data.
@@ -694,12 +809,13 @@ td{
 
 <script>
 
-/* =================================================
+/* =====================================================
    CONFIG
-   ================================================= */
+   ===================================================== */
 
 const SUPABASE_URL =
   "https://yxybbsbjvtkpwcazairg.supabase.co";
+
 
 const ADMIN_API_URL =
   SUPABASE_URL +
@@ -710,6 +826,9 @@ let adminKey =
   "";
 
 let orders =
+  [];
+
+let vouchers =
   [];
 
 let currentFilter =
@@ -726,9 +845,9 @@ const $ =
     );
 
 
-/* =================================================
+/* =====================================================
    HELPERS
-   ================================================= */
+   ===================================================== */
 
 function escapeHtml(
   value
@@ -761,6 +880,56 @@ function escapeHtml(
 }
 
 
+function rupiah(
+  value
+){
+
+  return new Intl
+    .NumberFormat(
+      "id-ID"
+    )
+    .format(
+      Number(
+        value ||
+        0
+      )
+    );
+
+}
+
+
+function formatDate(
+  value
+){
+
+  if(!value)
+    return "-";
+
+
+  const date =
+    new Date(
+      value
+    );
+
+
+  if(
+    Number.isNaN(
+      date.getTime()
+    )
+  ){
+
+    return value;
+
+  }
+
+
+  return date.toLocaleString(
+    "id-ID"
+  );
+
+}
+
+
 function showMessage(
   element,
   text,
@@ -781,78 +950,82 @@ function showMessage(
 }
 
 
-function hideMessage(
-  element
-){
-
-  element.className =
-    "message";
-
-  element.textContent =
-    "";
-
-}
-
-
-function rupiah(
+function statusBadge(
   value
 ){
 
-  return new Intl
-    .NumberFormat(
-      "id-ID"
-    )
-    .format(
-      Number(
-        value || 0
-      )
-    );
-
-}
+  const status =
+    String(
+      value ||
+      ""
+    ).toUpperCase();
 
 
-function formatDate(
-  value
-){
-
-  if(!value)
-    return "-";
-
-
-  const d =
-    new Date(
-      value
-    );
+  let cls =
+    "other";
 
 
   if(
-    Number.isNaN(
-      d.getTime()
-    )
+    status ===
+    "PAID"
   )
-    return value;
+    cls =
+      "paid";
 
 
-  return d.toLocaleString(
-    "id-ID"
-  );
+  else if(
+    status ===
+    "PENDING"
+  )
+    cls =
+      "pending";
+
+
+  else if(
+    status ===
+    "USED"
+  )
+    cls =
+      "used";
+
+
+  else if(
+    status ===
+    "UNUSED"
+  )
+    cls =
+      "unused";
+
+
+  return `
+
+    <span
+      class="status ${cls}"
+    >
+      ${escapeHtml(
+        status ||
+        "-"
+      )}
+    </span>
+
+  `;
 
 }
 
 
-/* =================================================
+/* =====================================================
    BILLING
    30 HARI X BULAN
-   ================================================= */
+   ===================================================== */
 
 function getBillingPeriod(
   paidAt,
-  durationMonths
+  months
 ){
 
   if(
     !paidAt ||
-    !durationMonths
+    !months
   ){
 
     return "-";
@@ -879,7 +1052,7 @@ function getBillingPeriod(
 
   const totalDays =
     Number(
-      durationMonths
+      months
     ) * 30;
 
 
@@ -889,15 +1062,10 @@ function getBillingPeriod(
     );
 
 
-  /*
-    Contoh:
-    1 Agustus + 90 hari
-    = 30 Oktober
-  */
-
   end.setDate(
     end.getDate() +
-    totalDays
+    totalDays -
+    1
   );
 
 
@@ -927,86 +1095,14 @@ function getBillingPeriod(
 }
 
 
-/* =================================================
-   STATUS BADGE
-   ================================================= */
-
-function statusBadge(
-  value
-){
-
-  const v =
-    String(
-      value || ""
-    ).toUpperCase();
-
-
-  let cls =
-    "other";
-
-
-  if(
-    v === "PAID"
-  )
-    cls =
-      "paid";
-
-
-  else if(
-    v === "PENDING"
-  )
-    cls =
-      "pending";
-
-
-  else if(
-    v === "USED"
-  )
-    cls =
-      "used";
-
-
-  else if(
-    v === "UNUSED"
-  )
-    cls =
-      "unused";
-
-
-  return `
-
-    <span
-      class="badge ${cls}"
-    >
-      ${escapeHtml(
-        v || "-"
-      )}
-    </span>
-
-  `;
-
-}
-
-
-/* =================================================
+/* =====================================================
    API
-   ================================================= */
+   ===================================================== */
 
 async function api(
   action,
   extra={}
 ){
-
-  if(
-    !adminKey
-  ){
-
-    throw new Error(
-      "Admin belum login."
-    );
-
-  }
-
 
   const response =
     await fetch(
@@ -1051,19 +1147,26 @@ async function api(
     !response.ok
   ){
 
-    const message =
+    let error =
+      data.error ||
+      "Request gagal.";
+
+
+    if(
       data.paid_orders
-        ? data.error +
-          "\n\nPAID:\n" +
-          data.paid_orders.join(
-            "\n"
-          )
-        : data.error;
+    ){
+
+      error +=
+        "\n\nOrder PAID:\n" +
+        data.paid_orders.join(
+          "\n"
+        );
+
+    }
 
 
     throw new Error(
-      message ||
-      "Request gagal."
+      error
     );
 
   }
@@ -1074,11 +1177,11 @@ async function api(
 }
 
 
-/* =================================================
-   TEAM SETTINGS
-   ================================================= */
+/* =====================================================
+   TEAM
+   ===================================================== */
 
-async function loadInviteSettings(){
+async function loadTeam(){
 
   try{
 
@@ -1086,179 +1189,6 @@ async function loadInviteSettings(){
       await api(
         "get_invite"
       );
-
-
-    $("canvaTeamName")
-      .value =
-      "";
-
-    $("canvaInviteUrl")
-      .value =
-      "";
-
-
-    if(
-      data.canva_team_name
-    ){
-
-      $("inviteUpdated")
-        .innerHTML = `
-
-          <strong>
-            Tim aktif saat ini:
-          </strong>
-
-          ${escapeHtml(
-            data.canva_team_name
-          )}
-
-          <br>
-
-          ${
-            data.updated_at
-              ? "Terakhir diperbarui: " +
-                formatDate(
-                  data.updated_at
-                )
-              : ""
-          }
-
-        `;
-
-    }
-    else{
-
-      $("inviteUpdated")
-        .textContent =
-        "Belum ada tim Canva aktif.";
-
-    }
-
-  }
-
-  catch(error){
-
-    showMessage(
-      $("inviteMessage"),
-      error.message,
-      false
-    );
-
-  }
-
-}
-
-
-/* =================================================
-   SAVE TEAM
-   ================================================= */
-
-async function saveInviteSettings(){
-
-  const teamName =
-    $("canvaTeamName")
-      .value
-      .trim();
-
-
-  const inviteUrl =
-    $("canvaInviteUrl")
-      .value
-      .trim();
-
-
-  if(
-    !teamName
-  ){
-
-    showMessage(
-      $("inviteMessage"),
-      "Nama tim Canva wajib diisi.",
-      false
-    );
-
-    return;
-
-  }
-
-
-  if(
-    !inviteUrl
-  ){
-
-    showMessage(
-      $("inviteMessage"),
-      "Link tim Canva wajib diisi.",
-      false
-    );
-
-    return;
-
-  }
-
-
-  if(
-    !/^https:\/\/www\.canva\.com\/brand\/join/i
-      .test(
-        inviteUrl
-      )
-  ){
-
-    showMessage(
-      $("inviteMessage"),
-      "Link Canva tidak valid.",
-      false
-    );
-
-    return;
-
-  }
-
-
-  if(
-    !confirm(
-      "Simpan nama dan link tim Canva baru?"
-    )
-  ){
-
-    return;
-
-  }
-
-
-  $("saveInviteBtn")
-    .disabled =
-    true;
-
-
-  $("saveInviteBtn")
-    .textContent =
-    "Menyimpan...";
-
-
-  try{
-
-    const data =
-      await api(
-        "update_invite",
-        {
-
-          canva_team_name:
-            teamName,
-
-          canva_invite_url:
-            inviteUrl
-
-        }
-      );
-
-
-    showMessage(
-      $("inviteMessage"),
-      data.message ||
-        "Pengaturan tim berhasil diperbarui.",
-      true
-    );
 
 
     $("canvaTeamName")
@@ -1279,7 +1209,7 @@ async function saveInviteSettings(){
 
         ${escapeHtml(
           data.canva_team_name ||
-          teamName
+          "Belum ada"
         )}
 
         <br>
@@ -1307,37 +1237,490 @@ async function saveInviteSettings(){
 
   }
 
-  finally{
-
-    $("saveInviteBtn")
-      .disabled =
-      false;
+}
 
 
-    $("saveInviteBtn")
-      .textContent =
-      "Simpan Perubahan";
+async function saveTeam(){
+
+  const teamName =
+    $("canvaTeamName")
+      .value
+      .trim();
+
+
+  const inviteUrl =
+    $("canvaInviteUrl")
+      .value
+      .trim();
+
+
+  if(
+    !teamName
+  ){
+
+    showMessage(
+      $("inviteMessage"),
+      "Nama tim wajib diisi.",
+      false
+    );
+
+    return;
+
+  }
+
+
+  if(
+    !inviteUrl
+  ){
+
+    showMessage(
+      $("inviteMessage"),
+      "Link tim wajib diisi.",
+      false
+    );
+
+    return;
+
+  }
+
+
+  if(
+    !/^https:\/\/www\.canva\.com\/brand\/join/i
+      .test(
+        inviteUrl
+      )
+  ){
+
+    showMessage(
+      $("inviteMessage"),
+      "Link Canva tidak valid.",
+      false
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    const data =
+      await api(
+        "update_invite",
+        {
+
+          canva_team_name:
+            teamName,
+
+          canva_invite_url:
+            inviteUrl
+
+        }
+      );
+
+
+    showMessage(
+      $("inviteMessage"),
+      data.message,
+      true
+    );
+
+
+    $("canvaTeamName")
+      .value =
+      "";
+
+    $("canvaInviteUrl")
+      .value =
+      "";
+
+
+    $("inviteUpdated")
+      .innerHTML = `
+
+        <strong>
+          Tim aktif saat ini:
+        </strong>
+
+        ${escapeHtml(
+          data.canva_team_name
+        )}
+
+        <br>
+
+        Terakhir diperbarui:
+        ${formatDate(
+          data.updated_at
+        )}
+
+      `;
+
+  }
+
+  catch(error){
+
+    showMessage(
+      $("inviteMessage"),
+      error.message,
+      false
+    );
 
   }
 
 }
 
 
-/* =================================================
-   LOAD ORDERS
-   ================================================= */
+/* =====================================================
+   VOUCHERS
+   ===================================================== */
+
+async function loadVouchers(){
+
+  try{
+
+    const data =
+      await api(
+        "list_vouchers"
+      );
+
+
+    vouchers =
+      data.vouchers ||
+      [];
+
+
+    renderVouchers();
+
+  }
+
+  catch(error){
+
+    showMessage(
+      $("voucherMessage"),
+      error.message,
+      false
+    );
+
+  }
+
+}
+
+
+function renderVouchers(){
+
+  const body =
+    $("voucherBody");
+
+
+  if(
+    !vouchers.length
+  ){
+
+    body.innerHTML = `
+
+      <tr>
+
+        <td
+          colspan="5"
+          class="muted"
+        >
+          Belum ada voucher.
+        </td>
+
+      </tr>
+
+    `;
+
+    return;
+
+  }
+
+
+  body.innerHTML =
+    vouchers
+      .map(
+        voucher => `
+
+          <tr>
+
+            <td>
+
+              <strong>
+                ${escapeHtml(
+                  voucher.code
+                )}
+              </strong>
+
+            </td>
+
+
+            <td>
+
+              Rp${rupiah(
+                voucher.discount_amount
+              )}
+
+            </td>
+
+
+            <td>
+
+              ${
+                voucher.active
+
+                  ? `
+                    <span
+                      class="status paid"
+                    >
+                      AKTIF
+                    </span>
+                  `
+
+                  : `
+                    <span
+                      class="status other"
+                    >
+                      NONAKTIF
+                    </span>
+                  `
+              }
+
+            </td>
+
+
+            <td>
+
+              ${formatDate(
+                voucher.created_at
+              )}
+
+            </td>
+
+
+            <td>
+
+              <div
+                class="actions"
+              >
+
+                <button
+                  class="small ${
+                    voucher.active
+                      ? "secondary"
+                      : "success"
+                  }"
+                  onclick="toggleVoucher(
+                    '${escapeHtml(
+                      voucher.id
+                    )}',
+                    ${!voucher.active}
+                  )"
+                >
+
+                  ${
+                    voucher.active
+                      ? "Nonaktifkan"
+                      : "Aktifkan"
+                  }
+
+                </button>
+
+
+                <button
+                  class="danger small"
+                  onclick="deleteVoucher(
+                    '${escapeHtml(
+                      voucher.id
+                    )}'
+                  )"
+                >
+                  Hapus
+                </button>
+
+              </div>
+
+            </td>
+
+          </tr>
+
+        `
+      )
+      .join("");
+
+}
+
+
+async function addVoucher(){
+
+  const code =
+    $("voucherCode")
+      .value
+      .trim()
+      .toUpperCase();
+
+
+  const discount =
+    Number(
+      $("voucherDiscount")
+        .value
+    );
+
+
+  if(
+    !code
+  ){
+
+    showMessage(
+      $("voucherMessage"),
+      "Masukkan kode voucher.",
+      false
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    const data =
+      await api(
+        "create_voucher",
+        {
+
+          code:
+            code,
+
+          discount_amount:
+            discount
+
+        }
+      );
+
+
+    showMessage(
+      $("voucherMessage"),
+      data.message,
+      true
+    );
+
+
+    $("voucherCode")
+      .value =
+      "";
+
+
+    await loadVouchers();
+
+  }
+
+  catch(error){
+
+    showMessage(
+      $("voucherMessage"),
+      error.message,
+      false
+    );
+
+  }
+
+}
+
+
+async function deleteVoucher(
+  voucherId
+){
+
+  if(
+    !confirm(
+      "Hapus voucher ini?"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  try{
+
+    const data =
+      await api(
+        "delete_voucher",
+        {
+          voucher_id:
+            voucherId
+        }
+      );
+
+
+    showMessage(
+      $("voucherMessage"),
+      data.message,
+      true
+    );
+
+
+    await loadVouchers();
+
+  }
+
+  catch(error){
+
+    showMessage(
+      $("voucherMessage"),
+      error.message,
+      false
+    );
+
+  }
+
+}
+
+
+async function toggleVoucher(
+  voucherId,
+  active
+){
+
+  try{
+
+    await api(
+      "toggle_voucher",
+      {
+
+        voucher_id:
+          voucherId,
+
+        active:
+          active
+
+      }
+    );
+
+
+    await loadVouchers();
+
+  }
+
+  catch(error){
+
+    showMessage(
+      $("voucherMessage"),
+      error.message,
+      false
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   ORDERS
+   ===================================================== */
 
 async function loadOrders(){
-
-  $("refreshBtn")
-    .disabled =
-    true;
-
-
-  $("refreshBtn")
-    .textContent =
-    "Memuat...";
-
 
   try{
 
@@ -1348,19 +1731,11 @@ async function loadOrders(){
 
 
     orders =
-      Array.isArray(
-        data.orders
-      )
-        ? data.orders
-        : [];
+      data.orders ||
+      [];
 
 
     renderOrders();
-
-
-    hideMessage(
-      $("appMessage")
-    );
 
   }
 
@@ -1374,71 +1749,8 @@ async function loadOrders(){
 
   }
 
-  finally{
-
-    $("refreshBtn")
-      .disabled =
-      false;
-
-
-    $("refreshBtn")
-      .textContent =
-      "Refresh Pesanan";
-
-  }
-
 }
 
-
-/* =================================================
-   DELETE BUTTON
-   ================================================= */
-
-function updateDeleteButton(){
-
-  const selected =
-    document.querySelectorAll(
-      ".orderCheck:checked"
-    ).length;
-
-
-  $("deleteSelectedBtn")
-    .disabled =
-    selected === 0;
-
-}
-
-
-/* =================================================
-   CHECKBOX EVENTS
-   ================================================= */
-
-function attachOrderCheckboxEvents(){
-
-  document
-    .querySelectorAll(
-      ".orderCheck"
-    )
-    .forEach(
-      checkbox => {
-
-        checkbox.addEventListener(
-          "change",
-          updateDeleteButton
-        );
-
-      }
-    );
-
-
-  updateDeleteButton();
-
-}
-
-
-/* =================================================
-   RENDER
-   ================================================= */
 
 function renderOrders(){
 
@@ -1453,7 +1765,7 @@ function renderOrders(){
     orders.filter(
       order => {
 
-        const paymentStatus =
+        const status =
           String(
             order.payment_status ||
             ""
@@ -1464,8 +1776,8 @@ function renderOrders(){
           currentFilter ===
             "ALL" ||
 
-          paymentStatus ===
-            currentFilter;
+          currentFilter ===
+            status;
 
 
         const searchable =
@@ -1483,7 +1795,9 @@ function renderOrders(){
 
             order.access_status,
 
-            order.canva_team_name
+            order.canva_team_name,
+
+            order.voucher_code
 
           ]
           .join(" ")
@@ -1504,28 +1818,28 @@ function renderOrders(){
   filtered.sort(
     (a,b) => {
 
-      const aTime =
+      const dateA =
         new Date(
           a.created_at ||
           0
         ).getTime();
 
 
-      const bTime =
+      const dateB =
         new Date(
           b.created_at ||
           0
         ).getTime();
 
 
-      return (
-        currentSort ===
-          "newest"
+      return currentSort ===
+        "newest"
 
-          ? bTime - aTime
+        ? dateB -
+          dateA
 
-          : aTime - bTime
-      );
+        : dateA -
+          dateB;
 
     }
   );
@@ -1546,17 +1860,15 @@ function renderOrders(){
         <tr>
 
           <td
-            colspan="11"
+            colspan="12"
             class="muted"
           >
-            Tidak ada pesanan
-            yang cocok.
+            Tidak ada pesanan.
           </td>
 
         </tr>
 
       `;
-
 
     updateDeleteButton();
 
@@ -1588,60 +1900,6 @@ function renderOrders(){
             "USED";
 
 
-          const resetButton =
-            paid && used
-
-              ? `
-
-                <button
-                  class="danger small-btn"
-                  data-reset="${escapeHtml(
-                    order.order_code
-                  )}"
-                >
-                  RESET
-                </button>
-
-              `
-
-              : `
-
-                <span
-                  class="muted"
-                >
-                  -
-                </span>
-
-              `;
-
-
-          const team =
-            order.canva_team_name
-              ? escapeHtml(
-                  order.canva_team_name
-                )
-              : `
-
-                <span
-                  class="muted"
-                >
-                  Belum tercatat
-                </span>
-
-              `;
-
-
-          const billing =
-            paid
-
-              ? getBillingPeriod(
-                  order.paid_at,
-                  order.duration_months
-                )
-
-              : "-";
-
-
           return `
 
             <tr>
@@ -1669,12 +1927,12 @@ function renderOrders(){
 
                 <br>
 
-                <span
-                  class="muted"
-                >
+                <span class="muted">
+
                   ${formatDate(
                     order.created_at
                   )}
+
                 </span>
 
               </td>
@@ -1713,6 +1971,68 @@ function renderOrders(){
                   order.amount
                 )}
 
+                ${
+                  order.discount_amount
+
+                    ? `
+
+                      <br>
+
+                      <span
+                        class="muted"
+                      >
+                        Setelah voucher:
+                        Rp${rupiah(
+                          order.final_amount
+                        )}
+                      </span>
+
+                    `
+
+                    : ""
+
+                }
+
+              </td>
+
+
+              <td>
+
+                ${
+                  order.voucher_code
+
+                    ? `
+
+                      <strong>
+                        ${escapeHtml(
+                          order.voucher_code
+                        )}
+                      </strong>
+
+                      <br>
+
+                      <span
+                        class="muted"
+                      >
+                        -Rp${rupiah(
+                          order.discount_amount
+                        )}
+                      </span>
+
+                    `
+
+                    : `
+
+                      <span
+                        class="muted"
+                      >
+                        -
+                      </span>
+
+                    `
+
+                }
+
               </td>
 
 
@@ -1724,8 +2044,11 @@ function renderOrders(){
 
                 ${
                   order.payment_method
+
                     ? `
+
                       <br>
+
                       <span
                         class="muted"
                       >
@@ -1733,8 +2056,11 @@ function renderOrders(){
                           order.payment_method
                         )}
                       </span>
+
                     `
+
                     : ""
+
                 }
 
               </td>
@@ -1751,7 +2077,24 @@ function renderOrders(){
 
               <td>
 
-                ${team}
+                ${
+                  order.canva_team_name
+
+                    ? escapeHtml(
+                        order.canva_team_name
+                      )
+
+                    : `
+
+                      <span
+                        class="muted"
+                      >
+                        Belum tercatat
+                      </span>
+
+                    `
+
+                }
 
               </td>
 
@@ -1767,14 +2110,52 @@ function renderOrders(){
 
               <td>
 
-                ${billing}
+                ${
+                  paid
+
+                    ? getBillingPeriod(
+                        order.paid_at,
+                        order.duration_months
+                      )
+
+                    : "-"
+
+                }
 
               </td>
 
 
               <td>
 
-                ${resetButton}
+                ${
+                  paid && used
+
+                    ? `
+
+                      <button
+                        class="danger small"
+                        onclick="resetAccess(
+                          '${escapeHtml(
+                            order.order_code
+                          )}'
+                        )"
+                      >
+                        RESET
+                      </button>
+
+                    `
+
+                    : `
+
+                      <span
+                        class="muted"
+                      >
+                        -
+                      </span>
+
+                    `
+
+                }
 
               </td>
 
@@ -1787,33 +2168,52 @@ function renderOrders(){
       .join("");
 
 
+  attachOrderCheckboxEvents();
+
+}
+
+
+function updateDeleteButton(){
+
+  const count =
+    document.querySelectorAll(
+      ".orderCheck:checked"
+    ).length;
+
+
+  $("deleteSelectedBtn")
+    .disabled =
+    count === 0;
+
+}
+
+
+function attachOrderCheckboxEvents(){
+
   document
     .querySelectorAll(
-      "[data-reset]"
+      ".orderCheck"
     )
     .forEach(
-      button => {
+      checkbox => {
 
-        button.addEventListener(
-          "click",
-          () =>
-            resetAccess(
-              button.dataset.reset
-            )
+        checkbox.addEventListener(
+          "change",
+          updateDeleteButton
         );
 
       }
     );
 
 
-  attachOrderCheckboxEvents();
+  updateDeleteButton();
 
 }
 
 
-/* =================================================
-   RESET
-   ================================================= */
+/* =====================================================
+   RESET ACCESS
+   ===================================================== */
 
 async function resetAccess(
   orderCode
@@ -1823,8 +2223,7 @@ async function resetAccess(
     !confirm(
       "Reset akses untuk " +
       orderCode +
-      "?\n\n" +
-      "Status akan kembali UNUSED."
+      "?"
     )
   ){
 
@@ -1847,35 +2246,12 @@ async function resetAccess(
 
     showMessage(
       $("appMessage"),
-      "Akses berhasil direset untuk " +
-        orderCode +
-        ".",
+      data.message,
       true
     );
 
 
     await loadOrders();
-
-
-    if(
-      data.access_url
-    ){
-
-      if(
-        confirm(
-          "Reset berhasil.\n\n" +
-          "Buka link akses sekarang?"
-        )
-      ){
-
-        window.open(
-          data.access_url,
-          "_blank"
-        );
-
-      }
-
-    }
 
   }
 
@@ -1892,9 +2268,124 @@ async function resetAccess(
 }
 
 
-/* =================================================
+/* =====================================================
+   DELETE ORDERS
+   ===================================================== */
+
+$("deleteSelectedBtn")
+  .addEventListener(
+    "click",
+    async () => {
+
+      const selected =
+        Array.from(
+          document.querySelectorAll(
+            ".orderCheck:checked"
+          )
+        )
+        .map(
+          checkbox =>
+            checkbox.value
+        );
+
+
+      if(
+        !selected.length
+      ){
+
+        return;
+
+      }
+
+
+      const password =
+        prompt(
+          "Masukkan PASSWORD PENGHAPUSAN:"
+        );
+
+
+      if(
+        password ===
+        null
+      ){
+
+        return;
+
+      }
+
+
+      if(
+        !password
+      ){
+
+        alert(
+          "Password wajib diisi."
+        );
+
+        return;
+
+      }
+
+
+      if(
+        !confirm(
+          "Hapus " +
+          selected.length +
+          " order terpilih?\n\n" +
+          "Order PAID tidak dapat dihapus."
+        )
+      ){
+
+        return;
+
+      }
+
+
+      try{
+
+        const data =
+          await api(
+            "delete_orders",
+            {
+
+              order_codes:
+                selected,
+
+              delete_password:
+                password
+
+            }
+          );
+
+
+        showMessage(
+          $("appMessage"),
+          data.message,
+          true
+        );
+
+
+        await loadOrders();
+
+      }
+
+      catch(error){
+
+        showMessage(
+          $("appMessage"),
+          error.message,
+          false
+        );
+
+      }
+
+    }
+  );
+
+
+/* =====================================================
    SELECT ALL
-   ================================================= */
+   ===================================================== */
 
 $("selectAll")
   .addEventListener(
@@ -1926,156 +2417,9 @@ $("selectAll")
   );
 
 
-/* =================================================
-   DELETE SELECTED
-   ================================================= */
-
-$("deleteSelectedBtn")
-  .addEventListener(
-    "click",
-    async () => {
-
-      const selected =
-        Array.from(
-          document.querySelectorAll(
-            ".orderCheck:checked"
-          )
-        )
-        .map(
-          checkbox =>
-            checkbox.value
-        );
-
-
-      if(
-        !selected.length
-      ){
-
-        return;
-
-      }
-
-
-      const deletePassword =
-        prompt(
-          "Masukkan PASSWORD PENGHAPUSAN:"
-        );
-
-
-      if(
-        deletePassword ===
-        null
-      ){
-
-        return;
-
-      }
-
-
-      if(
-        !deletePassword
-      ){
-
-        alert(
-          "Password wajib diisi."
-        );
-
-        return;
-
-      }
-
-
-      const confirmed =
-        confirm(
-          "Kamu akan menghapus " +
-          selected.length +
-          " order.\n\n" +
-          "Order PAID tidak dapat dihapus.\n\n" +
-          "Lanjutkan?"
-        );
-
-
-      if(
-        !confirmed
-      ){
-
-        return;
-
-      }
-
-
-      const button =
-        $("deleteSelectedBtn");
-
-
-      button.disabled =
-        true;
-
-
-      button.textContent =
-        "Menghapus...";
-
-
-      try{
-
-        const data =
-          await api(
-            "delete_orders",
-            {
-
-              order_codes:
-                selected,
-
-              delete_password:
-                deletePassword
-
-            }
-          );
-
-
-        showMessage(
-          $("appMessage"),
-          data.message ||
-            "Order berhasil dihapus.",
-          true
-        );
-
-
-        $("selectAll")
-          .checked =
-          false;
-
-
-        await loadOrders();
-
-      }
-
-      catch(error){
-
-        showMessage(
-          $("appMessage"),
-          error.message,
-          false
-        );
-
-      }
-
-      finally{
-
-        updateDeleteButton();
-
-        button.textContent =
-          "Hapus Terpilih";
-
-      }
-
-    }
-  );
-
-
-/* =================================================
+/* =====================================================
    LOGIN
-   ================================================= */
+   ===================================================== */
 
 $("loginBtn")
   .addEventListener(
@@ -2108,20 +2452,17 @@ $("loginBtn")
         true;
 
 
-      $("loginBtn")
-        .textContent =
-        "Memeriksa...";
-
-
       adminKey =
         key;
 
 
       try{
 
-        await loadOrders();
+        await loadTeam();
 
-        await loadInviteSettings();
+        await loadVouchers();
+
+        await loadOrders();
 
 
         $("loginCard")
@@ -2144,10 +2485,9 @@ $("loginBtn")
             "hidden"
           );
 
-
       }
 
-      catch{
+      catch(error){
 
         adminKey =
           "";
@@ -2155,7 +2495,7 @@ $("loginBtn")
 
         showMessage(
           $("loginMessage"),
-          "Admin Key salah atau server admin tidak dapat diakses.",
+          error.message,
           false
         );
 
@@ -2167,20 +2507,15 @@ $("loginBtn")
           .disabled =
           false;
 
-
-        $("loginBtn")
-          .textContent =
-          "Masuk";
-
       }
 
     }
   );
 
 
-/* =================================================
+/* =====================================================
    LOGOUT
-   ================================================= */
+   ===================================================== */
 
 $("logoutBtn")
   .addEventListener(
@@ -2193,10 +2528,8 @@ $("logoutBtn")
       orders =
         [];
 
-
-      $("adminKey")
-        .value =
-        "";
+      vouchers =
+        [];
 
 
       $("app")
@@ -2219,30 +2552,99 @@ $("logoutBtn")
           "hidden"
         );
 
+    }
+  );
 
-      $("ordersBody")
-        .innerHTML = `
 
-          <tr>
+/* =====================================================
+   TEAM BUTTON
+   ===================================================== */
 
-            <td
-              colspan="11"
-              class="muted"
-            >
-              Belum ada data.
-            </td>
+$("saveInviteBtn")
+  .addEventListener(
+    "click",
+    saveTeam
+  );
 
-          </tr>
 
-        `;
+/* =====================================================
+   VOUCHER BUTTON
+   ===================================================== */
+
+$("addVoucherBtn")
+  .addEventListener(
+    "click",
+    addVoucher
+  );
+
+
+/* =====================================================
+   VOUCHER ENTER
+   ===================================================== */
+
+$("voucherCode")
+  .addEventListener(
+    "keydown",
+    event => {
+
+      if(
+        event.key ===
+        "Enter"
+      ){
+
+        addVoucher();
+
+      }
 
     }
   );
 
 
-/* =================================================
+/* =====================================================
+   REFRESH
+   ===================================================== */
+
+$("refreshBtn")
+  .addEventListener(
+    "click",
+    loadOrders
+  );
+
+
+/* =====================================================
+   SEARCH
+   ===================================================== */
+
+$("search")
+  .addEventListener(
+    "input",
+    renderOrders
+  );
+
+
+/* =====================================================
+   SORT
+   ===================================================== */
+
+$("sortOrder")
+  .addEventListener(
+    "change",
+    () => {
+
+      currentSort =
+        $("sortOrder")
+          .value;
+
+
+      renderOrders();
+
+    }
+  );
+
+
+/* =====================================================
    FILTER
-   ================================================= */
+   ===================================================== */
 
 document
   .querySelectorAll(
@@ -2287,54 +2689,9 @@ document
   );
 
 
-/* =================================================
-   SORT
-   ================================================= */
-
-$("sortOrder")
-  .addEventListener(
-    "change",
-    () => {
-
-      currentSort =
-        $("sortOrder")
-          .value;
-
-
-      renderOrders();
-
-    }
-  );
-
-
-/* =================================================
-   SEARCH
-   ================================================= */
-
-$("search")
-  .addEventListener(
-    "input",
-    renderOrders
-  );
-
-
-/* =================================================
-   BUTTONS
-   ================================================= */
-
-$("saveInviteBtn")
-  .addEventListener(
-    "click",
-    saveInviteSettings
-  );
-
-
-$("refreshBtn")
-  .addEventListener(
-    "click",
-    loadOrders
-  );
-
+/* =====================================================
+   ENTER ADMIN
+   ===================================================== */
 
 $("adminKey")
   .addEventListener(
