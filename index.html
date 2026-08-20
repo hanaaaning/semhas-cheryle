@@ -184,12 +184,17 @@ document.getElementById("payBtn").onclick=async()=>{
     );
 
     window.snap.pay(data.snap_token,{
-      onSuccess:function(result){
-        console.log("MIDTRANS SUCCESS",result);
+      onSuccess: async function(result){
+        console.log("MIDTRANS SUCCESS", result);
+        
         show(
-          `<strong>Pembayaran berhasil!</strong><br>`+
-          `Order ${esc(data.order_code)} telah dibayar. `+
-          `Sistem sedang memproses akses Canva.`,true
+          `<strong>Pembayaran berhasil! 🎉</strong><br>`+
+          `Pembayaran sedang dikonfirmasi oleh sistem...`, true
+        );
+
+        await waitForAccess(
+          data.order_code,
+          email
         );
       },
       onPending:function(result){
@@ -384,6 +389,103 @@ document.getElementById("continueCanvaBtn").onclick=async()=>{
   }
 };
 
+async function waitForAccess(orderCode, email){
+
+  const maxAttempts = 12;
+  const delay = 2500;
+
+  for(let attempt = 1; attempt <= maxAttempts; attempt++){
+
+    try{
+
+      const res = await fetch(
+        SUPABASE_URL +
+        "/functions/v1/get-access",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json",
+            "apikey": SUPABASE_KEY,
+            "Authorization":
+              "Bearer " + SUPABASE_KEY
+          },
+
+          body: JSON.stringify({
+            order_code: orderCode,
+            customer_email: email
+          })
+        }
+      );
+
+      const data = await res.json();
+
+      console.log(
+        "ACCESS CHECK",
+        attempt,
+        data
+      );
+
+      if(data.status === "READY"){
+
+        show(
+          `<strong>Pembayaran berhasil! 🎉</strong><br>`+
+          `Akses Canva Anda sudah siap.<br><br>`+
+          `<a href="${esc(data.access_url)}"`+
+          ` style="display:inline-block;`+
+          `background:#7c3aed;color:white;`+
+          `padding:12px 18px;`+
+          `border-radius:10px;`+
+          `text-decoration:none;`+
+          `font-weight:700">`+
+          `Buka Akses Canva`+
+          `</a>`,
+          true
+        );
+
+        return;
+      }
+
+      if(data.status === "USED"){
+
+        show(
+          `<strong>Akses sudah digunakan.</strong>`,
+          false
+        );
+
+        return;
+      }
+
+      if(data.status === "PROCESSING"){
+
+        show(
+          `<strong>Pembayaran berhasil.</strong><br>`+
+          `Akses sedang dibuat otomatis...`,
+          true
+        );
+      }
+
+    }catch(error){
+
+      console.error(
+        "GET ACCESS ERROR:",
+        error
+      );
+    }
+
+    await new Promise(
+      resolve => setTimeout(resolve, delay)
+    );
+  }
+
+  show(
+    `<strong>Pembayaran sudah dilakukan.</strong><br>`+
+    `Akses masih sedang diproses. `+
+    `Silakan tunggu beberapa saat lalu cek kembali.`,
+    true
+  );
+}
+  
 loadAccessPage();
 </script>
 </div>
