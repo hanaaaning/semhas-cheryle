@@ -1,24 +1,13 @@
 <!doctype html>
 <html lang="id">
-
 <head>
-
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1"
->
-
-<title>
-  Canva Premium Admin
-</title>
+<title>Canva Premium Admin</title>
 
 <style>
-
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
@@ -88,9 +77,7 @@ select{
 input:focus,
 select:focus{
   border-color:#7c3aed;
-  box-shadow:
-    0 0 0 3px
-    rgba(124,58,237,.10);
+  box-shadow:0 0 0 3px rgba(124,58,237,.10);
 }
 
 button{
@@ -153,6 +140,54 @@ button.danger:hover{
   display:block;
   background:#fff1f2;
   color:#9f1239;
+}
+
+.top-note{
+  padding:12px 14px;
+  border-radius:10px;
+  background:#fff7ed;
+  color:#9a3412;
+  margin-bottom:14px;
+  font-size:13px;
+}
+
+.settings-card{
+  padding:22px;
+  margin-bottom:18px;
+}
+
+.settings-title{
+  font-size:20px;
+  font-weight:800;
+  margin-bottom:6px;
+}
+
+.settings-subtitle{
+  color:#667085;
+  font-size:13px;
+  line-height:1.5;
+  margin-bottom:18px;
+}
+
+.settings-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:4px;
+}
+
+.save-link-btn{
+  width:auto;
+  margin-top:14px;
+}
+
+.active-team{
+  margin-top:14px;
+  padding:13px 15px;
+  border-radius:11px;
+  background:#f6f5ff;
+  color:#4c1d95;
+  font-size:13px;
+  line-height:1.6;
 }
 
 .toolbar{
@@ -255,46 +290,8 @@ td{
   color:#fff;
 }
 
-.top-note{
-  padding:12px 14px;
-  border-radius:10px;
-  background:#fff7ed;
-  color:#9a3412;
-  margin-bottom:14px;
-  font-size:13px;
-}
-
-.settings-card{
-  padding:22px;
-  margin-bottom:18px;
-}
-
-.settings-title{
-  font-size:20px;
-  font-weight:800;
-  margin-bottom:6px;
-}
-
-.settings-subtitle{
-  color:#667085;
-  font-size:13px;
-  line-height:1.5;
-  margin-bottom:18px;
-}
-
-.settings-grid{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:4px;
-}
-
-.save-link-btn{
-  width:auto;
-  margin-top:14px;
-}
-
 .hidden{
-  display:none!important;
+  display:none !important;
 }
 
 @media(max-width:700px){
@@ -310,20 +307,12 @@ td{
   }
 
 }
-
 </style>
-
 </head>
-
 
 <body>
 
 <div class="container">
-
-
-<!-- =================================================
-     HEADER
-     ================================================= -->
 
 <header>
 
@@ -334,12 +323,10 @@ td{
     </div>
 
     <div class="subtitle">
-      Kelola pesanan, akses,
-      dan link tim Canva
+      Kelola pesanan, akses, dan link tim Canva
     </div>
 
   </div>
-
 
   <button
     id="logoutBtn"
@@ -351,9 +338,9 @@ td{
 </header>
 
 
-<!-- =================================================
+<!-- =====================================================
      LOGIN
-     ================================================= -->
+     ===================================================== -->
 
 <section
   id="loginCard"
@@ -365,23 +352,13 @@ td{
   </h2>
 
   <p class="muted">
-
-    Masukkan Admin Key yang kamu
-    simpan di Supabase Secret:
-
-    <strong>
-      ADMIN_PANEL_KEY
-    </strong>
-
+    Masukkan Admin Key yang kamu simpan di Supabase Secret
+    <strong>ADMIN_PANEL_KEY</strong>.
   </p>
 
-
-  <label
-    for="adminKey"
-  >
+  <label for="adminKey">
     Admin Key
   </label>
-
 
   <input
     id="adminKey"
@@ -390,20 +367,16 @@ td{
     placeholder="Masukkan Admin Key"
   >
 
-
   <div
     class="actions"
     style="margin-top:16px"
   >
 
-    <button
-      id="loginBtn"
-    >
+    <button id="loginBtn">
       Masuk
     </button>
 
   </div>
-
 
   <div
     id="loginMessage"
@@ -413,302 +386,258 @@ td{
 </section>
 
 
-<!-- =================================================
-     APPLICATION
-     ================================================= -->
+<!-- =====================================================
+     APLIKASI ADMIN
+     ===================================================== -->
 
 <section
   id="app"
   class="hidden"
 >
 
-
-<!-- =================================================
-     WARNING
-     ================================================= -->
-
-<div class="top-note">
-
-  Admin Key hanya digunakan
-  saat request ke server.
-  Jangan menaruh Admin Key
-  di GitHub atau di HTML.
-
-</div>
-
-
-<!-- =================================================
-     TIM CANVA
-     ================================================= -->
-
-<div class="card settings-card">
-
-  <div class="settings-title">
-    Tim Canva Aktif
-  </div>
-
-  <div class="settings-subtitle">
-
-    Setiap kali kamu mendapatkan
-    link tim baru, isi nama tim
-    dan link barunya di sini.
-
-    <br>
-
-    Pembeli berikutnya yang menekan
-    <strong>
-      Lanjut ke Canva
-    </strong>
-    akan menggunakan link tim
-    yang sedang aktif.
-
+  <div class="top-note">
+    Admin Key hanya digunakan saat request ke server.
+    Jangan menaruh Admin Key di GitHub atau di HTML.
   </div>
 
 
-  <div class="settings-grid">
+  <!-- ===================================================
+       TIM CANVA
+       =================================================== -->
+
+  <div class="card settings-card">
+
+    <div class="settings-title">
+      Tim Canva Aktif
+    </div>
+
+    <div class="settings-subtitle">
+
+      Setiap kali kamu mendapatkan link tim baru,
+      isi nama tim dan link barunya di sini.
+
+      <br>
+
+      Pembeli berikutnya yang menekan
+      <strong>Lanjut ke Canva</strong>
+      akan menggunakan link tim yang sedang aktif.
+
+    </div>
 
 
-    <label
-      for="canvaTeamName"
-    >
-      Nama Tim Canva
-    </label>
+    <div class="settings-grid">
+
+      <label for="canvaTeamName">
+        Nama Tim Canva
+      </label>
+
+      <input
+        id="canvaTeamName"
+        placeholder="Contoh: MYCLIPS 826 | 19.13"
+      >
 
 
-    <input
-      id="canvaTeamName"
-      placeholder="Contoh: MYCLIPS 826 | 19.13"
-    >
+      <label for="canvaInviteUrl">
+        Link Tim Canva
+      </label>
+
+      <input
+        id="canvaInviteUrl"
+        placeholder="https://www.canva.com/brand/join?token=..."
+      >
 
 
-    <label
-      for="canvaInviteUrl"
-    >
-      Link Tim Canva
-    </label>
+      <button
+        id="saveInviteBtn"
+        class="save-link-btn"
+      >
+        Simpan Perubahan
+      </button>
 
 
-    <input
-      id="canvaInviteUrl"
-      placeholder="https://www.canva.com/brand/join?token=..."
-    >
+      <div
+        id="inviteUpdated"
+        class="active-team"
+      >
+        Belum memuat pengaturan tim.
+      </div>
 
 
-    <button
-      id="saveInviteBtn"
-      class="save-link-btn"
-    >
-      Simpan Perubahan
-    </button>
+      <div
+        id="inviteMessage"
+        class="message"
+      ></div>
+
+    </div>
+
+  </div>
 
 
-    <div
-      id="inviteUpdated"
-      class="muted"
-      style="
-        margin-top:10px;
-        font-size:12px;
-      "
-    >
-      Belum memuat pengaturan tim.
+  <!-- ===================================================
+       TOOLBAR
+       =================================================== -->
+
+  <div class="toolbar">
+
+    <div class="actions">
+
+      <button id="refreshBtn">
+        Refresh Pesanan
+      </button>
+
+      <button
+        class="secondary filterBtn active"
+        data-filter="ALL"
+      >
+        Semua
+      </button>
+
+      <button
+        class="secondary filterBtn"
+        data-filter="PAID"
+      >
+        PAID
+      </button>
+
+      <button
+        class="secondary filterBtn"
+        data-filter="PENDING"
+      >
+        PENDING
+      </button>
+
+      <button
+        class="secondary filterBtn"
+        data-filter="EXPIRED"
+      >
+        EXPIRED
+      </button>
+
     </div>
 
 
     <div
-      id="inviteMessage"
-      class="message"
-    ></div>
-
-
-  </div>
-
-</div>
-
-
-<!-- =================================================
-     TOOLBAR
-     ================================================= -->
-
-<div class="toolbar">
-
-
-  <div class="actions">
-
-    <button
-      id="refreshBtn"
+      class="actions"
+      style="
+        flex:1;
+        justify-content:flex-end;
+      "
     >
-      Refresh Pesanan
-    </button>
+
+      <select
+        id="sortOrder"
+        style="max-width:150px"
+      >
+
+        <option value="newest">
+          Terbaru
+        </option>
+
+        <option value="oldest">
+          Terlama
+        </option>
+
+      </select>
 
 
-    <button
-      class="secondary filterBtn active"
-      data-filter="ALL"
-    >
-      Semua
-    </button>
+      <input
+        id="search"
+        class="search"
+        placeholder="Cari order, nama, atau email..."
+      >
 
-
-    <button
-      class="secondary filterBtn"
-      data-filter="PAID"
-    >
-      PAID
-    </button>
-
-
-    <button
-      class="secondary filterBtn"
-      data-filter="PENDING"
-    >
-      PENDING
-    </button>
-
-
-    <button
-      class="secondary filterBtn"
-      data-filter="EXPIRED"
-    >
-      EXPIRED
-    </button>
+    </div>
 
   </div>
 
 
   <div
-    class="actions"
-    style="
-      flex:1;
-      justify-content:flex-end;
-    "
-  >
-
-    <select
-      id="sortOrder"
-      style="max-width:150px"
-    >
-
-      <option
-        value="newest"
-      >
-        Terbaru
-      </option>
-
-      <option
-        value="oldest"
-      >
-        Terlama
-      </option>
-
-    </select>
+    id="appMessage"
+    class="message"
+  ></div>
 
 
-    <input
-      id="search"
-      class="search"
-      placeholder="
-        Cari order, nama, atau email...
-      "
-    >
+  <!-- ===================================================
+       ORDER TABLE
+       =================================================== -->
+
+  <div class="card table-wrap">
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th>
+            Order
+          </th>
+
+          <th>
+            Pembeli
+          </th>
+
+          <th>
+            Paket
+          </th>
+
+          <th>
+            Nominal
+          </th>
+
+          <th>
+            Pembayaran
+          </th>
+
+          <th>
+            Akses
+          </th>
+
+          <th>
+            Dibayar
+          </th>
+
+          <th>
+            Aksi
+          </th>
+
+        </tr>
+
+      </thead>
+
+
+      <tbody id="ordersBody">
+
+        <tr>
+
+          <td
+            colspan="8"
+            class="muted"
+          >
+            Belum ada data.
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
 
   </div>
 
-</div>
-
-
-<!-- =================================================
-     MESSAGE
-     ================================================= -->
-
-<div
-  id="appMessage"
-  class="message"
-></div>
-
-
-<!-- =================================================
-     ORDER TABLE
-     ================================================= -->
-
-<div class="card table-wrap">
-
-<table>
-
-<thead>
-
-<tr>
-
-  <th>
-    Order
-  </th>
-
-  <th>
-    Pembeli
-  </th>
-
-  <th>
-    Paket
-  </th>
-
-  <th>
-    Nominal
-  </th>
-
-  <th>
-    Pembayaran
-  </th>
-
-  <th>
-    Akses
-  </th>
-
-  <th>
-    Dibayar
-  </th>
-
-  <th>
-    Aksi
-  </th>
-
-</tr>
-
-</thead>
-
-
-<tbody id="ordersBody">
-
-<tr>
-
-  <td
-    colspan="8"
-    class="muted"
-  >
-    Belum ada data.
-  </td>
-
-</tr>
-
-</tbody>
-
-
-</table>
-
-</div>
-
-
 </section>
+
+</div>
 
 
 <script>
 
-
-/* =================================================
+/* =====================================================
    KONFIGURASI
-   ================================================= */
+   ===================================================== */
 
 const SUPABASE_URL =
   "https://yxybbsbjvtkpwcazairg.supabase.co";
-
 
 const ADMIN_API_URL =
   SUPABASE_URL +
@@ -728,14 +657,12 @@ let currentSort =
 
 const $ =
   id =>
-    document.getElementById(
-      id
-    );
+    document.getElementById(id);
 
 
-/* =================================================
-   HELPERS
-   ================================================= */
+/* =====================================================
+   HELPER
+   ===================================================== */
 
 function escapeHtml(
   value
@@ -747,20 +674,11 @@ function escapeHtml(
     /[&<>"']/g,
     m => ({
 
-      "&":
-        "&amp;",
-
-      "<":
-        "&lt;",
-
-      ">":
-        "&gt;",
-
-      '"':
-        "&quot;",
-
-      "'":
-        "&#039;"
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#039;"
 
     }[m])
   );
@@ -769,12 +687,12 @@ function escapeHtml(
 
 
 function showMessage(
-  el,
+  element,
   text,
   ok=false
 ){
 
-  el.className =
+  element.className =
     "message " +
     (
       ok
@@ -782,20 +700,20 @@ function showMessage(
         : "err"
     );
 
-  el.textContent =
+  element.textContent =
     text;
 
 }
 
 
 function hideMessage(
-  el
+  element
 ){
 
-  el.className =
+  element.className =
     "message";
 
-  el.textContent =
+  element.textContent =
     "";
 
 }
@@ -827,17 +745,18 @@ function formatDate(
 
 
   const d =
-    new Date(
-      value
-    );
+    new Date(value);
 
 
   if(
     Number.isNaN(
       d.getTime()
     )
-  )
+  ){
+
     return value;
+
+  }
 
 
   return d.toLocaleString(
@@ -846,6 +765,10 @@ function formatDate(
 
 }
 
+
+/* =====================================================
+   STATUS BADGE
+   ===================================================== */
 
 function statusBadge(
   value
@@ -863,30 +786,39 @@ function statusBadge(
 
   if(
     v === "PAID"
-  )
+  ){
+
     cls =
       "paid";
 
+  }
 
   else if(
     v === "PENDING"
-  )
+  ){
+
     cls =
       "pending";
 
+  }
 
   else if(
     v === "USED"
-  )
+  ){
+
     cls =
       "used";
 
+  }
 
   else if(
     v === "UNUSED"
-  )
+  ){
+
     cls =
       "unused";
+
+  }
 
 
   return `
@@ -904,13 +836,13 @@ function statusBadge(
 }
 
 
-/* =================================================
+/* =====================================================
    API
-   ================================================= */
+   ===================================================== */
 
 async function api(
   action,
-  extra = {}
+  extra={}
 ){
 
   if(
@@ -924,7 +856,7 @@ async function api(
   }
 
 
-  const res =
+  const response =
     await fetch(
       ADMIN_API_URL,
       {
@@ -956,7 +888,7 @@ async function api(
 
 
   const data =
-    await res
+    await response
       .json()
       .catch(
         () => ({})
@@ -964,7 +896,7 @@ async function api(
 
 
   if(
-    !res.ok
+    !response.ok
   ){
 
     throw new Error(
@@ -980,9 +912,9 @@ async function api(
 }
 
 
-/* =================================================
+/* =====================================================
    LOAD TEAM SETTINGS
-   ================================================= */
+   ===================================================== */
 
 async function loadInviteSettings(){
 
@@ -996,26 +928,55 @@ async function loadInviteSettings(){
 
     $("canvaTeamName")
       .value =
-      data.canva_team_name ||
       "";
 
 
     $("canvaInviteUrl")
       .value =
-      data.canva_invite_url ||
       "";
 
 
-    $("inviteUpdated")
-      .textContent =
-      data.updated_at
+    if(
+      data.canva_team_name ||
+      data.canva_invite_url
+    ){
 
-        ? "Terakhir diperbarui: " +
-          formatDate(
-            data.updated_at
-          )
+      $("inviteUpdated")
+        .innerHTML = `
 
-        : "Belum ada pengaturan tim.";
+          <strong>
+            Tim aktif saat ini:
+          </strong>
+
+          ${escapeHtml(
+            data.canva_team_name ||
+            "Belum diberi nama"
+          )}
+
+          <br>
+
+          <span>
+            ${
+              data.updated_at
+                ? "Terakhir diperbarui: " +
+                  formatDate(
+                    data.updated_at
+                  )
+                : "Belum ada waktu pembaruan."
+            }
+          </span>
+
+        `;
+
+    }
+
+    else{
+
+      $("inviteUpdated")
+        .innerHTML =
+        "Belum ada tim Canva aktif.";
+
+    }
 
   }
 
@@ -1032,9 +993,9 @@ async function loadInviteSettings(){
 }
 
 
-/* =================================================
-   SIMPAN TEAM SETTINGS
-   ================================================= */
+/* =====================================================
+   SAVE TEAM SETTINGS
+   ===================================================== */
 
 async function saveInviteSettings(){
 
@@ -1139,22 +1100,54 @@ async function saveInviteSettings(){
     showMessage(
       $("inviteMessage"),
       data.message ||
-        "Pengaturan tim berhasil diperbarui.",
+        "Nama dan link tim berhasil diperbarui.",
       true
     );
 
 
+    /* ===============================================
+       KOSONGKAN INPUT SETELAH BERHASIL
+       =============================================== */
+
+    $("canvaTeamName")
+      .value =
+      "";
+
+    $("canvaInviteUrl")
+      .value =
+      "";
+
+
+    /* ===============================================
+       TAMPILKAN TIM AKTIF
+       =============================================== */
+
     $("inviteUpdated")
-      .textContent =
+      .innerHTML = `
 
-      data.updated_at
+        <strong>
+          Tim aktif saat ini:
+        </strong>
 
-        ? "Terakhir diperbarui: " +
-          formatDate(
+        ${escapeHtml(
+          data.canva_team_name ||
+          teamName
+        )}
+
+        <br>
+
+        <span>
+          ${
             data.updated_at
-          )
+              ? "Terakhir diperbarui: " +
+                formatDate(
+                  data.updated_at
+                )
+              : "Berhasil diperbarui."
+          }
+        </span>
 
-        : "Berhasil diperbarui.";
+      `;
 
   }
 
@@ -1184,9 +1177,9 @@ async function saveInviteSettings(){
 }
 
 
-/* =================================================
+/* =====================================================
    LOAD ORDERS
-   ================================================= */
+   ===================================================== */
 
 async function loadOrders(){
 
@@ -1233,9 +1226,6 @@ async function loadOrders(){
       false
     );
 
-
-    throw error;
-
   }
 
   finally{
@@ -1254,13 +1244,13 @@ async function loadOrders(){
 }
 
 
-/* =================================================
+/* =====================================================
    RENDER ORDERS
-   ================================================= */
+   ===================================================== */
 
 function renderOrders(){
 
-  const q =
+  const keyword =
     $("search")
       .value
       .trim()
@@ -1269,16 +1259,16 @@ function renderOrders(){
 
   let filtered =
     orders.filter(
-      o => {
+      order => {
 
         const paymentStatus =
           String(
-            o.payment_status ||
+            order.payment_status ||
             ""
           ).toUpperCase();
 
 
-        const matchesFilter =
+        const filterMatch =
           currentFilter ===
             "ALL" ||
 
@@ -1286,20 +1276,20 @@ function renderOrders(){
             currentFilter;
 
 
-        const hay =
+        const searchable =
           [
 
-            o.order_code,
+            order.order_code,
 
-            o.customer_name,
+            order.customer_name,
 
-            o.customer_email,
+            order.customer_email,
 
-            o.product_name,
+            order.product_name,
 
-            o.payment_status,
+            order.payment_status,
 
-            o.access_status
+            order.access_status
 
           ]
           .join(" ")
@@ -1307,8 +1297,10 @@ function renderOrders(){
 
 
         return (
-          matchesFilter &&
-          hay.includes(q)
+          filterMatch &&
+          searchable.includes(
+            keyword
+          )
         );
 
       }
@@ -1318,27 +1310,34 @@ function renderOrders(){
   filtered.sort(
     (a,b) => {
 
-      const da =
+      const dateA =
         new Date(
-          a.created_at ||
-          0
+          a.created_at || 0
         ).getTime();
 
 
-      const db =
+      const dateB =
         new Date(
-          b.created_at ||
-          0
+          b.created_at || 0
         ).getTime();
+
+
+      if(
+        currentSort ===
+        "newest"
+      ){
+
+        return (
+          dateB -
+          dateA
+        );
+
+      }
 
 
       return (
-        currentSort ===
-          "newest"
-
-          ? db - da
-
-          : da - db
+        dateA -
+        dateB
       );
 
     }
@@ -1376,11 +1375,11 @@ function renderOrders(){
 
     filtered
       .map(
-        o => {
+        order => {
 
           const paid =
             String(
-              o.payment_status ||
+              order.payment_status ||
               ""
             ).toUpperCase() ===
             "PAID";
@@ -1388,7 +1387,7 @@ function renderOrders(){
 
           const used =
             String(
-              o.access_status ||
+              order.access_status ||
               ""
             ).toUpperCase() ===
             "USED";
@@ -1402,7 +1401,7 @@ function renderOrders(){
                 <button
                   class="danger small-btn"
                   data-reset="${escapeHtml(
-                    o.order_code
+                    order.order_code
                   )}"
                 >
                   RESET AKSES
@@ -1429,7 +1428,7 @@ function renderOrders(){
 
                 <strong>
                   ${escapeHtml(
-                    o.order_code
+                    order.order_code
                   )}
                 </strong>
 
@@ -1439,7 +1438,7 @@ function renderOrders(){
                   class="muted"
                 >
                   ${formatDate(
-                    o.created_at
+                    order.created_at
                   )}
                 </span>
 
@@ -1450,14 +1449,14 @@ function renderOrders(){
 
                 <strong>
                   ${escapeHtml(
-                    o.customer_name
+                    order.customer_name
                   )}
                 </strong>
 
                 <br>
 
                 ${escapeHtml(
-                  o.customer_email
+                  order.customer_email
                 )}
 
               </td>
@@ -1466,7 +1465,7 @@ function renderOrders(){
               <td>
 
                 ${escapeHtml(
-                  o.product_name ||
+                  order.product_name ||
                   "-"
                 )}
 
@@ -1476,7 +1475,7 @@ function renderOrders(){
               <td>
 
                 Rp${rupiah(
-                  o.amount
+                  order.amount
                 )}
 
               </td>
@@ -1485,12 +1484,11 @@ function renderOrders(){
               <td>
 
                 ${statusBadge(
-                  o.payment_status
+                  order.payment_status
                 )}
 
                 ${
-                  o.payment_method
-
+                  order.payment_method
                     ? `
 
                       <br>
@@ -1499,12 +1497,11 @@ function renderOrders(){
                         class="muted"
                       >
                         ${escapeHtml(
-                          o.payment_method
+                          order.payment_method
                         )}
                       </span>
 
                     `
-
                     : ""
                 }
 
@@ -1514,7 +1511,7 @@ function renderOrders(){
               <td>
 
                 ${statusBadge(
-                  o.access_status
+                  order.access_status
                 )}
 
               </td>
@@ -1523,7 +1520,7 @@ function renderOrders(){
               <td>
 
                 ${formatDate(
-                  o.paid_at
+                  order.paid_at
                 )}
 
               </td>
@@ -1534,7 +1531,6 @@ function renderOrders(){
                 ${resetButton}
 
               </td>
-
 
             </tr>
 
@@ -1550,13 +1546,13 @@ function renderOrders(){
       "[data-reset]"
     )
     .forEach(
-      btn => {
+      button => {
 
-        btn.addEventListener(
+        button.addEventListener(
           "click",
           () =>
             resetAccess(
-              btn.dataset.reset
+              button.dataset.reset
             )
         );
 
@@ -1566,21 +1562,25 @@ function renderOrders(){
 }
 
 
-/* =================================================
+/* =====================================================
    RESET ACCESS
-   ================================================= */
+   ===================================================== */
 
 async function resetAccess(
   orderCode
 ){
 
-  if(
-    !window.confirm(
+  const confirmed =
+    confirm(
       "Reset akses untuk " +
       orderCode +
       "?\n\n" +
-      "Token akan kembali menjadi UNUSED."
-    )
+      "Status akses akan kembali menjadi UNUSED."
+    );
+
+
+  if(
+    !confirmed
   ){
 
     return;
@@ -1616,15 +1616,15 @@ async function resetAccess(
       data.access_url
     ){
 
-      const openNow =
-        window.confirm(
+      const openLink =
+        confirm(
           "Reset berhasil.\n\n" +
           "Buka link akses sekarang?"
         );
 
 
       if(
-        openNow
+        openLink
       ){
 
         window.open(
@@ -1651,9 +1651,9 @@ async function resetAccess(
 }
 
 
-/* =================================================
+/* =====================================================
    LOGIN
-   ================================================= */
+   ===================================================== */
 
 $("loginBtn")
   .addEventListener(
@@ -1700,6 +1700,9 @@ $("loginBtn")
         await loadOrders();
 
 
+        await loadInviteSettings();
+
+
         $("loginCard")
           .classList
           .add(
@@ -1724,9 +1727,6 @@ $("loginBtn")
         hideMessage(
           $("loginMessage")
         );
-
-
-        await loadInviteSettings();
 
       }
 
@@ -1761,9 +1761,9 @@ $("loginBtn")
   );
 
 
-/* =================================================
+/* =====================================================
    LOGOUT
-   ================================================= */
+   ===================================================== */
 
 $("logoutBtn")
   .addEventListener(
@@ -1823,23 +1823,23 @@ $("logoutBtn")
   );
 
 
-/* =================================================
+/* =====================================================
    FILTER
-   ================================================= */
+   ===================================================== */
 
 document
   .querySelectorAll(
     ".filterBtn"
   )
   .forEach(
-    btn => {
+    button => {
 
-      btn.addEventListener(
+      button.addEventListener(
         "click",
         () => {
 
           currentFilter =
-            btn.dataset.filter;
+            button.dataset.filter;
 
 
           document
@@ -1847,15 +1847,15 @@ document
               ".filterBtn"
             )
             .forEach(
-              b =>
-                b.classList
+              item =>
+                item.classList
                   .remove(
                     "active"
                   )
             );
 
 
-          btn.classList
+          button.classList
             .add(
               "active"
             );
@@ -1870,9 +1870,9 @@ document
   );
 
 
-/* =================================================
+/* =====================================================
    SORT
-   ================================================= */
+   ===================================================== */
 
 $("sortOrder")
   .addEventListener(
@@ -1890,23 +1890,9 @@ $("sortOrder")
   );
 
 
-/* =================================================
-   BUTTONS
-   ================================================= */
-
-$("saveInviteBtn")
-  .addEventListener(
-    "click",
-    saveInviteSettings
-  );
-
-
-$("refreshBtn")
-  .addEventListener(
-    "click",
-    loadOrders
-  );
-
+/* =====================================================
+   SEARCH
+   ===================================================== */
 
 $("search")
   .addEventListener(
@@ -1915,13 +1901,39 @@ $("search")
   );
 
 
+/* =====================================================
+   BUTTON SAVE TEAM
+   ===================================================== */
+
+$("saveInviteBtn")
+  .addEventListener(
+    "click",
+    saveInviteSettings
+  );
+
+
+/* =====================================================
+   BUTTON REFRESH
+   ===================================================== */
+
+$("refreshBtn")
+  .addEventListener(
+    "click",
+    loadOrders
+  );
+
+
+/* =====================================================
+   ENTER LOGIN
+   ===================================================== */
+
 $("adminKey")
   .addEventListener(
     "keydown",
-    e => {
+    event => {
 
       if(
-        e.key ===
+        event.key ===
         "Enter"
       ){
 
@@ -1932,7 +1944,6 @@ $("adminKey")
 
     }
   );
-
 
 </script>
 
