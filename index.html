@@ -1,388 +1,765 @@
 <!doctype html>
 <html lang="id">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Canva Premium Store</title>
+<head>
+
+<meta charset="utf-8">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1"
+>
+
+<title>
+  Canva Premium Store
+</title>
+
 
 <style>
+
 *{
   box-sizing:border-box;
 }
 
+
 body{
+
   margin:0;
+
   background:#f7f7fb;
+
   color:#172033;
-  font-family:Arial,Helvetica,sans-serif;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
 }
+
 
 .container{
-  width:min(1050px,92%);
+
+  width:
+    min(1050px,92%);
+
   margin:0 auto;
+
 }
+
 
 header{
-  padding:28px 0 18px;
+
+  padding:
+    28px 0 18px;
+
 }
+
 
 .brand{
-  font-size:24px;
-  font-weight:800;
+
+  font-size:
+    24px;
+
+  font-weight:
+    800;
+
 }
+
 
 .hero{
-  padding:28px 0 16px;
+
+  padding:
+    28px 0 16px;
+
 }
+
 
 .hero h1{
-  font-size:42px;
-  line-height:1.08;
-  margin:0 0 12px;
+
+  font-size:
+    42px;
+
+  margin:
+    0 0 12px;
+
 }
+
 
 .hero p{
-  font-size:17px;
-  color:#697386;
-  line-height:1.6;
+
+  color:
+    #697386;
+
+  line-height:
+    1.6;
+
 }
+
 
 .grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
-  margin:28px 0;
+
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:
+    18px;
+
+  margin:
+    28px 0;
+
 }
+
 
 .card{
-  background:#fff;
-  border:1px solid #eceef3;
-  border-radius:20px;
-  padding:24px;
-  box-shadow:0 12px 40px rgba(0,0,0,.05);
+
+  background:
+    #fff;
+
+  border:
+    1px solid #eceef3;
+
+  border-radius:
+    20px;
+
+  padding:
+    24px;
+
+  box-shadow:
+    0 12px 40px rgba(0,0,0,.05);
+
 }
+
 
 .card h2{
-  margin:0 0 8px;
-  font-size:24px;
+
+  margin:
+    0 0 8px;
+
 }
+
 
 .price{
-  font-size:32px;
-  font-weight:800;
-  margin:16px 0;
+
+  font-size:
+    32px;
+
+  font-weight:
+    800;
+
+  margin:
+    16px 0;
+
 }
+
 
 button{
-  width:100%;
-  border:0;
-  border-radius:12px;
-  background:#7c3aed;
-  color:#fff;
-  padding:14px;
-  font-size:16px;
-  font-weight:700;
-  cursor:pointer;
+
+  width:
+    100%;
+
+  border:
+    0;
+
+  border-radius:
+    12px;
+
+  background:
+    #7c3aed;
+
+  color:
+    #fff;
+
+  padding:
+    14px;
+
+  font-size:
+    16px;
+
+  font-weight:
+    700;
+
+  cursor:
+    pointer;
+
 }
+
 
 button:hover{
-  background:#6d28d9;
+
+  background:
+    #6d28d9;
+
 }
+
 
 button:disabled{
-  background:#c7cad3;
-  cursor:not-allowed;
+
+  background:
+    #c7cad3;
+
 }
+
 
 .panel{
-  display:none;
-  background:#fff;
-  border-radius:20px;
-  padding:26px;
-  margin:22px 0 40px;
-  border:1px solid #eceef3;
+
+  display:
+    none;
+
+  background:
+    #fff;
+
+  border:
+    1px solid #eceef3;
+
+  border-radius:
+    20px;
+
+  padding:
+    26px;
+
+  margin:
+    22px 0 40px;
+
 }
+
 
 label{
-  display:block;
-  font-weight:700;
-  margin:14px 0 7px;
+
+  display:
+    block;
+
+  font-weight:
+    700;
+
+  margin:
+    14px 0 7px;
+
 }
+
 
 input{
-  width:100%;
-  padding:14px;
-  border:1px solid #d6dae3;
-  border-radius:11px;
-  font-size:15px;
-  outline:none;
+
+  width:
+    100%;
+
+  padding:
+    14px;
+
+  border:
+    1px solid #d6dae3;
+
+  border-radius:
+    11px;
+
+  font-size:
+    15px;
+
 }
 
-input:focus{
-  border-color:#7c3aed;
-  box-shadow:0 0 0 3px rgba(124,58,237,.08);
-}
-
-.summary,
-.orderbox,
-.testbox{
-  padding:14px;
-  border-radius:12px;
-  margin:16px 0;
-  line-height:1.7;
-}
 
 .summary{
-  background:#f6f5ff;
+
+  background:
+    #f6f5ff;
+
+  padding:
+    16px;
+
+  border-radius:
+    12px;
+
+  line-height:
+    1.8;
+
 }
+
 
 .orderbox{
-  background:#eef2ff;
+
+  background:
+    #eef2ff;
+
+  padding:
+    16px;
+
+  border-radius:
+    12px;
+
+  margin-top:
+    16px;
+
+  line-height:
+    1.8;
+
 }
 
-.testbox{
-  background:#fff7ed;
-  color:#9a3412;
+
+.note{
+
+  background:
+    #fff7ed;
+
+  color:
+    #9a3412;
+
+  padding:
+    15px;
+
+  border-radius:
+    12px;
+
+  margin-top:
+    16px;
+
+  line-height:
+    1.6;
+
 }
+
 
 .message{
-  display:none;
-  margin-top:16px;
-  padding:14px;
-  border-radius:12px;
-  line-height:1.5;
+
+  display:
+    none;
+
+  padding:
+    14px;
+
+  margin-top:
+    14px;
+
+  border-radius:
+    12px;
+
 }
+
 
 .message.ok{
-  background:#ecfdf5;
-  color:#065f46;
+
+  display:
+    block;
+
+  background:
+    #ecfdf5;
+
+  color:
+    #065f46;
+
 }
+
 
 .message.err{
-  background:#fff1f2;
-  color:#9f1239;
+
+  display:
+    block;
+
+  background:
+    #fff1f2;
+
+  color:
+    #9f1239;
+
 }
+
 
 .muted{
-  color:#667085;
+
+  color:
+    #667085;
+
 }
 
 
-/* ==================================================
-   RIWAYAT PEMBELIAN
-   ================================================== */
+/* =================================================
+   HISTORY
+   ================================================= */
 
 .history-panel{
-  display:block;
-  background:#fff;
-  border-radius:20px;
-  padding:26px;
-  margin:22px 0 40px;
-  border:1px solid #eceef3;
+
+  background:
+    #fff;
+
+  border:
+    1px solid #eceef3;
+
+  border-radius:
+    20px;
+
+  padding:
+    26px;
+
+  margin:
+    22px 0 40px;
+
 }
 
-.history-head{
-  display:flex;
-  justify-content:space-between;
-  gap:16px;
-  align-items:flex-end;
-  flex-wrap:wrap;
-}
 
 .history-form{
-  display:grid;
-  grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) auto;
-  gap:10px;
-  align-items:center;
-  margin-top:16px;
+
+  display:
+    grid;
+
+  grid-template-columns:
+    1fr auto 1fr auto;
+
+  gap:
+    10px;
+
+  align-items:
+    center;
+
 }
+
 
 .history-or{
-  color:#667085;
-  font-size:12px;
-  font-weight:800;
-  text-align:center;
-  min-width:34px;
+
+  font-size:
+    12px;
+
+  font-weight:
+    800;
+
+  color:
+    #667085;
+
 }
+
 
 .history-table-wrap{
-  overflow:auto;
-  margin-top:18px;
+
+  overflow:
+    auto;
+
+  margin-top:
+    18px;
+
 }
 
+
 .history-table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:980px;
+
+  width:
+    100%;
+
+  border-collapse:
+    collapse;
+
+  min-width:
+    1050px;
+
 }
+
 
 .history-table th,
 .history-table td{
-  padding:12px;
-  border-bottom:1px solid #edf0f4;
-  text-align:left;
-  font-size:13px;
+
+  padding:
+    12px;
+
+  border-bottom:
+    1px solid #edf0f4;
+
+  text-align:
+    left;
+
+  font-size:
+    13px;
+
 }
+
 
 .history-table th{
-  background:#fafafa;
-  color:#667085;
-  font-size:11px;
-  text-transform:uppercase;
+
+  background:
+    #fafafa;
+
+  color:
+    #667085;
+
+  font-size:
+    11px;
+
+  text-transform:
+    uppercase;
+
 }
+
 
 .status-badge{
-  display:inline-block;
-  padding:5px 9px;
-  border-radius:999px;
-  font-size:11px;
-  font-weight:800;
+
+  display:
+    inline-block;
+
+  padding:
+    5px 9px;
+
+  border-radius:
+    999px;
+
+  font-size:
+    11px;
+
+  font-weight:
+    800;
+
 }
+
 
 .status-paid{
-  background:#dcfce7;
-  color:#166534;
+
+  background:
+    #dcfce7;
+
+  color:
+    #166534;
+
 }
+
 
 .status-pending{
-  background:#fef3c7;
-  color:#92400e;
+
+  background:
+    #fef3c7;
+
+  color:
+    #92400e;
+
 }
 
-.status-expired,
-.status-cancelled,
-.status-denied{
-  background:#f3f4f6;
-  color:#374151;
+
+.status-expired{
+
+  background:
+    #f3f4f6;
+
+  color:
+    #374151;
+
 }
+
 
 .access-used{
-  background:#ede9fe;
-  color:#6d28d9;
+
+  background:
+    #ede9fe;
+
+  color:
+    #6d28d9;
+
 }
+
 
 .access-unused{
-  background:#e0f2fe;
-  color:#075985;
+
+  background:
+    #e0f2fe;
+
+  color:
+    #075985;
+
 }
+
 
 .history-action{
-  display:inline-block;
-  background:#7c3aed;
-  color:#fff;
-  padding:8px 11px;
-  border-radius:9px;
-  text-decoration:none;
-  font-weight:700;
-  font-size:12px;
-  white-space:nowrap;
+
+  display:
+    inline-block;
+
+  background:
+    #7c3aed;
+
+  color:
+    #fff;
+
+  padding:
+    8px 11px;
+
+  border-radius:
+    9px;
+
+  text-decoration:
+    none;
+
+  font-weight:
+    700;
+
+  font-size:
+    12px;
+
+  white-space:
+    nowrap;
+
 }
 
-.history-action:hover{
-  background:#6d28d9;
-}
 
 .history-action-disabled{
-  display:inline-block;
-  background:#eef0f4;
-  color:#667085;
-  padding:8px 11px;
-  border-radius:9px;
-  font-size:12px;
-  white-space:nowrap;
+
+  display:
+    inline-block;
+
+  background:
+    #eef0f4;
+
+  color:
+    #667085;
+
+  padding:
+    8px 11px;
+
+  border-radius:
+    9px;
+
+  font-size:
+    12px;
+
 }
 
-.history-note{
-  margin-top:12px;
-  font-size:12px;
-  color:#667085;
-  line-height:1.5;
-}
 
-
-/* ==================================================
-   HALAMAN AKSES
-   ================================================== */
+/* =================================================
+   ACCESS
+   ================================================= */
 
 .access-badge{
-  display:inline-block;
-  background:#ede9fe;
-  color:#6d28d9;
-  border-radius:999px;
-  padding:9px 16px;
-  font-weight:800;
-  margin-bottom:18px;
+
+  display:
+    inline-block;
+
+  background:
+    #ede9fe;
+
+  color:
+    #6d28d9;
+
+  padding:
+    9px 16px;
+
+  border-radius:
+    999px;
+
+  font-weight:
+    800;
+
+  margin-bottom:
+    18px;
+
 }
 
-#accessTitle{
-  font-size:38px;
-  margin:0 0 22px;
-}
 
 .access-warning{
-  background:#fff7ed;
-  color:#9a3412;
-  border-radius:16px;
-  padding:18px;
-  margin:18px 0 22px;
-  line-height:1.55;
+
+  background:
+    #fff7ed;
+
+  color:
+    #9a3412;
+
+  padding:
+    18px;
+
+  border-radius:
+    16px;
+
+  margin:
+    18px 0;
+
+  line-height:
+    1.6;
+
 }
 
-.access-error{
-  background:#fff1f2;
-  color:#9f1239;
-  border-radius:14px;
-  padding:16px;
-  line-height:1.5;
-  margin-top:16px;
+
+.access-info{
+
+  background:
+    #eff6ff;
+
+  color:
+    #1e40af;
+
+  padding:
+    15px;
+
+  border-radius:
+    12px;
+
+  margin:
+    16px 0;
+
+  line-height:
+    1.6;
+
 }
 
-#accessPanel button:disabled{
-  background:#c7cad3;
-  cursor:not-allowed;
+
+.whatsapp-btn{
+
+  display:
+    block;
+
+  width:
+    100%;
+
+  padding:
+    13px;
+
+  background:
+    #16a34a;
+
+  color:
+    #fff;
+
+  text-align:
+    center;
+
+  border-radius:
+    12px;
+
+  text-decoration:
+    none;
+
+  font-weight:
+    700;
+
+  margin-top:
+    12px;
+
 }
 
-
-/* ==================================================
-   RESPONSIVE
-   ================================================== */
 
 @media(max-width:760px){
 
   .grid{
-    grid-template-columns:1fr;
-  }
 
-  .hero h1{
-    font-size:34px;
+    grid-template-columns:
+      1fr;
+
   }
 
   .history-form{
-    grid-template-columns:1fr;
-  }
 
-  .history-or{
-    padding:2px 0;
-  }
+    grid-template-columns:
+      1fr;
 
-  .history-panel{
-    padding:20px;
   }
 
 }
+
 </style>
+
 </head>
 
 
 <body>
 
-<div class="container">
 
+<div
+  class="container"
+>
 
-<!-- =================================================
-     HEADER
-     ================================================= -->
 
 <header>
 
@@ -393,9 +770,9 @@ input:focus{
 </header>
 
 
-<!-- =================================================
+<!-- =====================================================
      TOKO
-     ================================================= -->
+     ===================================================== -->
 
 <section
   class="hero"
@@ -409,19 +786,20 @@ input:focus{
   <p>
 
     Pembayaran menggunakan
-    <strong>Midtrans Sandbox</strong>.
+    <strong>Midtrans</strong>.
 
-    Saat ini pembayaran masih dalam
-    mode pengujian.
+    Biaya layanan pembayaran
+    akan ditambahkan saat checkout
+    sesuai tarif Midtrans.
 
   </p>
 
 </section>
 
 
-<!-- =================================================
+<!-- =====================================================
      PRODUK
-     ================================================= -->
+     ===================================================== -->
 
 <section
   class="grid"
@@ -499,9 +877,9 @@ input:focus{
 </section>
 
 
-<!-- =================================================
+<!-- =====================================================
      CHECKOUT
-     ================================================= -->
+     ===================================================== -->
 
 <section
   class="panel"
@@ -519,7 +897,7 @@ input:focus{
   ></div>
 
 
-  <label for="name">
+  <label>
     Nama
   </label>
 
@@ -529,7 +907,7 @@ input:focus{
   >
 
 
-  <label for="email">
+  <label>
     Email Canva
   </label>
 
@@ -540,8 +918,27 @@ input:focus{
   >
 
 
+  <label>
+    Kode Voucher
+    <span
+      class="muted"
+      style="font-weight:400"
+    >
+      (opsional)
+    </span>
+  </label>
+
+
+  <input
+    id="voucherCode"
+    placeholder="Contoh: MYC1000"
+    style="text-transform:uppercase"
+  >
+
+
   <button
     id="payBtn"
+    style="margin-top:18px"
   >
     Bayar Sekarang
   </button>
@@ -560,59 +957,64 @@ input:focus{
   ></div>
 
 
-  <div class="testbox">
+  <div class="note">
 
     <strong>
-      Pembayaran:
+      Info pembayaran:
     </strong>
-
-    QRIS melalui Midtrans.
 
     <br>
 
-    Setelah pembayaran berhasil,
-    sistem otomatis memproses akses Canva.
+    Harga produk tetap ditampilkan
+    sesuai harga paket.
+
+    <br>
+
+    Jika voucher digunakan,
+    potongan harga diterapkan terlebih dahulu.
+
+    <br>
+
+    Biaya pembayaran Midtrans
+    kemudian ditambahkan pada proses
+    pembayaran QRIS.
 
   </div>
 
 </section>
 
 
-<!-- =================================================
-     RIWAYAT PEMBELIAN
-     ================================================= -->
+<!-- =====================================================
+     HISTORY
+     ===================================================== -->
 
 <section
   class="history-panel"
   id="historyPanel"
 >
 
-  <div class="history-head">
+  <h2>
+    Riwayat Pembelian
+  </h2>
 
-    <div>
 
-      <h2>
-        Riwayat Pembelian
-      </h2>
+  <p
+    class="muted"
+    style="font-size:13px"
+  >
 
-      <div class="history-note">
+    Masukkan
+    <strong>
+      email pembelian
+    </strong>
 
-        Masukkan
-        <strong>
-          email pembelian
-        </strong>
+    ATAU
 
-        ATAU
+    <strong>
+      kode pembelian
+    </strong>.
 
-        <strong>
-          kode pembelian
-        </strong>.
-
-      </div>
-
-    </div>
-
-  </div>
+  </p>
 
 
   <div class="history-form">
@@ -631,7 +1033,7 @@ input:focus{
 
     <input
       id="historyOrderCode"
-      placeholder="Contoh: MYC-20260820030150-5F222C"
+      placeholder="Contoh: MYC-20260821000123-ABC123"
     >
 
 
@@ -652,7 +1054,9 @@ input:focus{
 
   <div class="history-table-wrap">
 
-    <table class="history-table">
+    <table
+      class="history-table"
+    >
 
       <thead>
 
@@ -695,7 +1099,9 @@ input:focus{
       </thead>
 
 
-      <tbody id="historyBody">
+      <tbody
+        id="historyBody"
+      >
 
         <tr>
 
@@ -721,9 +1127,9 @@ input:focus{
 </section>
 
 
-<!-- =================================================
-     HALAMAN AKSES
-     ================================================= -->
+<!-- =====================================================
+     ACCESS
+     ===================================================== -->
 
 <section
   class="panel"
@@ -751,6 +1157,27 @@ input:focus{
   ></div>
 
 
+  <!-- ===============================================
+       PERINGATAN SIMPAN ORDER/EMAIL
+       =============================================== -->
+
+  <div
+    class="access-info"
+  >
+
+    <strong>
+      Penting:
+    </strong>
+
+    <br>
+
+    Simpan kode order dan email pembelian
+    Anda untuk mengecek pesanan melalui
+    menu Riwayat Pembelian.
+
+  </div>
+
+
   <div
     class="access-warning"
     id="accessWarning"
@@ -762,19 +1189,19 @@ input:focus{
 
     <br>
 
-    Pastikan Anda sudah login Canva
-    dengan akun yang sesuai dengan
-    email pembelian.
+    Pastikan Anda login Canva
+    menggunakan akun yang sesuai
+    dengan email pembelian.
 
     <br>
     <br>
 
-    Setelah
+    Setelah tombol
     <strong>
       Lanjut ke Canva
     </strong>
     ditekan, akses akan dikunci
-    sebagai <strong>USED</strong>.
+    sebagai USED.
 
   </div>
 
@@ -786,9 +1213,23 @@ input:focus{
   </button>
 
 
+  <!-- ===============================================
+       WHATSAPP RESET EMAIL
+       =============================================== -->
+
+  <a
+    class="whatsapp-btn"
+    id="changeEmailBtn"
+    href="#"
+    target="_blank"
+  >
+    Ajukan Penggantian Email ke Admin
+  </a>
+
+
   <div
-    class="message"
     id="accessMessage"
+    class="message"
   ></div>
 
 </section>
@@ -797,19 +1238,15 @@ input:focus{
 </div>
 
 
-<!-- =================================================
-     MIDTRANS SNAP
-     ================================================= -->
+<!-- =====================================================
+     MIDTRANS
+     ===================================================== -->
 
 <script
   src="https://app.sandbox.midtrans.com/snap/snap.js"
-  data-client-key="Mid-client-0b04AvipKr4ASqQw"
+  data-client-key="Mid-client-0b04AvipKr4ASQqQw"
 ></script>
 
-
-<!-- =================================================
-     SUPABASE
-     ================================================= -->
 
 <script
   src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
@@ -818,9 +1255,10 @@ input:focus{
 
 <script>
 
-/* ==================================================
-   KONFIGURASI
-   ================================================== */
+
+/* =====================================================
+   CONFIG
+   ===================================================== */
 
 const SUPABASE_URL =
   "https://yxybbsbjvtkpwcazairg.supabase.co";
@@ -857,13 +1295,14 @@ const supabaseClient =
   );
 
 
-/* ==================================================
-   PRODUK
-   ================================================== */
+let selectedCode =
+  null;
+
 
 const products = {
 
   "1":{
+
     name:
       "Canva 1 Bulan",
 
@@ -872,10 +1311,12 @@ const products = {
 
     price:
       3000
+
   },
 
 
   "2":{
+
     name:
       "Canva 2 Bulan",
 
@@ -884,10 +1325,12 @@ const products = {
 
     price:
       6000
+
   },
 
 
   "3":{
+
     name:
       "Canva 3 Bulan",
 
@@ -896,52 +1339,63 @@ const products = {
 
     price:
       8500
+
   }
 
 };
 
 
-let selectedCode =
-  null;
-
-
-/* ==================================================
+/* =====================================================
    HELPERS
-   ================================================== */
+   ===================================================== */
 
-const fmt =
-  number =>
-    new Intl.NumberFormat(
+function fmt(
+  value
+){
+
+  return new Intl
+    .NumberFormat(
       "id-ID"
-    ).format(
-      number
+    )
+    .format(
+      Number(
+        value || 0
+      )
     );
 
+}
 
-const esc =
-  value =>
-    String(
-      value ?? ""
-    ).replace(
-      /[&<>"']/g,
-      character => ({
-        "&":
-          "&amp;",
 
-        "<":
-          "&lt;",
+function esc(
+  value
+){
 
-        ">":
-          "&gt;",
+  return String(
+    value ??
+    ""
+  ).replace(
+    /[&<>"']/g,
+    char => ({
 
-        '"':
-          "&quot;",
+      "&":
+        "&amp;",
 
-        "'":
-          "&#039;"
+      "<":
+        "&lt;",
 
-      }[character])
-    );
+      ">":
+        "&gt;",
+
+      '"':
+        "&quot;",
+
+      "'":
+        "&#039;"
+
+    }[char])
+  );
+
+}
 
 
 function show(
@@ -999,27 +1453,9 @@ function showMessage(
 }
 
 
-function hideMessage(
-  element
-){
-
-  element.className =
-    "message";
-
-
-  element.textContent =
-    "";
-
-
-  element.style.display =
-    "none";
-
-}
-
-
-/* ==================================================
-   HISTORY PAYMENT BADGE
-   ================================================== */
+/* =====================================================
+   HISTORY BADGES
+   ===================================================== */
 
 function historyStatusBadge(
   value
@@ -1027,7 +1463,8 @@ function historyStatusBadge(
 
   const status =
     String(
-      value || ""
+      value ||
+      ""
     ).toUpperCase();
 
 
@@ -1038,59 +1475,22 @@ function historyStatusBadge(
   if(
     status ===
     "PAID"
-  ){
-
+  )
     className +=
       "status-paid";
 
-  }
 
   else if(
     status ===
     "PENDING"
-  ){
-
+  )
     className +=
       "status-pending";
 
-  }
 
-  else if(
-    status ===
-    "EXPIRED"
-  ){
-
+  else
     className +=
       "status-expired";
-
-  }
-
-  else if(
-    status ===
-    "CANCELLED"
-  ){
-
-    className +=
-      "status-cancelled";
-
-  }
-
-  else if(
-    status ===
-    "DENIED"
-  ){
-
-    className +=
-      "status-denied";
-
-  }
-
-  else{
-
-    className +=
-      "status-expired";
-
-  }
 
 
   return `
@@ -1109,33 +1509,25 @@ function historyStatusBadge(
 }
 
 
-/* ==================================================
-   HISTORY ACCESS BADGE
-   ================================================== */
-
 function historyAccessBadge(
   value
 ){
 
   const status =
     String(
-      value || ""
+      value ||
+      ""
     ).toUpperCase();
-
-
-  const className =
-    status ===
-      "USED"
-
-      ? "access-used"
-
-      : "access-unused";
 
 
   return `
 
     <span
-      class="status-badge ${className}"
+      class="status-badge ${
+        status === "USED"
+          ? "access-used"
+          : "access-unused"
+      }"
     >
       ${esc(
         status ||
@@ -1148,9 +1540,9 @@ function historyAccessBadge(
 }
 
 
-/* ==================================================
-   RIWAYAT PEMBELIAN
-   ================================================== */
+/* =====================================================
+   HISTORY
+   ===================================================== */
 
 async function loadPurchaseHistory(){
 
@@ -1186,15 +1578,11 @@ async function loadPurchaseHistory(){
     );
 
 
-  const tableBody =
+  const body =
     document.getElementById(
       "historyBody"
     );
 
-
-  /* ----------------------------------------------
-     WAJIB SALAH SATU
-     ---------------------------------------------- */
 
   if(
     !email &&
@@ -1219,7 +1607,7 @@ async function loadPurchaseHistory(){
 
     showMessage(
       message,
-      "Gunakan salah satu saja: email pembelian ATAU kode pembelian.",
+      "Gunakan salah satu saja.",
       false
     );
 
@@ -1231,30 +1619,8 @@ async function loadPurchaseHistory(){
   button.disabled =
     true;
 
-
   button.textContent =
     "Mencari...";
-
-
-  hideMessage(
-    message
-  );
-
-
-  tableBody.innerHTML = `
-
-    <tr>
-
-      <td
-        colspan="8"
-        class="muted"
-      >
-        Mengambil riwayat...
-      </td>
-
-    </tr>
-
-  `;
 
 
   try{
@@ -1330,7 +1696,7 @@ async function loadPurchaseHistory(){
       !rows.length
     ){
 
-      tableBody.innerHTML = `
+      body.innerHTML = `
 
         <tr>
 
@@ -1350,23 +1716,19 @@ async function loadPurchaseHistory(){
     }
 
 
-    /* ----------------------------------------------
-       RENDER HISTORY
-       ---------------------------------------------- */
-
-    tableBody.innerHTML =
+    body.innerHTML =
       rows
         .map(
           order => {
 
-            const paymentStatus =
+            const payment =
               String(
                 order.payment_status ||
                 ""
               ).toUpperCase();
 
 
-            const accessStatus =
+            const access =
               String(
                 order.access_status ||
                 ""
@@ -1377,13 +1739,11 @@ async function loadPurchaseHistory(){
               `<span class="muted">-</span>`;
 
 
-            /* PAID + UNUSED */
-
             if(
-              paymentStatus ===
+              payment ===
                 "PAID" &&
 
-              accessStatus ===
+              access ===
                 "UNUSED" &&
 
               order.access_url
@@ -1405,13 +1765,11 @@ async function loadPurchaseHistory(){
             }
 
 
-            /* USED */
-
             else if(
-              paymentStatus ===
+              payment ===
                 "PAID" &&
 
-              accessStatus ===
+              access ===
                 "USED"
             ){
 
@@ -1428,10 +1786,8 @@ async function loadPurchaseHistory(){
             }
 
 
-            /* PENDING */
-
             else if(
-              paymentStatus ===
+              payment ===
                 "PENDING"
             ){
 
@@ -1448,39 +1804,11 @@ async function loadPurchaseHistory(){
             }
 
 
-            /* EXPIRED */
-
-            else if(
-              paymentStatus ===
-                "EXPIRED" ||
-
-              paymentStatus ===
-                "CANCELLED" ||
-
-              paymentStatus ===
-                "DENIED"
-            ){
-
-              action = `
-
-                <span
-                  class="history-action-disabled"
-                >
-                  Tidak tersedia
-                </span>
-
-              `;
-
-            }
-
-
             const team =
               order.canva_team_name
-
                 ? esc(
                     order.canva_team_name
                   )
-
                 : `
 
                   <span
@@ -1495,22 +1823,18 @@ async function loadPurchaseHistory(){
             const date =
               order.paid_at
 
-                ? esc(
-                    new Date(
-                      order.paid_at
-                    )
-                    .toLocaleString(
-                      "id-ID"
-                    )
+                ? new Date(
+                    order.paid_at
+                  )
+                  .toLocaleString(
+                    "id-ID"
                   )
 
-                : esc(
-                    new Date(
-                      order.created_at
-                    )
-                    .toLocaleString(
-                      "id-ID"
-                    )
+                : new Date(
+                    order.created_at
+                  )
+                  .toLocaleString(
+                    "id-ID"
                   );
 
 
@@ -1532,8 +1856,7 @@ async function loadPurchaseHistory(){
                     class="muted"
                   >
                     ${esc(
-                      order.customer_email ||
-                      ""
+                      order.customer_email
                     )}
                   </span>
 
@@ -1541,21 +1864,17 @@ async function loadPurchaseHistory(){
 
 
                 <td>
-
                   ${esc(
                     order.product_name ||
                     "-"
                   )}
-
                 </td>
 
 
                 <td>
-
                   Rp${fmt(
                     order.amount
                   )}
-
                 </td>
 
 
@@ -1583,6 +1902,7 @@ async function loadPurchaseHistory(){
                       `
 
                       : ""
+
                   }
 
                 </td>
@@ -1606,7 +1926,9 @@ async function loadPurchaseHistory(){
 
                 <td>
 
-                  ${date}
+                  ${esc(
+                    date
+                  )}
 
                 </td>
 
@@ -1636,22 +1958,6 @@ async function loadPurchaseHistory(){
 
   catch(error){
 
-    tableBody.innerHTML = `
-
-      <tr>
-
-        <td
-          colspan="8"
-          class="muted"
-        >
-          Tidak dapat mengambil riwayat.
-        </td>
-
-      </tr>
-
-    `;
-
-
     showMessage(
       message,
       error.message,
@@ -1665,7 +1971,6 @@ async function loadPurchaseHistory(){
     button.disabled =
       false;
 
-
     button.textContent =
       "Cek Riwayat";
 
@@ -1673,10 +1978,6 @@ async function loadPurchaseHistory(){
 
 }
 
-
-/* ==================================================
-   HISTORY EVENTS
-   ================================================== */
 
 document
   .getElementById(
@@ -1696,9 +1997,7 @@ document
   id => {
 
     document
-      .getElementById(
-        id
-      )
+      .getElementById(id)
       .addEventListener(
         "keydown",
         event => {
@@ -1719,9 +2018,9 @@ document
 );
 
 
-/* ==================================================
-   PILIH PAKET
-   ================================================== */
+/* =====================================================
+   PILIH PRODUK
+   ===================================================== */
 
 document
   .querySelectorAll(
@@ -1755,18 +2054,23 @@ document
 
               <br>
 
+              Harga:
+              <strong>
+                Rp${fmt(
+                  product.price
+                )}
+              </strong>
+
+              <br>
+
               Durasi:
               ${product.months}
               bulan
 
               <br>
 
-              Total:
-              <strong>
-                Rp${fmt(
-                  product.price
-                )}
-              </strong>
+              Voucher:
+              opsional
 
             `;
 
@@ -1792,9 +2096,9 @@ document
   );
 
 
-/* ==================================================
-   PAYMENT
-   ================================================== */
+/* =====================================================
+   BAYAR
+   ===================================================== */
 
 document
   .getElementById(
@@ -1821,7 +2125,17 @@ document
         .trim();
 
 
-    const payButton =
+    const voucherCode =
+      document
+        .getElementById(
+          "voucherCode"
+        )
+        .value
+        .trim()
+        .toUpperCase();
+
+
+    const button =
       document.getElementById(
         "payBtn"
       );
@@ -1867,11 +2181,11 @@ document
     }
 
 
-    payButton.disabled =
+    button.disabled =
       true;
 
 
-    payButton.textContent =
+    button.textContent =
       "Membuat pembayaran...";
 
 
@@ -1909,7 +2223,11 @@ document
                   name,
 
                 customer_email:
-                  email
+                  email,
+
+                voucher_code:
+                  voucherCode ||
+                  undefined
 
               })
 
@@ -1961,24 +2279,42 @@ document
 
           <br>
 
-          <strong>
-            Total:
-          </strong>
-
+          Harga:
           Rp${fmt(
             data.amount
           )}
 
           <br>
 
+          ${
+            data.discount_amount
+
+              ? `
+
+                Diskon voucher:
+                -Rp${fmt(
+                  data.discount_amount
+                )}
+
+                <br>
+
+              `
+
+              : ""
+
+          }
+
+          Harga setelah voucher:
           <strong>
-            Status:
+            Rp${fmt(
+              data.final_amount
+            )}
           </strong>
 
-          ${esc(
-            data.status ||
-            "PENDING"
-          )}
+          <br>
+
+          Biaya pembayaran Midtrans
+          akan ditambahkan pada Snap.
 
         `;
 
@@ -1999,8 +2335,7 @@ document
           Pesanan berhasil dibuat.
         </strong>
         <br>
-        Jendela pembayaran
-        Midtrans akan dibuka.`,
+        Jendela pembayaran Midtrans akan dibuka.`,
         true
       );
 
@@ -2009,8 +2344,6 @@ document
         data.snap_token,
         {
 
-          /* SUCCESS */
-
           onSuccess:
             async function(){
 
@@ -2018,9 +2351,7 @@ document
                 `<strong>
                   Pembayaran berhasil!
                 </strong>
-
                 <br>
-
                 Sistem sedang memproses
                 akses Canva...`,
                 true
@@ -2035,8 +2366,6 @@ document
             },
 
 
-          /* PENDING */
-
           onPending:
             function(){
 
@@ -2044,9 +2373,7 @@ document
                 `<strong>
                   Pembayaran belum selesai.
                 </strong>
-
                 <br>
-
                 Silakan selesaikan
                 pembayaran QRIS.`,
                 false
@@ -2055,8 +2382,6 @@ document
             },
 
 
-          /* ERROR */
-
           onError:
             function(){
 
@@ -2064,9 +2389,7 @@ document
                 `<strong>
                   Pembayaran gagal.
                 </strong>
-
                 <br>
-
                 Silakan coba lagi.`,
                 false
               );
@@ -2074,14 +2397,11 @@ document
             },
 
 
-          /* CLOSE */
-
           onClose:
             function(){
 
               show(
-                `Jendela pembayaran
-                ditutup.`,
+                "Jendela pembayaran ditutup.",
                 false
               );
 
@@ -2103,11 +2423,11 @@ document
 
     finally{
 
-      payButton.disabled =
+      button.disabled =
         false;
 
 
-      payButton.textContent =
+      button.textContent =
         "Bayar Sekarang";
 
     }
@@ -2115,9 +2435,9 @@ document
   };
 
 
-/* ==================================================
-   MENUNGGU WEBHOOK
-   ================================================== */
+/* =====================================================
+   WAIT FOR PAYMENT
+   ===================================================== */
 
 async function waitForAccess(
   orderCode,
@@ -2134,8 +2454,7 @@ async function waitForAccess(
 
   for(
     let attempt = 1;
-    attempt <=
-      maxAttempts;
+    attempt <= maxAttempts;
     attempt++
   ){
 
@@ -2186,13 +2505,6 @@ async function waitForAccess(
           );
 
 
-      console.log(
-        "ACCESS CHECK",
-        attempt,
-        data
-      );
-
-
       if(
         data.status ===
         "READY"
@@ -2200,51 +2512,11 @@ async function waitForAccess(
 
         show(
           `<strong>
-            Pembayaran berhasil! 🎉
+            Pembayaran berhasil!
           </strong>
-
           <br>
-
-          Akses Canva Anda sudah siap.
-
-          <br>
-          <br>
-
-          <a
-            href="${esc(
-              data.access_url
-            )}"
-            style="
-              display:inline-block;
-              background:#7c3aed;
-              color:#fff;
-              padding:12px 18px;
-              border-radius:10px;
-              text-decoration:none;
-              font-weight:700;
-            "
-          >
-            Buka Akses Canva
-          </a>`,
+          Akses Canva sudah siap.`,
           true
-        );
-
-
-        return;
-
-      }
-
-
-      if(
-        data.status ===
-        "USED"
-      ){
-
-        show(
-          `<strong>
-            Akses sudah digunakan.
-          </strong>`,
-          false
         );
 
 
@@ -2259,13 +2531,7 @@ async function waitForAccess(
       ){
 
         show(
-          `<strong>
-            Pembayaran berhasil.
-          </strong>
-
-          <br>
-
-          Akses sedang dibuat otomatis...`,
+          "Pembayaran berhasil. Akses sedang diproses...",
           true
         );
 
@@ -2276,7 +2542,6 @@ async function waitForAccess(
     catch(error){
 
       console.error(
-        "GET ACCESS ERROR:",
         error
       );
 
@@ -2298,22 +2563,17 @@ async function waitForAccess(
     `<strong>
       Pembayaran sudah dilakukan.
     </strong>
-
     <br>
-
-    Akses masih sedang diproses.
-
-    Silakan cek riwayat pembelian
-    beberapa saat lagi.`,
+    Silakan cek Riwayat Pembelian beberapa saat lagi.`,
     true
   );
 
 }
 
 
-/* ==================================================
+/* =====================================================
    ACCESS TOKEN
-   ================================================== */
+   ===================================================== */
 
 const accessToken =
   new URLSearchParams(
@@ -2323,9 +2583,28 @@ const accessToken =
   );
 
 
-/* ==================================================
-   HALAMAN AKSES
-   ================================================== */
+/* =====================================================
+   WHATSAPP
+   ===================================================== */
+
+const whatsappMessage =
+  "halo min. ingin meminta bantuan mereset akses canva, dikarenakan salah penggunaan email";
+
+
+document
+  .getElementById(
+    "changeEmailBtn"
+  )
+  .href =
+    "https://wa.me/6285707486749?text=" +
+    encodeURIComponent(
+      whatsappMessage
+    );
+
+
+/* =====================================================
+   ACCESS PAGE
+   ===================================================== */
 
 async function loadAccessPage(){
 
@@ -2340,14 +2619,11 @@ async function loadAccessPage(){
       .style.display =
       "none";
 
+
     return;
 
   }
 
-
-  /* -----------------------------------------------
-     TOKEN ADA
-     ----------------------------------------------- */
 
   document
     .getElementById(
@@ -2373,8 +2649,6 @@ async function loadAccessPage(){
     "none";
 
 
-  /* Hide history on access page */
-
   document
     .getElementById(
       "historyPanel"
@@ -2393,13 +2667,13 @@ async function loadAccessPage(){
     "block";
 
 
-  const information =
+  const info =
     document.getElementById(
       "accessInfo"
     );
 
 
-  information.innerHTML =
+  info.innerHTML =
     "Memeriksa akses...";
 
 
@@ -2457,19 +2731,13 @@ async function loadAccessPage(){
 
     const orderCode =
       row.order_code ||
-      row.order ||
       "-";
 
 
     const email =
       row.customer_email ||
-      row.email ||
       "-";
 
-
-    /* -----------------------------------------
-       USED
-       ----------------------------------------- */
 
     if(
       status ===
@@ -2487,16 +2755,12 @@ async function loadAccessPage(){
     }
 
 
-    /* -----------------------------------------
-       UNUSED
-       ----------------------------------------- */
-
     if(
       status ===
       "UNUSED"
     ){
 
-      information.innerHTML = `
+      info.innerHTML = `
 
         <strong>
           Order:
@@ -2519,14 +2783,6 @@ async function loadAccessPage(){
       `;
 
 
-      document
-        .getElementById(
-          "continueCanvaBtn"
-        )
-        .style.display =
-        "block";
-
-
       return;
 
     }
@@ -2542,13 +2798,8 @@ async function loadAccessPage(){
   catch(error){
 
     console.error(
-      "ACCESS CHECK ERROR:",
       error
     );
-
-
-    panel.style.display =
-      "block";
 
 
     document
@@ -2567,22 +2818,14 @@ async function loadAccessPage(){
       "AKSES TIDAK VALID";
 
 
-    information.innerHTML = `
+    info.innerHTML = `
 
       <div
-        class="access-error"
+        class="access-info"
       >
 
-        <strong>
-          Token akses tidak valid
-          atau sudah tidak tersedia.
-        </strong>
-
-        <br>
-
-        Silakan hubungi admin
-        jika Anda merasa
-        ini adalah kesalahan.
+        Token akses tidak valid
+        atau sudah tidak tersedia.
 
       </div>
 
@@ -2609,9 +2852,9 @@ async function loadAccessPage(){
 }
 
 
-/* ==================================================
-   ACCESS USED
-   ================================================== */
+/* =====================================================
+   USED PAGE
+   ===================================================== */
 
 function showAccessUsed(
   orderCode,
@@ -2665,19 +2908,11 @@ function showAccessUsed(
     .getElementById(
       "accessWarning"
     )
-    .style.display =
-    "block";
-
-
-  document
-    .getElementById(
-      "accessWarning"
-    )
     .innerHTML = `
 
       Jika Anda salah akun Canva,
-      ajukan reset.
-      Tidak perlu membayar ulang.
+      silakan ajukan penggantian email
+      kepada admin.
 
     `;
 
@@ -2710,21 +2945,15 @@ function showAccessUsed(
     "block";
 
 
-  message.innerHTML = `
-
-    Token ini sudah digunakan.
-
-    Jika akun Canva yang digunakan salah,
-    hubungi admin untuk proses reset.
-
-  `;
+  message.textContent =
+    "Token ini sudah digunakan.";
 
 }
 
 
-/* ==================================================
+/* =====================================================
    CONSUME ACCESS
-   ================================================== */
+   ===================================================== */
 
 document
   .getElementById(
@@ -2821,19 +3050,11 @@ document
       ){
 
         throw new Error(
-          "Link Canva tidak diterima dari server."
+          "Link Canva tidak diterima."
         );
 
       }
 
-
-      /*
-        consume-access sudah:
-        1. memverifikasi pembayaran
-        2. mengunci token USED
-        3. menyimpan nama tim Canva
-        4. mengembalikan link tim aktif
-      */
 
       window.location.href =
         accessUrl;
@@ -2841,12 +3062,6 @@ document
     }
 
     catch(error){
-
-      console.error(
-        "CONSUME ACCESS ERROR:",
-        error
-      );
-
 
       button.disabled =
         false;
@@ -2864,19 +3079,17 @@ document
         "block";
 
 
-      message.innerHTML =
-        esc(
-          error.message
-        );
+      message.textContent =
+        error.message;
 
     }
 
   };
 
 
-/* ==================================================
-   RUN ACCESS CHECK
-   ================================================== */
+/* =====================================================
+   START
+   ===================================================== */
 
 loadAccessPage();
 
