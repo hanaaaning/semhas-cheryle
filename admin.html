@@ -43,6 +43,10 @@ td{font-size:13px}
 .badge.unused{background:#e0f2fe;color:#075985}
 .badge.other{background:#f3f4f6;color:#374151}
 .small-btn{padding:8px 10px;font-size:12px}
+.filterBtn{background:#e5e7eb;color:#374151}
+.filterBtn:hover{background:#d1d5db}
+.filterBtn.active{background:#7c3aed;color:#fff}
+
 .top-note{padding:12px 14px;border-radius:10px;background:#fff7ed;color:#9a3412;margin-bottom:14px;font-size:13px}
 .hidden{display:none!important}
 code{background:#f3f4f6;border-radius:5px;padding:2px 5px}
@@ -79,8 +83,19 @@ code{background:#f3f4f6;border-radius:5px;padding:2px 5px}
   <div class="toolbar">
     <div class="actions">
       <button id="refreshBtn">Refresh Pesanan</button>
+      <button class="secondary filterBtn active" data-filter="ALL">Semua</button>
+      <button class="secondary filterBtn" data-filter="PAID">PAID</button>
+      <button class="secondary filterBtn" data-filter="PENDING">PENDING</button>
+      <button class="secondary filterBtn" data-filter="EXPIRED">EXPIRED</button>
     </div>
-    <input id="search" class="search" placeholder="Cari order, nama, atau email...">
+
+    <div class="actions" style="flex:1;justify-content:flex-end">
+      <select id="sortOrder" style="padding:12px;border:1px solid #d7dbe4;border-radius:10px;font-size:14px;background:#fff">
+        <option value="newest">Terbaru</option>
+        <option value="oldest">Terlama</option>
+      </select>
+      <input id="search" class="search" placeholder="Cari order, nama, atau email...">
+    </div>
   </div>
 
   <div id="appMessage" class="message"></div>
@@ -113,6 +128,8 @@ const ADMIN_API_URL=SUPABASE_URL+"/functions/v1/admin-api";
 
 let adminKey="";
 let orders=[];
+let currentFilter="ALL";
+let currentSort="newest";
 
 const $=id=>document.getElementById(id);
 
@@ -188,12 +205,32 @@ async function loadOrders(){
 function renderOrders(){
   const q=$("search").value.trim().toLowerCase();
 
-  const filtered=orders.filter(o=>{
+  let filtered=orders.filter(o=>{
+    const paymentStatus=String(o.payment_status||"").toUpperCase();
+
+    const matchesFilter =
+      currentFilter==="ALL" ||
+      paymentStatus===currentFilter;
+
     const hay=[
-      o.order_code,o.customer_name,o.customer_email,
-      o.product_name,o.payment_status,o.access_status
+      o.order_code,
+      o.customer_name,
+      o.customer_email,
+      o.product_name,
+      o.payment_status,
+      o.access_status
     ].join(" ").toLowerCase();
-    return hay.includes(q);
+
+    return matchesFilter && hay.includes(q);
+  });
+
+  filtered.sort((a,b)=>{
+    const da = new Date(a.created_at || 0).getTime();
+    const db = new Date(b.created_at || 0).getTime();
+
+    return currentSort==="newest"
+      ? db-da
+      : da-db;
   });
 
   if(!filtered.length){
@@ -204,6 +241,7 @@ function renderOrders(){
   $("ordersBody").innerHTML=filtered.map(o=>{
     const paid=String(o.payment_status||"").toUpperCase()==="PAID";
     const used=String(o.access_status||"").toUpperCase()==="USED";
+
     const resetButton=(paid&&used)
       ? `<button class="danger small-btn" data-reset="${escapeHtml(o.order_code)}">RESET AKSES</button>`
       : `<span class="muted">-</span>`;
@@ -282,6 +320,24 @@ $("logoutBtn").addEventListener("click",()=>{
   $("loginCard").classList.remove("hidden");
   $("logoutBtn").classList.add("hidden");
   $("ordersBody").innerHTML='<tr><td colspan="8" class="muted">Belum ada data.</td></tr>';
+});
+
+
+document.querySelectorAll(".filterBtn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    currentFilter=btn.dataset.filter;
+
+    document.querySelectorAll(".filterBtn")
+      .forEach(b=>b.classList.remove("active"));
+
+    btn.classList.add("active");
+    renderOrders();
+  });
+});
+
+$("sortOrder").addEventListener("change",()=>{
+  currentSort=$("sortOrder").value;
+  renderOrders();
 });
 
 $("refreshBtn").addEventListener("click",loadOrders);
