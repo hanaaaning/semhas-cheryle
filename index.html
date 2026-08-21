@@ -16,8 +16,16 @@ Canva Premium Store
 
 <style>
 
+/* =====================================================
+   GLOBAL
+   ===================================================== */
+
 *{
   box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
 }
 
 body{
@@ -36,6 +44,11 @@ body.modal-open{
   margin:0 auto;
 }
 
+
+/* =====================================================
+   HEADER
+   ===================================================== */
+
 header{
   padding:28px 0 18px;
 }
@@ -44,6 +57,11 @@ header{
   font-size:24px;
   font-weight:800;
 }
+
+
+/* =====================================================
+   HERO
+   ===================================================== */
 
 .hero{
   padding:28px 0 16px;
@@ -59,6 +77,11 @@ header{
   color:#667085;
   line-height:1.6;
 }
+
+
+/* =====================================================
+   PRODUCT
+   ===================================================== */
 
 .grid{
   display:grid;
@@ -85,6 +108,11 @@ header{
   margin:16px 0;
 }
 
+
+/* =====================================================
+   BUTTON GLOBAL
+   ===================================================== */
+
 button{
   width:100%;
   border:0;
@@ -106,6 +134,11 @@ button:disabled{
   cursor:not-allowed;
 }
 
+
+/* =====================================================
+   INPUT
+   ===================================================== */
+
 input{
   width:100%;
   padding:13px;
@@ -113,6 +146,7 @@ input{
   border-radius:11px;
   font-size:14px;
   outline:none;
+  background:#fff;
 }
 
 input:focus{
@@ -132,7 +166,7 @@ label{
 
 
 /* =====================================================
-   MODAL OVERLAY
+   CHECKOUT MODAL OVERLAY
    ===================================================== */
 
 .checkout-overlay{
@@ -147,13 +181,10 @@ label{
 
   padding:20px;
 
-  background:rgba(15,23,42,.48);
+  background:rgba(15,23,42,.52);
 
-  backdrop-filter:
-    blur(8px);
-
-  -webkit-backdrop-filter:
-    blur(8px);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
 }
 
 .checkout-overlay.show{
@@ -162,7 +193,7 @@ label{
 
 
 /* =====================================================
-   MODAL
+   CHECKOUT MODAL
    ===================================================== */
 
 .checkout-modal{
@@ -181,7 +212,6 @@ label{
 
   animation:
     modalIn .18s ease-out;
-
 }
 
 @keyframes modalIn{
@@ -198,19 +228,20 @@ label{
 
 }
 
+
+/* =====================================================
+   CHECKOUT HEADER
+   ===================================================== */
+
 .checkout-header{
-
   display:flex;
-
   justify-content:space-between;
-
   align-items:center;
 
   padding:20px 22px;
 
   border-bottom:
     1px solid #edf0f4;
-
 }
 
 .checkout-title{
@@ -219,19 +250,33 @@ label{
 }
 
 .close-modal{
-  width:38px;
+  width:38px !important;
   min-width:38px;
+  max-width:38px;
   height:38px;
-  padding:0;
+
+  padding:0 !important;
+
   border-radius:10px;
+
   background:#f1f3f7;
   color:#344054;
+
   font-size:20px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
 .close-modal:hover{
   background:#e4e7ec;
 }
+
+
+/* =====================================================
+   CHECKOUT BODY
+   ===================================================== */
 
 .checkout-body{
   padding:22px;
@@ -239,7 +284,7 @@ label{
 
 
 /* =====================================================
-   CHECKOUT SUMMARY
+   SUMMARY
    ===================================================== */
 
 .summary{
@@ -252,7 +297,7 @@ label{
 
 
 /* =====================================================
-   PAYMENT INFO
+   PAYMENT NOTE
    ===================================================== */
 
 .payment-note{
@@ -267,28 +312,175 @@ label{
 
 
 /* =====================================================
-   ORDER BOX
+   RECEIPT
    ===================================================== */
 
 .orderbox{
-  background:#eef2ff;
-  color:#1e40af;
-  padding:15px;
-  border-radius:12px;
-  line-height:1.7;
+  display:none;
+
+  background:#fff;
+
+  border:1px solid #e5e7eb;
+
+  padding:16px;
+
+  border-radius:14px;
+
   margin-top:14px;
+
+  line-height:1.7;
 }
+
+
+/* =====================================================
+   PEMBAYARAN BERHASIL
+   ===================================================== */
+
+.payment-success-icon{
+  width:48px;
+  height:48px;
+
+  margin:0 auto 10px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:50%;
+
+  background:#dcfce7;
+  color:#15803d;
+
+  font-size:25px;
+  font-weight:800;
+}
+
+.payment-success-title{
+  text-align:center;
+
+  font-size:20px;
+
+  font-weight:800;
+
+  color:#166534;
+
+  margin-bottom:16px;
+}
+
+
+/* =====================================================
+   NOTA TRANSAKSI
+   ===================================================== */
+
+.payment-receipt{
+  background:#f8fafc;
+
+  border:1px solid #e5e7eb;
+
+  border-radius:14px;
+
+  padding:16px;
+}
+
+.payment-receipt-title{
+  font-size:13px;
+
+  font-weight:800;
+
+  color:#344054;
+
+  margin-bottom:12px;
+}
+
+.payment-receipt-row{
+  display:flex;
+
+  justify-content:space-between;
+
+  gap:15px;
+
+  padding:8px 0;
+
+  font-size:13px;
+
+  border-bottom:
+    1px solid #edf0f4;
+}
+
+.payment-receipt-row:last-child{
+  border-bottom:0;
+}
+
+.payment-receipt-label{
+  color:#667085;
+}
+
+.payment-receipt-value{
+  font-weight:700;
+  text-align:right;
+}
+
+.payment-receipt-total{
+  margin-top:8px;
+
+  padding-top:12px;
+
+  border-top:
+    1px solid #dfe3ea;
+
+  display:flex;
+
+  justify-content:space-between;
+
+  gap:15px;
+
+  font-size:15px;
+
+  font-weight:800;
+}
+
+.payment-order-code{
+  margin-top:13px;
+
+  padding:10px 12px;
+
+  background:#f6f5ff;
+
+  color:#5b21b6;
+
+  border-radius:10px;
+
+  font-size:12px;
+
+  font-weight:700;
+
+  word-break:break-all;
+}
+
+
+/* =====================================================
+   BUTTON BUKA AKSES
+   ===================================================== */
 
 .payment-access-button{
   display:block;
+
   width:100%;
-  margin-top:10px;
+
+  margin-top:14px;
+
   background:#7c3aed;
+
   color:#fff;
+
   text-decoration:none;
+
   text-align:center;
+
   padding:13px;
+
   border-radius:10px;
+
   font-weight:700;
 }
 
@@ -303,22 +495,31 @@ label{
 
 .message{
   display:none;
+
   padding:13px;
+
   margin-top:13px;
+
   border-radius:11px;
+
   line-height:1.5;
+
   font-size:13px;
 }
 
 .message.ok{
   display:block;
+
   background:#ecfdf5;
+
   color:#065f46;
 }
 
 .message.err{
   display:block;
+
   background:#fff1f2;
+
   color:#9f1239;
 }
 
@@ -329,14 +530,19 @@ label{
 
 .history-panel{
   background:#fff;
+
   border:1px solid #eceef3;
+
   border-radius:20px;
+
   padding:24px;
+
   margin:22px 0 40px;
 }
 
 .history-form{
   display:grid;
+
   grid-template-columns:
     1fr
     auto
@@ -350,43 +556,66 @@ label{
 
 .history-or{
   font-size:11px;
+
   font-weight:800;
+
   color:#667085;
+
   text-align:center;
 }
 
 .history-table-wrap{
   overflow:auto;
+
   margin-top:18px;
 }
 
 .history-table{
   width:100%;
+
   min-width:1150px;
+
   border-collapse:collapse;
 }
 
 .history-table th,
 .history-table td{
   padding:11px;
-  border-bottom:1px solid #edf0f4;
+
+  border-bottom:
+    1px solid #edf0f4;
+
   text-align:left;
+
   vertical-align:top;
+
   font-size:12px;
 }
 
 .history-table th{
   background:#fafafa;
+
   color:#667085;
+
   font-size:10px;
+
   text-transform:uppercase;
 }
 
+
+/* =====================================================
+   STATUS
+   ===================================================== */
+
 .status-badge{
   display:inline-block;
+
   padding:5px 8px;
+
   border-radius:999px;
+
   font-size:10px;
+
   font-weight:800;
 }
 
@@ -420,138 +649,212 @@ label{
   color:#166534;
 }
 
+
+/* =====================================================
+   HISTORY ACTION
+   ===================================================== */
+
 .history-action{
   display:inline-block;
+
   background:#7c3aed;
+
   color:#fff;
+
   text-decoration:none;
+
   padding:8px 10px;
+
   border-radius:9px;
+
   font-size:11px;
+
   font-weight:700;
+
   white-space:nowrap;
 }
 
 .history-action-green{
   display:inline-block;
+
   background:#16a34a;
+
   color:#fff;
+
   text-decoration:none;
+
   padding:8px 10px;
+
   border-radius:9px;
+
   font-size:11px;
+
   font-weight:700;
+
   white-space:nowrap;
 }
 
 .history-action-disabled{
   display:inline-block;
+
   background:#eef0f4;
+
   color:#667085;
+
   padding:8px 10px;
+
   border-radius:9px;
+
   font-size:11px;
+
   white-space:nowrap;
 }
 
 
 /* =====================================================
-   ACCESS PAGE
+   ACCESS PANEL
    ===================================================== */
 
 .panel{
   display:none;
+
   background:#fff;
+
   border:1px solid #eceef3;
+
   border-radius:20px;
+
   padding:25px;
+
   margin:22px 0 40px;
 }
 
 .access-badge{
   display:inline-block;
+
   background:#ede9fe;
+
   color:#6d28d9;
+
   padding:9px 15px;
+
   border-radius:999px;
+
   font-weight:800;
+
   margin-bottom:17px;
 }
 
 .access-info{
   background:#eff6ff;
+
   color:#1e40af;
+
   padding:15px;
+
   border-radius:14px;
+
   margin:15px 0;
+
   line-height:1.7;
 }
 
 .access-warning{
   background:#fff7ed;
+
   color:#9a3412;
+
   padding:17px;
+
   border-radius:15px;
+
   margin:17px 0;
+
   line-height:1.6;
 }
 
 
 /* =====================================================
-   ORDER CODE
+   KODE ORDER
    ===================================================== */
 
 .order-code-box{
   background:#f8fafc;
+
   border:1px solid #e2e8f0;
+
   border-radius:14px;
+
   padding:15px;
+
   margin:15px 0;
 }
 
 .order-code-label{
   color:#667085;
+
   font-size:10px;
+
   font-weight:800;
+
   letter-spacing:.06em;
+
   margin-bottom:7px;
 }
 
 .order-code-row{
   display:flex;
+
   align-items:center;
+
   gap:8px;
 }
 
 .order-code-value{
   flex:1;
+
   min-width:0;
+
   background:#fff;
+
   border:1px solid #e5e7eb;
+
   border-radius:10px;
+
   padding:10px 12px;
+
   font-size:16px;
+
   font-weight:800;
+
   word-break:break-all;
 }
 
 .copy-icon-button{
   width:42px !important;
+
   min-width:42px !important;
+
   max-width:42px !important;
+
   height:42px;
+
   flex:0 0 42px;
 
   padding:0 !important;
+
   margin:0;
 
   display:flex;
+
   align-items:center;
+
   justify-content:center;
 
   border-radius:10px;
 
   background:#111827;
+
   color:#fff;
 
   font-size:16px;
@@ -565,16 +868,30 @@ label{
   background:#059669;
 }
 
+
+/* =====================================================
+   WHATSAPP
+   ===================================================== */
+
 .whatsapp-btn{
   display:block;
+
   width:100%;
+
   padding:13px;
+
   border-radius:11px;
+
   background:#16a34a;
+
   color:#fff;
+
   text-align:center;
+
   text-decoration:none;
+
   font-weight:700;
+
   margin-top:11px;
 }
 
@@ -610,12 +927,23 @@ label{
   }
 
   .checkout-modal{
-    max-height:calc(100vh - 20px);
+    max-height:
+      calc(100vh - 20px);
+
     border-radius:18px;
   }
 
   .checkout-body{
     padding:17px;
+  }
+
+  .payment-receipt-row{
+    flex-direction:column;
+    gap:2px;
+  }
+
+  .payment-receipt-value{
+    text-align:left;
   }
 
 }
@@ -631,6 +959,10 @@ label{
 <div class="container">
 
 
+<!-- =====================================================
+     HEADER
+     ===================================================== -->
+
 <header>
 
   <div class="brand">
@@ -641,7 +973,7 @@ label{
 
 
 <!-- =====================================================
-     HALAMAN UTAMA
+     HERO
      ===================================================== -->
 
 <section
@@ -749,7 +1081,7 @@ label{
 
 
 <!-- =====================================================
-     RIWAYAT
+     RIWAYAT PEMBELIAN
      ===================================================== -->
 
 <section
@@ -776,14 +1108,19 @@ label{
       placeholder="Email pembelian"
     >
 
-    <div class="history-or">
+
+    <div
+      class="history-or"
+    >
       ATAU
     </div>
+
 
     <input
       id="historyOrderCode"
       placeholder="Contoh: MYC-20260821000123-ABC123"
     >
+
 
     <button
       id="historyBtn"
@@ -804,20 +1141,45 @@ label{
     class="history-table-wrap"
   >
 
-    <table class="history-table">
+    <table
+      class="history-table"
+    >
 
       <thead>
 
         <tr>
 
-          <th>Order</th>
-          <th>Paket</th>
-          <th>Nominal</th>
-          <th>Pembayaran</th>
-          <th>Akses</th>
-          <th>Tim Canva</th>
-          <th>Billing</th>
-          <th>Aksi</th>
+          <th>
+            Order
+          </th>
+
+          <th>
+            Paket
+          </th>
+
+          <th>
+            Nominal
+          </th>
+
+          <th>
+            Pembayaran
+          </th>
+
+          <th>
+            Akses
+          </th>
+
+          <th>
+            Tim Canva
+          </th>
+
+          <th>
+            Billing
+          </th>
+
+          <th>
+            Aksi
+          </th>
 
         </tr>
 
@@ -885,11 +1247,16 @@ label{
     class="order-code-box"
   >
 
-    <div class="order-code-label">
+    <div
+      class="order-code-label"
+    >
       KODE ORDER
     </div>
 
-    <div class="order-code-row">
+
+    <div
+      class="order-code-row"
+    >
 
       <div
         id="accessOrderCode"
@@ -897,6 +1264,7 @@ label{
       >
         -
       </div>
+
 
       <button
         id="copyOrderButton"
@@ -989,13 +1357,17 @@ label{
     class="checkout-modal"
   >
 
-    <div class="checkout-header">
+
+    <div
+      class="checkout-header"
+    >
 
       <div
         class="checkout-title"
       >
         Checkout
       </div>
+
 
       <button
         id="closeCheckout"
@@ -1008,71 +1380,86 @@ label{
     </div>
 
 
-    <div class="checkout-body">
+    <div
+      class="checkout-body"
+    >
 
+
+      <!-- SUMMARY -->
 
       <div
         id="summary"
         class="summary"
+      ></div>
+
+
+      <!-- FORM CHECKOUT -->
+
+      <div
+        id="checkoutForm"
       >
+
+        <label>
+          Nama
+        </label>
+
+        <input
+          id="name"
+          placeholder="Nama Anda"
+        >
+
+
+        <label>
+          Email Canva
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          placeholder="Email Canva"
+        >
+
+
+        <label>
+
+          Kode Voucher
+
+          <span
+            class="muted"
+            style="font-weight:400"
+          >
+            (opsional)
+          </span>
+
+        </label>
+
+
+        <input
+          id="voucherCode"
+          placeholder="Contoh: MYC1000"
+          style="text-transform:uppercase"
+        >
+
+
+        <button
+          id="payBtn"
+          style="margin-top:16px"
+        >
+          Bayar Sekarang
+        </button>
+
       </div>
 
 
-      <label>
-        Nama
-      </label>
-
-      <input
-        id="name"
-        placeholder="Nama Anda"
-      >
-
-
-      <label>
-        Email Canva
-      </label>
-
-      <input
-        id="email"
-        type="email"
-        placeholder="Email Canva"
-      >
-
-
-      <label>
-
-        Kode Voucher
-
-        <span
-          class="muted"
-          style="font-weight:400"
-        >
-          (opsional)
-        </span>
-
-      </label>
-
-      <input
-        id="voucherCode"
-        placeholder="Contoh: MYC1000"
-        style="text-transform:uppercase"
-      >
-
-
-      <button
-        id="payBtn"
-        style="margin-top:16px"
-      >
-        Bayar Sekarang
-      </button>
-
+      <!-- NOTA -->
 
       <div
         id="orderbox"
         class="orderbox"
-        style="display:none"
       ></div>
 
+
+      <!-- MESSAGE -->
 
       <div
         id="message"
@@ -1080,7 +1467,12 @@ label{
       ></div>
 
 
-      <div class="payment-note">
+      <!-- NOTE -->
+
+      <div
+        id="paymentNote"
+        class="payment-note"
+      >
 
         <strong>
           Info pembayaran
@@ -1102,6 +1494,7 @@ label{
 
       </div>
 
+
     </div>
 
   </div>
@@ -1109,11 +1502,19 @@ label{
 </div>
 
 
+<!-- =====================================================
+     MIDTRANS
+     ===================================================== -->
+
 <script
   src="https://app.sandbox.midtrans.com/snap/snap.js"
   data-client-key="Mid-client-0b04AvipKr4ASqQw"
 ></script>
 
+
+<!-- =====================================================
+     SUPABASE
+     ===================================================== -->
 
 <script
   src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
@@ -1172,21 +1573,42 @@ let selectedCode =
 const products = {
 
   "1":{
-    name:"Canva 1 Bulan",
-    months:1,
-    price:3000
+
+    name:
+      "Canva 1 Bulan",
+
+    months:
+      1,
+
+    price:
+      3000
+
   },
 
   "2":{
-    name:"Canva 2 Bulan",
-    months:2,
-    price:6000
+
+    name:
+      "Canva 2 Bulan",
+
+    months:
+      2,
+
+    price:
+      6000
+
   },
 
   "3":{
-    name:"Canva 3 Bulan",
-    months:3,
-    price:8500
+
+    name:
+      "Canva 3 Bulan",
+
+    months:
+      3,
+
+    price:
+      8500
+
   }
 
 };
@@ -1254,6 +1676,7 @@ function dateOnly(
       value
     );
 
+
   if(
     Number.isNaN(
       d.getTime()
@@ -1263,6 +1686,7 @@ function dateOnly(
     return "-";
 
   }
+
 
   return d.toLocaleDateString(
     "id-ID"
@@ -1288,6 +1712,7 @@ function dateTime(
       value
     );
 
+
   if(
     Number.isNaN(
       d.getTime()
@@ -1297,6 +1722,7 @@ function dateTime(
     return "-";
 
   }
+
 
   return d.toLocaleString(
     "id-ID"
@@ -1315,6 +1741,7 @@ function show(
       "message"
     );
 
+
   el.className =
     "message " +
     (
@@ -1323,8 +1750,10 @@ function show(
         : "err"
     );
 
+
   el.innerHTML =
     text;
+
 
   el.style.display =
     "block";
@@ -1346,8 +1775,10 @@ function showMessage(
         : "err"
     );
 
+
   el.textContent =
     text;
+
 
   el.style.display =
     "block";
@@ -1371,6 +1802,58 @@ const closeCheckoutButton =
   );
 
 
+function resetCheckoutForm(){
+
+  document
+    .getElementById(
+      "checkoutForm"
+    )
+    .style.display =
+    "block";
+
+
+  document
+    .getElementById(
+      "summary"
+    )
+    .style.display =
+    "block";
+
+
+  document
+    .getElementById(
+      "payBtn"
+    )
+    .style.display =
+    "block";
+
+
+  document
+    .getElementById(
+      "paymentNote"
+    )
+    .style.display =
+    "block";
+
+
+  document
+    .getElementById(
+      "orderbox"
+    )
+    .style.display =
+    "none";
+
+
+  document
+    .getElementById(
+      "message"
+    )
+    .style.display =
+    "none";
+
+}
+
+
 function openCheckout(
   packageCode
 ){
@@ -1383,6 +1866,9 @@ function openCheckout(
     products[
       packageCode
     ];
+
+
+  resetCheckoutForm();
 
 
   document
@@ -1416,22 +1902,6 @@ function openCheckout(
       opsional
 
     `;
-
-
-  document
-    .getElementById(
-      "message"
-    )
-    .style.display =
-    "none";
-
-
-  document
-    .getElementById(
-      "orderbox"
-    )
-    .style.display =
-    "none";
 
 
   checkoutOverlay
@@ -1534,7 +2004,7 @@ document
 
 
 /* =====================================================
-   PRODUCT BUTTONS
+   PRODUCT BUTTON
    ===================================================== */
 
 document
@@ -1560,7 +2030,7 @@ document
 
 
 /* =====================================================
-   HISTORY BADGES
+   PAYMENT BADGE
    ===================================================== */
 
 function paymentBadge(
@@ -1580,9 +2050,13 @@ function paymentBadge(
   ){
 
     return `
-      <span class="status-badge status-paid">
+
+      <span
+        class="status-badge status-paid"
+      >
         PAID
       </span>
+
     `;
 
   }
@@ -1594,25 +2068,37 @@ function paymentBadge(
   ){
 
     return `
-      <span class="status-badge status-pending">
+
+      <span
+        class="status-badge status-pending"
+      >
         PENDING
       </span>
+
     `;
 
   }
 
 
   return `
-    <span class="status-badge status-expired">
+
+    <span
+      class="status-badge status-expired"
+    >
       ${esc(
         status ||
         "-"
       )}
     </span>
+
   `;
 
 }
 
+
+/* =====================================================
+   ACCESS BADGE
+   ===================================================== */
 
 function accessBadge(
   value
@@ -1631,9 +2117,13 @@ function accessBadge(
   ){
 
     return `
-      <span class="status-badge access-ready">
+
+      <span
+        class="status-badge access-ready"
+      >
         SIAP LAGI
       </span>
+
     `;
 
   }
@@ -1645,9 +2135,13 @@ function accessBadge(
   ){
 
     return `
-      <span class="status-badge status-expired">
+
+      <span
+        class="status-badge status-expired"
+      >
         BERAKHIR
       </span>
+
     `;
 
   }
@@ -1659,25 +2153,33 @@ function accessBadge(
   ){
 
     return `
-      <span class="status-badge access-used">
+
+      <span
+        class="status-badge access-used"
+      >
         USED
       </span>
+
     `;
 
   }
 
 
   return `
-    <span class="status-badge access-unused">
+
+    <span
+      class="status-badge access-unused"
+    >
       UNUSED
     </span>
+
   `;
 
 }
 
 
 /* =====================================================
-   HISTORY
+   PURCHASE HISTORY
    ===================================================== */
 
 async function loadPurchaseHistory(){
@@ -1869,12 +2371,16 @@ async function loadPurchaseHistory(){
               </span>`;
 
 
-            if(
+            const paid =
               String(
                 order.payment_status ||
                 ""
               ).toUpperCase() ===
-              "PAID"
+              "PAID";
+
+
+            if(
+              paid
             ){
 
               if(
@@ -1983,14 +2489,14 @@ async function loadPurchaseHistory(){
               order.billing_end_at
 
                 ? `
-                  ${dateOnly(
-                    order.billing_start_at
-                  )}
-                  –
-                  ${dateOnly(
-                    order.billing_end_at
-                  )}
-                `
+                    ${dateOnly(
+                      order.billing_start_at
+                    )}
+                    –
+                    ${dateOnly(
+                      order.billing_end_at
+                    )}
+                  `
 
                 : "-";
 
@@ -2022,10 +2528,12 @@ async function loadPurchaseHistory(){
 
 
                 <td>
+
                   ${esc(
                     order.product_name ||
                     "-"
                   )}
+
                 </td>
 
 
@@ -2037,6 +2545,7 @@ async function loadPurchaseHistory(){
 
                   ${
                     order.discount_amount
+
                       ? `
 
                         <br>
@@ -2051,6 +2560,7 @@ async function loadPurchaseHistory(){
                         </span>
 
                       `
+
                       : ""
                   }
 
@@ -2065,6 +2575,7 @@ async function loadPurchaseHistory(){
 
                   ${
                     order.payment_method
+
                       ? `
 
                         <br>
@@ -2078,6 +2589,7 @@ async function loadPurchaseHistory(){
                         </span>
 
                       `
+
                       : ""
                   }
 
@@ -2316,6 +2828,7 @@ document
       button.disabled =
         true;
 
+
       button.textContent =
         "Membuat pembayaran...";
 
@@ -2387,6 +2900,11 @@ document
         }
 
 
+        /*
+         * Informasi transaksi sementara.
+         * Akan diganti menjadi nota setelah success.
+         */
+
         const orderBox =
           document.getElementById(
             "orderbox"
@@ -2399,124 +2917,134 @@ document
 
         orderBox.innerHTML = `
 
-          <strong>
-            Order:
-          </strong>
-
-          ${esc(
-            data.order_code
-          )}
-
-          <br>
-
-          Harga:
-          Rp${fmt(
-            data.amount
-          )}
-
-          ${
-            data.discount_amount
-
-              ? `
-
-                <br>
-
-                Diskon voucher:
-                -Rp${fmt(
-                  data.discount_amount
-                )}
-
-                <br>
-
-                Harga setelah voucher:
-                <strong>
-                  Rp${fmt(
-                    data.final_amount
-                  )}
-                </strong>
-
-              `
-
-              : ""
-          }
-
-          <br>
-
-          Biaya QRIS:
-          Rp${fmt(
-            data.qris_fee ||
-            0
-          )}
-
-          <br>
-
-          Total:
-          <strong>
-            Rp${fmt(
-              data.customer_payment ||
-              data.final_amount
-            )}
-          </strong>
+          Memproses pembayaran...
 
         `;
 
 
-        show(
-          `<strong>
-            Pesanan berhasil dibuat.
-          </strong>
-          <br>
-          Jendela pembayaran Midtrans akan dibuka.`,
-          true
-        );
+        document
+          .getElementById(
+            "message"
+          )
+          .style.display =
+          "none";
+
+
+        if(
+          !data.snap_token
+        ){
+
+          throw new Error(
+            "Snap token tidak diterima dari server."
+          );
+
+        }
 
 
         window.snap.pay(
           data.snap_token,
           {
 
+
+            /* ==========================================
+               SUCCESS
+               ========================================== */
+
             onSuccess:
               async () => {
 
-                show(
-                  `<strong>
-                    Pembayaran berhasil!
-                  </strong>
-                  <br>
-                  Sistem sedang menyiapkan akses Canva...`,
-                  true
+
+                /*
+                 * HILANGKAN FORM
+                 */
+
+                document
+                  .getElementById(
+                    "checkoutForm"
+                  )
+                  .style.display =
+                  "none";
+
+
+                document
+                  .getElementById(
+                    "summary"
+                  )
+                  .style.display =
+                  "none";
+
+
+                document
+                  .getElementById(
+                    "paymentNote"
+                  )
+                  .style.display =
+                  "none";
+
+
+                document
+                  .getElementById(
+                    "message"
+                  )
+                  .style.display =
+                  "none";
+
+
+                /*
+                 * TAMPILKAN NOTA
+                 */
+
+                showPaymentReceipt(
+                  data
                 );
 
 
+                /*
+                 * TUNGGU AKSES
+                 */
+
                 await waitForAccess(
                   data.order_code,
-                  email
+                  email,
+                  data
                 );
 
               },
 
+
+            /* ==========================================
+               PENDING
+               ========================================== */
 
             onPending:
               () => {
 
                 show(
-                  "Pembayaran masih pending.",
+                  "Pembayaran belum selesai. Silakan selesaikan pembayaran QRIS.",
                   false
                 );
 
               },
 
+
+            /* ==========================================
+               ERROR
+               ========================================== */
 
             onError:
               () => {
 
                 show(
-                  "Pembayaran gagal.",
+                  "Pembayaran gagal. Silakan coba lagi.",
                   false
                 );
 
               },
 
+
+            /* ==========================================
+               CLOSE
+               ========================================== */
 
             onClose:
               () => {
@@ -2559,16 +3087,267 @@ document
 
 
 /* =====================================================
+   NOTA PEMBAYARAN
+   ===================================================== */
+
+function showPaymentReceipt(
+  data
+){
+
+  const orderBox =
+    document.getElementById(
+      "orderbox"
+    );
+
+
+  const packageName =
+    data.product_name ||
+    products[
+      selectedCode
+    ]?.name ||
+    "-";
+
+
+  const basePrice =
+    Number(
+      data.amount ||
+      0
+    );
+
+
+  const discount =
+    Number(
+      data.discount_amount ||
+      0
+    );
+
+
+  const finalAmount =
+    Number(
+      data.final_amount ||
+      (
+        basePrice -
+        discount
+      )
+    );
+
+
+  const qrisFee =
+    Number(
+      data.qris_fee ||
+      0
+    );
+
+
+  const total =
+    Number(
+      data.customer_payment ||
+      (
+        finalAmount +
+        qrisFee
+      )
+    );
+
+
+  orderBox.style.display =
+    "block";
+
+
+  orderBox.innerHTML = `
+
+    <div
+      class="payment-success-icon"
+    >
+      ✓
+    </div>
+
+
+    <div
+      class="payment-success-title"
+    >
+      Pembayaran Berhasil
+    </div>
+
+
+    <div
+      class="payment-receipt"
+    >
+
+      <div
+        class="payment-receipt-title"
+      >
+        Detail Transaksi
+      </div>
+
+
+      <div
+        class="payment-receipt-row"
+      >
+
+        <span
+          class="payment-receipt-label"
+        >
+          Paket
+        </span>
+
+        <span
+          class="payment-receipt-value"
+        >
+          ${esc(
+            packageName
+          )}
+        </span>
+
+      </div>
+
+
+      <div
+        class="payment-receipt-row"
+      >
+
+        <span
+          class="payment-receipt-label"
+        >
+          Harga Paket
+        </span>
+
+        <span
+          class="payment-receipt-value"
+        >
+          Rp${fmt(
+            basePrice
+          )}
+        </span>
+
+      </div>
+
+
+      ${
+        discount > 0
+
+          ? `
+
+            <div
+              class="payment-receipt-row"
+            >
+
+              <span
+                class="payment-receipt-label"
+              >
+                Diskon Voucher
+              </span>
+
+              <span
+                class="payment-receipt-value"
+              >
+                -Rp${fmt(
+                  discount
+                )}
+              </span>
+
+            </div>
+
+
+            <div
+              class="payment-receipt-row"
+            >
+
+              <span
+                class="payment-receipt-label"
+              >
+                Harga Setelah Voucher
+              </span>
+
+              <span
+                class="payment-receipt-value"
+              >
+                Rp${fmt(
+                  finalAmount
+                )}
+              </span>
+
+            </div>
+
+          `
+
+          : ""
+      }
+
+
+      <div
+        class="payment-receipt-row"
+      >
+
+        <span
+          class="payment-receipt-label"
+        >
+          Biaya QRIS
+        </span>
+
+        <span
+          class="payment-receipt-value"
+        >
+          Rp${fmt(
+            qrisFee
+          )}
+        </span>
+
+      </div>
+
+
+      <div
+        class="payment-receipt-total"
+      >
+
+        <span>
+          Total Pembayaran
+        </span>
+
+        <span>
+          Rp${fmt(
+            total
+          )}
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <div
+      class="payment-order-code"
+    >
+
+      Kode Order:
+      ${esc(
+        data.order_code
+      )}
+
+    </div>
+
+
+    <div
+      id="accessButtonContainer"
+    ></div>
+
+  `;
+
+}
+
+
+/* =====================================================
    WAIT ACCESS
    ===================================================== */
 
 async function waitForAccess(
   orderCode,
-  email
+  email,
+  paymentData
 ){
 
   const maxAttempts =
     12;
+
 
   const delay =
     2500;
@@ -2582,7 +3361,10 @@ async function waitForAccess(
 
   for(
     let attempt = 1;
-    attempt <= maxAttempts;
+
+    attempt <=
+    maxAttempts;
+
     attempt++
   ){
 
@@ -2633,10 +3415,10 @@ async function waitForAccess(
           );
 
 
-      const accessUrl =
-        data.access_url ||
-        data.url ||
-        data.invite_url;
+      console.log(
+        "GET ACCESS:",
+        data
+      );
 
 
       if(
@@ -2644,47 +3426,50 @@ async function waitForAccess(
         "READY"
       ){
 
-        orderBox.innerHTML = `
+        const accessUrl =
+          data.access_url ||
+          data.url ||
+          data.invite_url;
 
-          <strong>
-            Pembayaran berhasil!
-          </strong>
 
-          <br>
+        const container =
+          document.getElementById(
+            "accessButtonContainer"
+          );
 
-          Akses Canva sudah siap.
 
-          <br>
-          <br>
+        if(
+          container &&
+          accessUrl
+        ){
 
-          ${
-            accessUrl
+          container.innerHTML = `
 
-              ? `
+            <a
+              href="${esc(
+                accessUrl
+              )}"
+              class="payment-access-button"
+            >
+              🔗 Buka Akses Canva
+            </a>
 
-                <a
-                  href="${esc(
-                    accessUrl
-                  )}"
-                  class="payment-access-button"
-                >
-                  🔗 Buka Akses Canva
-                </a>
+          `;
 
-              `
-
-              : `
-
-                Silakan buka
-                Riwayat Pembelian.
-
-              `
-          }
-
-        `;
+        }
 
 
         return;
+
+      }
+
+
+      if(
+        data.status ===
+        "PROCESSING"
+      ){
+
+        continue;
 
       }
 
@@ -2693,6 +3478,7 @@ async function waitForAccess(
     catch(error){
 
       console.error(
+        "GET ACCESS ERROR:",
         error
       );
 
@@ -2710,28 +3496,53 @@ async function waitForAccess(
   }
 
 
-  orderBox.innerHTML = `
+  const container =
+    document.getElementById(
+      "accessButtonContainer"
+    );
 
-    <strong>
-      Pembayaran sudah dilakukan.
-    </strong>
 
-    <br>
+  if(
+    container
+  ){
 
-    Akses sedang diproses.
+    container.innerHTML = `
 
-    <br>
-    <br>
+      <div
+        style="
+          margin-top:14px;
+          padding:12px;
+          background:#fff7ed;
+          color:#9a3412;
+          border-radius:10px;
+          font-size:13px;
+          line-height:1.5;
+        "
+      >
 
-    Silakan cek Riwayat Pembelian.
+        Pembayaran sudah berhasil.
+        Akses sedang diproses.
 
-  `;
+        <br>
+        <br>
+
+        Silakan cek
+        <strong>
+          Riwayat Pembelian
+        </strong>
+        menggunakan email atau kode order.
+
+      </div>
+
+    `;
+
+  }
 
 }
 
 
 /* =====================================================
-   COPY CODE
+   SALIN KODE ORDER
    ===================================================== */
 
 async function salinKodeOrder(){
@@ -2746,6 +3557,16 @@ async function salinKodeOrder(){
     document.getElementById(
       "copyOrderButton"
     );
+
+
+  if(
+    !element ||
+    !button
+  ){
+
+    return;
+
+  }
 
 
   const code =
@@ -2766,10 +3587,61 @@ async function salinKodeOrder(){
 
   try{
 
-    await navigator.clipboard
-      .writeText(
+    if(
+      navigator.clipboard &&
+      window.isSecureContext
+    ){
+
+      await navigator.clipboard.writeText(
         code
       );
+
+    }
+
+    else{
+
+      const textarea =
+        document.createElement(
+          "textarea"
+        );
+
+
+      textarea.value =
+        code;
+
+
+      textarea.style.position =
+        "fixed";
+
+
+      textarea.style.left =
+        "-9999px";
+
+
+      document
+        .body
+        .appendChild(
+          textarea
+        );
+
+
+      textarea.focus();
+
+      textarea.select();
+
+
+      document.execCommand(
+        "copy"
+      );
+
+
+      document
+        .body
+        .removeChild(
+          textarea
+        );
+
+    }
 
 
     button.textContent =
@@ -2797,10 +3669,10 @@ async function salinKodeOrder(){
 
   }
 
-  catch{
+  catch(error){
 
     alert(
-      "Kode tidak dapat disalin."
+      "Kode order tidak dapat disalin."
     );
 
   }
@@ -2991,6 +3863,7 @@ async function loadAccessPage(){
 
         event.preventDefault();
 
+
         ajukanPenggantianEmail(
           orderCode
         );
@@ -3034,8 +3907,10 @@ async function loadAccessPage(){
 
             ? dateOnly(
                 row.billing_start_at
-              ) +
-              " – " +
+              )
+              +
+              " – "
+              +
               dateOnly(
                 row.billing_end_at
               )
@@ -3046,9 +3921,9 @@ async function loadAccessPage(){
       `;
 
 
-    /* =================================================
+    /* ==============================================
        EXPIRED
-       ================================================= */
+       ============================================== */
 
     if(
       status ===
@@ -3096,9 +3971,9 @@ async function loadAccessPage(){
     }
 
 
-    /* =================================================
-       UNUSED / READY
-       ================================================= */
+    /* ==============================================
+       UNUSED
+       ============================================== */
 
     if(
       status ===
@@ -3126,9 +4001,9 @@ async function loadAccessPage(){
     }
 
 
-    /* =================================================
+    /* ==============================================
        USED
-       ================================================= */
+       ============================================== */
 
     if(
       status ===
@@ -3195,12 +4070,12 @@ async function loadAccessPage(){
 
     }
 
-
   }
 
   catch(error){
 
     console.error(
+      "ACCESS ERROR:",
       error
     );
 
@@ -3334,6 +4209,7 @@ document
         button.disabled =
           false;
 
+
         button.textContent =
           "Lanjut ke Canva";
 
@@ -3341,8 +4217,10 @@ document
         message.className =
           "message err";
 
+
         message.style.display =
           "block";
+
 
         message.textContent =
           error.message;
