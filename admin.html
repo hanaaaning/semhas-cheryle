@@ -1,3484 +1,1540 @@
-<!doctype html>
-<html lang="id">
+import { createClient } from "npm:@supabase/supabase-js@2";
 
-<head>
 
-<meta charset="utf-8">
+const corsHeaders = {
 
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1"
->
+  "Access-Control-Allow-Origin":
+    "*",
 
-<title>
-  Canva Premium Admin
-</title>
+  "Access-Control-Allow-Headers":
+    "authorization, x-client-info, apikey, content-type, x-admin-key",
 
+  "Access-Control-Allow-Methods":
+    "POST, OPTIONS"
 
-<style>
+};
 
-*{
-  box-sizing:border-box;
-}
-
-
-body{
-
-  margin:0;
-
-  background:#f7f7fb;
-
-  color:#172033;
-
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
-
-}
-
-
-.container{
-
-  width:
-    min(1350px,95%);
-
-  margin:
-    0 auto;
-
-}
-
-
-header{
-
-  padding:
-    25px 0;
-
-  display:flex;
-
-  justify-content:
-    space-between;
-
-  align-items:
-    center;
-
-}
-
-
-.brand{
-
-  font-size:
-    24px;
-
-  font-weight:
-    800;
-
-}
-
-
-.subtitle{
-
-  color:
-    #667085;
-
-  font-size:
-    14px;
-
-  margin-top:
-    4px;
-
-}
-
-
-.card{
-
-  background:
-    #fff;
-
-  border:
-    1px solid #e7e9ef;
-
-  border-radius:
-    18px;
-
-  padding:
-    22px;
-
-  margin-bottom:
-    18px;
-
-  box-shadow:
-    0 8px 25px
-    rgba(0,0,0,.04);
-
-}
-
-
-.hidden{
-  display:none!important;
-}
-
-
-input,
-select{
-
-  width:
-    100%;
-
-  padding:
-    12px;
-
-  border:
-    1px solid #d7dbe4;
-
-  border-radius:
-    10px;
-
-  font-size:
-    14px;
-
-}
-
-
-input:focus,
-select:focus{
-
-  outline:none;
-
-  border-color:
-    #7c3aed;
-
-  box-shadow:
-    0 0 0 3px
-    rgba(124,58,237,.10);
-
-}
-
-
-label{
-
-  display:block;
-
-  font-weight:
-    700;
-
-  margin:
-    12px 0 7px;
-
-}
-
-
-button{
-
-  border:0;
-
-  background:
-    #7c3aed;
-
-  color:#fff;
-
-  padding:
-    11px 15px;
-
-  border-radius:
-    10px;
-
-  font-weight:
-    700;
-
-  cursor:pointer;
-
-}
-
-
-button:hover{
-
-  background:
-    #6d28d9;
-
-}
-
-
-button:disabled{
-
-  background:
-    #c7cad3;
-
-  cursor:
-    not-allowed;
-
-}
-
-
-button.secondary{
-
-  background:
-    #111827;
-
-}
-
-
-button.success{
-
-  background:
-    #059669;
-
-}
-
-
-button.danger{
-
-  background:
-    #be123c;
-
-}
-
-
-button.small{
-
-  padding:
-    7px 9px;
-
-  font-size:
-    11px;
-
-}
-
-
-.actions{
-
-  display:flex;
-
-  gap:8px;
-
-  flex-wrap:wrap;
-
-}
-
-
-.muted{
-
-  color:
-    #667085;
-
-}
-
-
-.message{
-
-  display:none;
-
-  padding:
-    13px;
-
-  border-radius:
-    10px;
-
-  margin-top:
-    12px;
-
-}
-
-
-.message.ok{
-
-  display:block;
-
-  background:
-    #ecfdf5;
-
-  color:
-    #065f46;
-
-}
-
-
-.message.err{
-
-  display:block;
-
-  background:
-    #fff1f2;
-
-  color:
-    #9f1239;
-
-}
-
-
-.note{
-
-  background:
-    #fff7ed;
-
-  color:
-    #9a3412;
-
-  border-radius:
-    10px;
-
-  padding:
-    12px;
-
-  font-size:
-    13px;
-
-  margin-bottom:
-    15px;
-
-}
-
-
-.section-title{
-
-  font-size:
-    20px;
-
-  font-weight:
-    800;
-
-  margin-bottom:
-    5px;
-
-}
-
-
-.section-subtitle{
-
-  color:
-    #667085;
-
-  font-size:
-    13px;
-
-  margin-bottom:
-    15px;
-
-  line-height:
-    1.5;
-
-}
-
-
-/* =====================================================
-   TEAM
-   ===================================================== */
-
-.team-info{
-
-  background:
-    #f5f3ff;
-
-  color:
-    #4c1d95;
-
-  padding:
-    12px;
-
-  border-radius:
-    10px;
-
-  margin-top:
-    12px;
-
-  font-size:
-    13px;
-
-  line-height:
-    1.6;
-
-}
-
-
-/* =====================================================
-   VOUCHER FORM
-   ===================================================== */
-
-.voucher-form{
-
-  display:grid;
-
-  grid-template-columns:
-    1.2fr 1fr 1fr 170px auto;
-
-  gap:
-    10px;
-
-  align-items:
-    end;
-
-}
-
-
-.check-row{
-
-  display:flex;
-
-  align-items:center;
-
-  gap:8px;
-
-  margin-top:
-    12px;
-
-}
-
-
-.check-row input{
-
-  width:auto;
-
-}
-
-
-/* =====================================================
-   VOUCHER TABLE
-   ===================================================== */
-
-.voucher-wrap{
-
-  overflow:auto;
-
-  margin-top:
-    18px;
-
-}
-
-
-.voucher-table{
-
-  width:
-    100%;
-
-  border-collapse:
-    collapse;
-
-  min-width:
-    900px;
-
-}
-
-
-.voucher-table th,
-.voucher-table td{
-
-  padding:
-    11px;
-
-  border-bottom:
-    1px solid #edf0f4;
-
-  text-align:
-    left;
-
-  font-size:
-    13px;
-
-}
-
-
-.voucher-table th{
-
-  background:
-    #fafafa;
-
-  color:
-    #667085;
-
-  font-size:
-    11px;
-
-  text-transform:
-    uppercase;
-
-}
-
-
-.badge{
-
-  display:
-    inline-block;
-
-  padding:
-    5px 9px;
-
-  border-radius:
-    999px;
-
-  font-size:
-    11px;
-
-  font-weight:
-    800;
-
-}
-
-
-.badge-active{
-
-  background:
-    #dcfce7;
-
-  color:
-    #166534;
-
-}
-
-
-.badge-full{
-
-  background:
-    #fef3c7;
-
-  color:
-    #92400e;
-
-}
-
-
-.badge-off{
-
-  background:
-    #f3f4f6;
-
-  color:
-    #374151;
-
-}
-
-
-/* =====================================================
-   TOOLBAR
-   ===================================================== */
-
-.toolbar{
-
-  display:flex;
-
-  justify-content:
-    space-between;
-
-  align-items:
-    center;
-
-  gap:
-    10px;
-
-  flex-wrap:
-    wrap;
-
-  margin-bottom:
-    15px;
-
-}
-
-
-.search{
-
-  max-width:
-    380px;
-
-}
-
-
-.table-wrap{
-
-  overflow:auto;
-
-}
-
-
-.order-table{
-
-  width:
-    100%;
-
-  border-collapse:
-    collapse;
-
-  min-width:
-    1550px;
-
-}
-
-
-.order-table th,
-.order-table td{
-
-  padding:
-    11px;
-
-  border-bottom:
-    1px solid #edf0f4;
-
-  text-align:
-    left;
-
-  vertical-align:
-    top;
-
-  font-size:
-    12px;
-
-}
-
-
-.order-table th{
-
-  background:
-    #fafafa;
-
-  color:
-    #667085;
-
-  font-size:
-    11px;
-
-  text-transform:
-    uppercase;
-
-}
-
-
-.status{
-
-  display:
-    inline-block;
-
-  padding:
-    5px 9px;
-
-  border-radius:
-    999px;
-
-  font-size:
-    10px;
-
-  font-weight:
-    800;
-
-}
-
-
-.status-paid{
-
-  background:
-    #dcfce7;
-
-  color:
-    #166534;
-
-}
-
-
-.status-pending{
-
-  background:
-    #fef3c7;
-
-  color:
-    #92400e;
-
-}
-
-
-.status-used{
-
-  background:
-    #ede9fe;
-
-  color:
-    #6d28d9;
-
-}
-
-
-.status-unused{
-
-  background:
-    #e0f2fe;
-
-  color:
-    #075985;
-
-}
-
-
-.status-other{
-
-  background:
-    #f3f4f6;
-
-  color:
-    #374151;
-
-}
-
-
-@media(max-width:900px){
-
-  .voucher-form{
-
-    grid-template-columns:
-      1fr;
-
-  }
-
-}
-
-</style>
-
-</head>
-
-
-<body>
-
-
-<div class="container">
-
-
-<header>
-
-  <div>
-
-    <div class="brand">
-      Canva Premium Admin
-    </div>
-
-    <div class="subtitle">
-      Kelola pesanan, voucher,
-      akses, dan tim Canva
-    </div>
-
-  </div>
-
-
-  <button
-    id="logoutBtn"
-    class="secondary hidden"
-  >
-    Keluar
-  </button>
-
-</header>
-
-
-<!-- =====================================================
-     LOGIN
-     ===================================================== -->
-
-<section
-  id="loginCard"
-  class="card"
-  style="
-    max-width:500px;
-    margin:50px auto;
-  "
->
-
-  <h2>
-    Login Admin
-  </h2>
-
-
-  <label>
-    Admin Key
-  </label>
-
-
-  <input
-    id="adminKey"
-    type="password"
-    placeholder="Masukkan Admin Key"
-  >
-
-
-  <button
-    id="loginBtn"
-    style="margin-top:14px"
-  >
-    Masuk
-  </button>
-
-
-  <div
-    id="loginMessage"
-    class="message"
-  ></div>
-
-</section>
-
-
-<!-- =====================================================
-     APP
-     ===================================================== -->
-
-<section
-  id="app"
-  class="hidden"
->
-
-
-<div class="note">
-
-  Admin Key hanya digunakan
-  untuk request ke server.
-  Jangan menaruh Admin Key
-  di file HTML.
-
-</div>
-
-
-<!-- =====================================================
-     TEAM CANVA
-     ===================================================== -->
-
-<section class="card">
-
-  <div class="section-title">
-    Tim Canva Aktif
-  </div>
-
-
-  <div class="section-subtitle">
-
-    Ganti nama dan link tim Canva
-    ketika mendapatkan link tim baru.
-
-  </div>
-
-
-  <label>
-    Nama Tim Canva
-  </label>
-
-
-  <input
-    id="canvaTeamName"
-    placeholder="Contoh: MYCLIPS 826 | 20.19"
-  >
-
-
-  <label>
-    Link Tim Canva
-  </label>
-
-
-  <input
-    id="canvaInviteUrl"
-    placeholder="https://www.canva.com/brand/join?token=..."
-  >
-
-
-  <button
-    id="saveInviteBtn"
-    style="margin-top:14px"
-  >
-    Simpan Perubahan
-  </button>
-
-
-  <div
-    id="inviteUpdated"
-    class="team-info"
-  >
-    Belum ada tim aktif.
-  </div>
-
-
-  <div
-    id="inviteMessage"
-    class="message"
-  ></div>
-
-</section>
-
-
-<!-- =====================================================
-     VOUCHER
-     ===================================================== -->
-
-<section class="card">
-
-  <div class="section-title">
-    Kantong Voucher
-  </div>
-
-
-  <div class="section-subtitle">
-
-    Nominal potongan bebas.
-    Bisa diberi batas penggunaan
-    atau tanpa batas.
-
-  </div>
-
-
-  <div class="voucher-form">
-
-    <div>
-
-      <label>
-        Kode Voucher
-      </label>
-
-      <input
-        id="voucherCode"
-        placeholder="Contoh: IUDAHAIDIS"
-      >
-
-    </div>
-
-
-    <div>
-
-      <label>
-        Potongan (Rp)
-      </label>
-
-      <input
-        id="voucherDiscount"
-        type="number"
-        min="1"
-        placeholder="1500"
-      >
-
-    </div>
-
-
-    <div>
-
-      <label>
-        Batas Penggunaan
-      </label>
-
-      <input
-        id="voucherLimit"
-        type="number"
-        min="1"
-        placeholder="25"
-      >
-
-    </div>
-
-
-    <div>
-
-      <label>
-        Status
-      </label>
-
-      <select
-        id="voucherActive"
-      >
-
-        <option value="true">
-          Aktif
-        </option>
-
-        <option value="false">
-          Nonaktif
-        </option>
-
-      </select>
-
-    </div>
-
-
-    <button
-      id="addVoucherBtn"
-    >
-      Tambah Voucher
-    </button>
-
-  </div>
-
-
-  <div
-    class="check-row"
-  >
-
-    <input
-      id="voucherNoLimit"
-      type="checkbox"
-    >
-
-    <label
-      for="voucherNoLimit"
-      style="
-        margin:0;
-        font-weight:400;
-      "
-    >
-      Tanpa batas penggunaan
-    </label>
-
-  </div>
-
-
-  <div
-    id="voucherMessage"
-    class="message"
-  ></div>
-
-
-  <div class="voucher-wrap">
-
-    <table
-      class="voucher-table"
-    >
-
-      <thead>
-
-        <tr>
-
-          <th>
-            Kode
-          </th>
-
-          <th>
-            Potongan
-          </th>
-
-          <th>
-            Digunakan
-          </th>
-
-          <th>
-            Batas
-          </th>
-
-          <th>
-            Status
-          </th>
-
-          <th>
-            Terakhir Diubah
-          </th>
-
-          <th>
-            Aksi
-          </th>
-
-        </tr>
-
-      </thead>
-
-
-      <tbody
-        id="voucherBody"
-      >
-
-        <tr>
-
-          <td
-            colspan="7"
-            class="muted"
-          >
-            Memuat voucher...
-          </td>
-
-        </tr>
-
-      </tbody>
-
-    </table>
-
-  </div>
-
-</section>
-
-
-<!-- =====================================================
-     TOOLBAR ORDER
-     ===================================================== -->
-
-<div class="toolbar">
-
-  <div class="actions">
-
-    <button
-      id="refreshBtn"
-    >
-      Refresh Pesanan
-    </button>
-
-
-    <button
-      id="deleteSelectedBtn"
-      class="danger"
-      disabled
-    >
-      Hapus Terpilih
-    </button>
-
-
-    <button
-      class="secondary filterBtn"
-      data-filter="ALL"
-    >
-      Semua
-    </button>
-
-
-    <button
-      class="secondary filterBtn"
-      data-filter="PAID"
-    >
-      PAID
-    </button>
-
-
-    <button
-      class="secondary filterBtn"
-      data-filter="PENDING"
-    >
-      PENDING
-    </button>
-
-
-    <button
-      class="secondary filterBtn"
-      data-filter="EXPIRED"
-    >
-      EXPIRED
-    </button>
-
-  </div>
-
-
-  <div class="actions">
-
-    <select
-      id="sortOrder"
-    >
-
-      <option value="newest">
-        Terbaru
-      </option>
-
-      <option value="oldest">
-        Terlama
-      </option>
-
-    </select>
-
-
-    <input
-      id="search"
-      class="search"
-      placeholder="Cari order, nama, email..."
-    >
-
-  </div>
-
-</div>
-
-
-<div
-  id="appMessage"
-  class="message"
-></div>
-
-
-<!-- =====================================================
-     ORDER TABLE
-     ===================================================== -->
-
-<section class="card table-wrap">
-
-<table class="order-table">
-
-<thead>
-
-<tr>
-
-  <th>
-
-    <input
-      type="checkbox"
-      id="selectAll"
-      style="width:auto"
-    >
-
-  </th>
-
-  <th>
-    Order
-  </th>
-
-  <th>
-    Pembeli
-  </th>
-
-  <th>
-    Paket
-  </th>
-
-  <th>
-    Nominal
-  </th>
-
-  <th>
-    Voucher
-  </th>
-
-  <th>
-    Pembayaran
-  </th>
-
-  <th>
-    Akses
-  </th>
-
-  <th>
-    Tim Canva
-  </th>
-
-  <th>
-    Dibayar
-  </th>
-
-  <th>
-    Masa Billing
-  </th>
-
-  <th>
-    Aksi
-  </th>
-
-</tr>
-
-</thead>
-
-
-<tbody
-  id="ordersBody"
->
-
-<tr>
-
-  <td
-    colspan="12"
-    class="muted"
-  >
-    Belum ada data.
-  </td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-</section>
-
-</section>
-
-</div>
-
-
-<script>
-
-/* =====================================================
-   CONFIG
-   ===================================================== */
 
 const SUPABASE_URL =
-  "https://yxybbsbjvtkpwcazairg.supabase.co";
+  Deno.env.get(
+    "SUPABASE_URL"
+  )!;
 
 
-const ADMIN_API_URL =
-  SUPABASE_URL +
-  "/functions/v1/admin-api";
+const SERVICE_ROLE_KEY =
+  Deno.env.get(
+    "SUPABASE_SERVICE_ROLE_KEY"
+  )!;
 
 
-let adminKey =
-  "";
-
-let orders =
-  [];
-
-let vouchers =
-  [];
-
-let currentFilter =
-  "ALL";
-
-let currentSort =
-  "newest";
+const ADMIN_KEY =
+  Deno.env.get(
+    "ADMIN_PANEL_KEY"
+  )!;
 
 
-const $ =
-  id =>
-    document.getElementById(
-      id
-    );
+const DELETE_PASSWORD =
+  Deno.env.get(
+    "ADMIN_DELETE_PASSWORD"
+  )!;
 
 
-/* =====================================================
-   HELPERS
-   ===================================================== */
-
-function escapeHtml(
-  value
-){
-
-  return String(
-    value ??
-    ""
-  ).replace(
-    /[&<>"']/g,
-    m => ({
-
-      "&":
-        "&amp;",
-
-      "<":
-        "&lt;",
-
-      ">":
-        "&gt;",
-
-      '"':
-        "&quot;",
-
-      "'":
-        "&#039;"
-
-    }[m])
+const admin =
+  createClient(
+    SUPABASE_URL,
+    SERVICE_ROLE_KEY
   );
 
-}
 
-
-function rupiah(
-  value
+function jsonResponse(
+  data: unknown,
+  status = 200
 ){
 
-  return new Intl
-    .NumberFormat(
-      "id-ID"
-    )
-    .format(
-      Number(
-        value ||
-        0
-      )
-    );
-
-}
-
-
-function formatDate(
-  value
-){
-
-  if(!value)
-    return "-";
-
-
-  const date =
-    new Date(
-      value
-    );
-
-
-  if(
-    Number.isNaN(
-      date.getTime()
-    )
-  ){
-
-    return "-";
-
-  }
-
-
-  return date.toLocaleString(
-    "id-ID"
-  );
-
-}
-
-
-function showMessage(
-  element,
-  text,
-  ok=false
-){
-
-  element.className =
-    "message " +
-    (
-      ok
-        ? "ok"
-        : "err"
-    );
-
-  element.textContent =
-    text;
-
-}
-
-
-/* =====================================================
-   API
-   ===================================================== */
-
-async function api(
-  action,
-  extra={}
-){
-
-  const response =
-    await fetch(
-      ADMIN_API_URL,
-      {
-
-        method:
-          "POST",
-
-        headers:{
-
-          "Content-Type":
-            "application/json",
-
-          "x-admin-key":
-            adminKey
-
-        },
-
-        body:
-          JSON.stringify({
-
-            action,
-
-            ...extra
-
-          })
-
+  return new Response(
+    JSON.stringify(
+      data
+    ),
+    {
+      status,
+      headers:{
+        ...corsHeaders,
+        "Content-Type":
+          "application/json"
       }
-    );
+    }
+  );
+
+}
 
 
-  const data =
-    await response
-      .json()
-      .catch(
-        () => ({})
+function isValidCanvaInviteUrl(
+  value: string
+){
+
+  try{
+
+    const url =
+      new URL(
+        value
       );
 
 
-  if(
-    !response.ok
-  ){
+    return (
 
-    let message =
-      data.error ||
-      "Request gagal.";
+      url.protocol ===
+        "https:" &&
+
+      url.hostname ===
+        "www.canva.com" &&
+
+      url.pathname.startsWith(
+        "/brand/join"
+      )
+
+    );
+
+  }
+
+  catch{
+
+    return false;
+
+  }
+
+}
+
+
+Deno.serve(
+  async req => {
+
+    if(
+      req.method ===
+      "OPTIONS"
+    ){
+
+      return new Response(
+        "ok",
+        {
+          headers:
+            corsHeaders
+        }
+      );
+
+    }
 
 
     if(
-      data.paid_orders
+      req.method !==
+      "POST"
     ){
 
-      message +=
-        "\n\nOrder PAID:\n" +
-        data.paid_orders.join(
-          "\n"
-        );
+      return jsonResponse(
+        {
+          error:
+            "Method Not Allowed"
+        },
+        405
+      );
 
     }
 
 
-    throw new Error(
-      message
-    );
-
-  }
-
-
-  return data;
-
-}
-
-
-/* =====================================================
-   TEAM
-   ===================================================== */
-
-async function loadTeam(){
-
-  try{
-
-    const data =
-      await api(
-        "get_invite"
-      );
-
-
-    $("canvaTeamName")
-      .value =
-      "";
-
-    $("canvaInviteUrl")
-      .value =
-      "";
-
-
-    $("inviteUpdated")
-      .innerHTML = `
-
-        <strong>
-          Tim aktif saat ini:
-        </strong>
-
-        ${escapeHtml(
-          data.canva_team_name ||
-          "Belum ada"
-        )}
-
-        <br>
-
-        Terakhir diperbarui:
-        ${
-          data.updated_at
-            ? formatDate(
-                data.updated_at
-              )
-            : "-"
-        }
-
-      `;
-
-  }
-
-  catch(error){
-
-    showMessage(
-      $("inviteMessage"),
-      error.message,
-      false
-    );
-
-  }
-
-}
-
-
-async function saveTeam(){
-
-  const teamName =
-    $("canvaTeamName")
-      .value
-      .trim();
-
-
-  const inviteUrl =
-    $("canvaInviteUrl")
-      .value
-      .trim();
-
-
-  if(!teamName){
-
-    showMessage(
-      $("inviteMessage"),
-      "Nama tim wajib diisi.",
-      false
-    );
-
-    return;
-
-  }
-
-
-  if(!inviteUrl){
-
-    showMessage(
-      $("inviteMessage"),
-      "Link tim wajib diisi.",
-      false
-    );
-
-    return;
-
-  }
-
-
-  try{
-
-    const data =
-      await api(
-        "update_invite",
-        {
-
-          canva_team_name:
-            teamName,
-
-          canva_invite_url:
-            inviteUrl
-
-        }
-      );
-
-
-    showMessage(
-      $("inviteMessage"),
-      data.message,
-      true
-    );
-
-
-    $("canvaTeamName")
-      .value =
-      "";
-
-
-    $("canvaInviteUrl")
-      .value =
-      "";
-
-
-    $("inviteUpdated")
-      .innerHTML = `
-
-        <strong>
-          Tim aktif saat ini:
-        </strong>
-
-        ${escapeHtml(
-          data.canva_team_name
-        )}
-
-        <br>
-
-        Terakhir diperbarui:
-        ${formatDate(
-          data.updated_at
-        )}
-
-      `;
-
-  }
-
-  catch(error){
-
-    showMessage(
-      $("inviteMessage"),
-      error.message,
-      false
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   VOUCHER
-   ===================================================== */
-
-async function loadVouchers(){
-
-  const data =
-    await api(
-      "list_vouchers"
-    );
-
-
-  vouchers =
-    data.vouchers ||
-    [];
-
-
-  renderVouchers();
-
-}
-
-
-function renderVouchers(){
-
-  const body =
-    $("voucherBody");
-
-
-  if(
-    !vouchers.length
-  ){
-
-    body.innerHTML = `
-
-      <tr>
-
-        <td
-          colspan="7"
-          class="muted"
-        >
-          Belum ada voucher.
-        </td>
-
-      </tr>
-
-    `;
-
-    return;
-
-  }
-
-
-  body.innerHTML =
-    vouchers
-      .map(
-        voucher => {
-
-          const limit =
-            voucher.usage_limit === null
-              ? "∞"
-              : voucher.usage_limit;
-
-
-          const count =
-            Number(
-              voucher.usage_count ||
-              0
+    try{
+
+      const requestAdminKey =
+        req.headers.get(
+          "x-admin-key"
+        ) ||
+        "";
+
+
+      if(
+        !ADMIN_KEY ||
+        requestAdminKey !==
+          ADMIN_KEY
+      ){
+
+        return jsonResponse(
+          {
+            error:
+              "Admin key tidak valid."
+          },
+          401
+        );
+
+      }
+
+
+      const body =
+        await req.json();
+
+
+      const action =
+        String(
+          body.action ||
+          ""
+        ).trim();
+
+
+      /* =================================================
+         LIST ORDER
+         ================================================= */
+
+      if(
+        action ===
+        "list"
+      ){
+
+        const {
+          data,
+          error
+        } =
+          await admin
+            .from(
+              "orders"
+            )
+            .select(`
+              id,
+              order_code,
+              customer_name,
+              customer_email,
+              product_code,
+              product_name,
+              duration_months,
+              amount,
+              voucher_code,
+              discount_amount,
+              final_amount,
+              payment_status,
+              payment_method,
+              paid_at,
+              access_status,
+              access_token,
+              access_cycle,
+              billing_start_at,
+              billing_end_at,
+              last_access_at,
+              next_access_at,
+              canva_team_name,
+              canva_team_joined_at,
+              created_at
+            `)
+            .order(
+              "created_at",
+              {
+                ascending:false
+              }
+            )
+            .limit(
+              500
             );
 
 
-          const isFull =
-            voucher.usage_limit !== null &&
-            count >=
-              Number(
-                voucher.usage_limit
-              );
+        if(error){
 
-
-          return `
-
-            <tr>
-
-              <td>
-
-                <strong>
-                  ${escapeHtml(
-                    voucher.code
-                  )}
-                </strong>
-
-              </td>
-
-
-              <td>
-
-                Rp${rupiah(
-                  voucher.discount_amount
-                )}
-
-              </td>
-
-
-              <td>
-
-                ${count}x
-
-              </td>
-
-
-              <td>
-
-                ${
-                  limit === "∞"
-                    ? "Tanpa batas"
-                    : limit + "x"
-                }
-
-              </td>
-
-
-              <td>
-
-                ${
-                  !voucher.active
-
-                    ? `
-
-                      <span
-                        class="badge badge-off"
-                      >
-                        NONAKTIF
-                      </span>
-
-                    `
-
-                  : isFull
-
-                    ? `
-
-                      <span
-                        class="badge badge-full"
-                      >
-                        HABIS
-                      </span>
-
-                    `
-
-                  : `
-
-                      <span
-                        class="badge badge-active"
-                      >
-                        AKTIF
-                      </span>
-
-                    `
-                }
-
-              </td>
-
-
-              <td>
-
-                ${formatDate(
-                  voucher.updated_at ||
-                  voucher.created_at
-                )}
-
-              </td>
-
-
-              <td>
-
-                <div
-                  class="actions"
-                >
-
-                  <button
-                    class="small secondary"
-                    onclick="editVoucher('${escapeHtml(
-                      voucher.id
-                    )}')"
-                  >
-                    Edit
-                  </button>
-
-
-                  <button
-                    class="small ${
-                      voucher.active
-                        ? "secondary"
-                        : "success"
-                    }"
-                    onclick="toggleVoucher(
-                      '${escapeHtml(
-                        voucher.id
-                      )}',
-                      ${!voucher.active}
-                    )"
-                  >
-
-                    ${
-                      voucher.active
-                        ? "Nonaktifkan"
-                        : "Aktifkan"
-                    }
-
-                  </button>
-
-
-                  <button
-                    class="small danger"
-                    onclick="deleteVoucher('${escapeHtml(
-                      voucher.id
-                    )}')"
-                  >
-                    Hapus
-                  </button>
-
-                </div>
-
-              </td>
-
-            </tr>
-
-          `;
-
-        }
-      )
-      .join("");
-
-}
-
-
-/* =====================================================
-   CREATE VOUCHER
-   ===================================================== */
-
-async function addVoucher(){
-
-  const code =
-    $("voucherCode")
-      .value
-      .trim()
-      .toUpperCase();
-
-
-  const discount =
-    Number(
-      $("voucherDiscount")
-        .value
-    );
-
-
-  const noLimit =
-    $("voucherNoLimit")
-      .checked;
-
-
-  const limit =
-    noLimit
-      ? null
-      : Number(
-          $("voucherLimit")
-            .value
-        );
-
-
-  const active =
-    $("voucherActive")
-      .value ===
-      "true";
-
-
-  if(!code){
-
-    showMessage(
-      $("voucherMessage"),
-      "Kode voucher wajib diisi.",
-      false
-    );
-
-    return;
-
-  }
-
-
-  if(
-    !Number.isInteger(
-      discount
-    ) ||
-    discount <= 0
-  ){
-
-    showMessage(
-      $("voucherMessage"),
-      "Nominal potongan tidak valid.",
-      false
-    );
-
-    return;
-
-  }
-
-
-  if(
-    !noLimit &&
-    (
-      !Number.isInteger(
-        limit
-      ) ||
-      limit <= 0
-    )
-  ){
-
-    showMessage(
-      $("voucherMessage"),
-      "Isi batas penggunaan atau pilih Tanpa batas.",
-      false
-    );
-
-    return;
-
-  }
-
-
-  try{
-
-    const data =
-      await api(
-        "create_voucher",
-        {
-
-          code:
-            code,
-
-          discount_amount:
-            discount,
-
-          usage_limit:
-            limit,
-
-          active:
-            active
-
-        }
-      );
-
-
-    showMessage(
-      $("voucherMessage"),
-      data.message,
-      true
-    );
-
-
-    $("voucherCode")
-      .value =
-      "";
-
-
-    $("voucherDiscount")
-      .value =
-      "";
-
-
-    $("voucherLimit")
-      .value =
-      "";
-
-
-    $("voucherNoLimit")
-      .checked =
-      false;
-
-
-    $("voucherActive")
-      .value =
-      "true";
-
-
-    await loadVouchers();
-
-  }
-
-  catch(error){
-
-    showMessage(
-      $("voucherMessage"),
-      error.message,
-      false
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   EDIT VOUCHER
-   ===================================================== */
-
-async function editVoucher(
-  voucherId
-){
-
-  const voucher =
-    vouchers.find(
-      item =>
-        item.id ===
-        voucherId
-    );
-
-
-  if(!voucher)
-    return;
-
-
-  const discountInput =
-    prompt(
-      "Potongan voucher (Rp):",
-      voucher.discount_amount
-    );
-
-
-  if(
-    discountInput ===
-    null
-  )
-    return;
-
-
-  const limitInput =
-    prompt(
-      "Batas penggunaan.\nKosongkan untuk tanpa batas:",
-      voucher.usage_limit ===
-        null
-        ? ""
-        : voucher.usage_limit
-    );
-
-
-  if(
-    limitInput ===
-    null
-  )
-    return;
-
-
-  const countInput =
-    prompt(
-      "Sudah digunakan berapa kali?",
-      voucher.usage_count ||
-      0
-    );
-
-
-  if(
-    countInput ===
-    null
-  )
-    return;
-
-
-  const active =
-    confirm(
-      "Klik OK untuk AKTIF.\nKlik Cancel untuk NONAKTIF."
-    );
-
-
-  const discount =
-    Number(
-      discountInput
-    );
-
-
-  const limit =
-    limitInput.trim() ===
-      ""
-      ? null
-      : Number(
-          limitInput
-        );
-
-
-  const count =
-    Number(
-      countInput
-    );
-
-
-  if(
-    !Number.isInteger(
-      discount
-    ) ||
-    discount <= 0
-  ){
-
-    alert(
-      "Potongan tidak valid."
-    );
-
-    return;
-
-  }
-
-
-  if(
-    !Number.isInteger(
-      count
-    ) ||
-    count < 0
-  ){
-
-    alert(
-      "Jumlah penggunaan tidak valid."
-    );
-
-    return;
-
-  }
-
-
-  if(
-    limit !== null &&
-    (
-      !Number.isInteger(
-        limit
-      ) ||
-      limit <= 0
-    )
-  ){
-
-    alert(
-      "Batas penggunaan tidak valid."
-    );
-
-    return;
-
-  }
-
-
-  if(
-    limit !== null &&
-    count >
-      limit
-  ){
-
-    alert(
-      "Penggunaan tidak boleh lebih besar dari batas."
-    );
-
-    return;
-
-  }
-
-
-  try{
-
-    const data =
-      await api(
-        "update_voucher",
-        {
-
-          voucher_id:
-            voucherId,
-
-          code:
-            voucher.code,
-
-          discount_amount:
-            discount,
-
-          usage_limit:
-            limit,
-
-          usage_count:
-            count,
-
-          active:
-            active
-
-        }
-      );
-
-
-    showMessage(
-      $("voucherMessage"),
-      data.message,
-      true
-    );
-
-
-    await loadVouchers();
-
-  }
-
-  catch(error){
-
-    showMessage(
-      $("voucherMessage"),
-      error.message,
-      false
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   TOGGLE
-   ===================================================== */
-
-async function toggleVoucher(
-  voucherId,
-  active
-){
-
-  try{
-
-    await api(
-      "toggle_voucher",
-      {
-
-        voucher_id:
-          voucherId,
-
-        active:
-          active
-
-      }
-    );
-
-
-    await loadVouchers();
-
-  }
-
-  catch(error){
-
-    showMessage(
-      $("voucherMessage"),
-      error.message,
-      false
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   DELETE VOUCHER
-   ===================================================== */
-
-async function deleteVoucher(
-  voucherId
-){
-
-  if(
-    !confirm(
-      "Hapus voucher ini?"
-    )
-  ){
-
-    return;
-
-  }
-
-
-  try{
-
-    const data =
-      await api(
-        "delete_voucher",
-        {
-
-          voucher_id:
-            voucherId
-
-        }
-      );
-
-
-    showMessage(
-      $("voucherMessage"),
-      data.message,
-      true
-    );
-
-
-    await loadVouchers();
-
-  }
-
-  catch(error){
-
-    showMessage(
-      $("voucherMessage"),
-      error.message,
-      false
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   ORDERS
-   ===================================================== */
-
-async function loadOrders(){
-
-  try{
-
-    const data =
-      await api(
-        "list"
-      );
-
-
-    orders =
-      data.orders ||
-      [];
-
-
-    renderOrders();
-
-  }
-
-  catch(error){
-
-    showMessage(
-      $("appMessage"),
-      error.message,
-      false
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   BILLING
-   30 HARI X BULAN
-   ===================================================== */
-
-function getBillingPeriod(
-  paidAt,
-  months
-){
-
-  if(
-    !paidAt ||
-    !months
-  ){
-
-    return "-";
-
-  }
-
-
-  const start =
-    new Date(
-      paidAt
-    );
-
-
-  const end =
-    new Date(
-      start
-    );
-
-
-  end.setDate(
-    end.getDate() +
-    (
-      Number(
-        months
-      ) * 30
-    ) -
-    1
-  );
-
-
-  return (
-
-    start.toLocaleDateString(
-      "id-ID"
-    )
-
-    +
-
-    " – "
-
-    +
-
-    end.toLocaleDateString(
-      "id-ID"
-    )
-
-  );
-
-}
-
-
-/* =====================================================
-   STATUS
-   ===================================================== */
-
-function statusBadge(
-  value
-){
-
-  const status =
-    String(
-      value ||
-      ""
-    ).toUpperCase();
-
-
-  let className =
-    "status status-other";
-
-
-  if(
-    status ===
-    "PAID"
-  ){
-
-    className =
-      "status status-paid";
-
-  }
-
-  else if(
-    status ===
-    "PENDING"
-  ){
-
-    className =
-      "status status-pending";
-
-  }
-
-  else if(
-    status ===
-    "USED"
-  ){
-
-    className =
-      "status status-used";
-
-  }
-
-  else if(
-    status ===
-    "UNUSED"
-  ){
-
-    className =
-      "status status-unused";
-
-  }
-
-
-  return `
-
-    <span
-      class="${className}"
-    >
-      ${escapeHtml(
-        status ||
-        "-"
-      )}
-    </span>
-
-  `;
-
-}
-
-
-/* =====================================================
-   RENDER ORDERS
-   ===================================================== */
-
-function renderOrders(){
-
-  const keyword =
-    $("search")
-      .value
-      .trim()
-      .toLowerCase();
-
-
-  let filtered =
-    orders.filter(
-      order => {
-
-        const paymentStatus =
-          String(
-            order.payment_status ||
-            ""
-          ).toUpperCase();
-
-
-        const filterMatch =
-          currentFilter ===
-            "ALL" ||
-
-          currentFilter ===
-            paymentStatus;
-
-
-        const searchable =
-          [
-
-            order.order_code,
-
-            order.customer_name,
-
-            order.customer_email,
-
-            order.product_name,
-
-            order.payment_status,
-
-            order.access_status,
-
-            order.canva_team_name,
-
-            order.voucher_code
-
-          ]
-          .join(" ")
-          .toLowerCase();
-
-
-        return (
-
-          filterMatch &&
-
-          searchable.includes(
-            keyword
-          )
-
-        );
-
-      }
-    );
-
-
-  filtered.sort(
-    (a,b) => {
-
-      const timeA =
-        new Date(
-          a.created_at ||
-          0
-        ).getTime();
-
-
-      const timeB =
-        new Date(
-          b.created_at ||
-          0
-        ).getTime();
-
-
-      return currentSort ===
-        "newest"
-
-        ? timeB - timeA
-
-        : timeA - timeB;
-
-    }
-  );
-
-
-  $("selectAll")
-    .checked =
-    false;
-
-
-  if(
-    !filtered.length
-  ){
-
-    $("ordersBody")
-      .innerHTML = `
-
-        <tr>
-
-          <td
-            colspan="12"
-            class="muted"
-          >
-            Tidak ada pesanan.
-          </td>
-
-        </tr>
-
-      `;
-
-
-    updateDeleteButton();
-
-    return;
-
-  }
-
-
-  $("ordersBody")
-    .innerHTML =
-
-    filtered
-      .map(
-        order => {
-
-          const paid =
-            String(
-              order.payment_status ||
-              ""
-            ).toUpperCase() ===
-            "PAID";
-
-
-          const used =
-            String(
-              order.access_status ||
-              ""
-            ).toUpperCase() ===
-            "USED";
-
-
-          return `
-
-            <tr>
-
-              <td>
-
-                <input
-                  type="checkbox"
-                  class="orderCheck"
-                  value="${escapeHtml(
-                    order.order_code
-                  )}"
-                  style="width:auto"
-                >
-
-              </td>
-
-
-              <td>
-
-                <strong>
-                  ${escapeHtml(
-                    order.order_code
-                  )}
-                </strong>
-
-                <br>
-
-                <span
-                  class="muted"
-                >
-                  ${formatDate(
-                    order.created_at
-                  )}
-                </span>
-
-              </td>
-
-
-              <td>
-
-                <strong>
-                  ${escapeHtml(
-                    order.customer_name
-                  )}
-                </strong>
-
-                <br>
-
-                ${escapeHtml(
-                  order.customer_email
-                )}
-
-              </td>
-
-
-              <td>
-
-                ${escapeHtml(
-                  order.product_name ||
-                  "-"
-                )}
-
-              </td>
-
-
-              <td>
-
-                Rp${rupiah(
-                  order.amount
-                )}
-
-                ${
-                  order.discount_amount
-
-                    ? `
-
-                      <br>
-
-                      <span
-                        class="muted"
-                      >
-                        Setelah voucher:
-                        Rp${rupiah(
-                          order.final_amount
-                        )}
-                      </span>
-
-                    `
-
-                    : ""
-
-                }
-
-              </td>
-
-
-              <td>
-
-                ${
-                  order.voucher_code
-
-                    ? `
-
-                      <strong>
-                        ${escapeHtml(
-                          order.voucher_code
-                        )}
-                      </strong>
-
-                      <br>
-
-                      <span
-                        class="muted"
-                      >
-                        -Rp${rupiah(
-                          order.discount_amount
-                        )}
-                      </span>
-
-                    `
-
-                    : `
-
-                      <span
-                        class="muted"
-                      >
-                        -
-                      </span>
-
-                    `
-
-                }
-
-              </td>
-
-
-              <td>
-
-                ${statusBadge(
-                  order.payment_status
-                )}
-
-                <br>
-
-                <span
-                  class="muted"
-                >
-                  ${escapeHtml(
-                    order.payment_method ||
-                    ""
-                  )}
-                </span>
-
-              </td>
-
-
-              <td>
-
-                ${statusBadge(
-                  order.access_status
-                )}
-
-              </td>
-
-
-              <td>
-
-                ${
-                  order.canva_team_name
-
-                    ? escapeHtml(
-                        order.canva_team_name
-                      )
-
-                    : `
-
-                      <span
-                        class="muted"
-                      >
-                        Belum tercatat
-                      </span>
-
-                    `
-                }
-
-              </td>
-
-
-              <td>
-
-                ${formatDate(
-                  order.paid_at
-                )}
-
-              </td>
-
-
-              <td>
-
-                ${
-                  paid
-
-                    ? getBillingPeriod(
-                        order.paid_at,
-                        order.duration_months
-                      )
-
-                    : "-"
-                }
-
-              </td>
-
-
-              <td>
-
-                ${
-                  paid && used
-
-                    ? `
-
-                      <button
-                        class="small danger"
-                        onclick="resetAccess(
-                          '${escapeHtml(
-                            order.order_code
-                          )}'
-                        )"
-                      >
-                        RESET
-                      </button>
-
-                    `
-
-                    : "-"
-
-                }
-
-              </td>
-
-            </tr>
-
-          `;
-
-        }
-      )
-      .join("");
-
-
-  attachOrderCheckboxEvents();
-
-}
-
-
-/* =====================================================
-   CHECKBOX
-   ===================================================== */
-
-function updateDeleteButton(){
-
-  const selected =
-    document.querySelectorAll(
-      ".orderCheck:checked"
-    ).length;
-
-
-  $("deleteSelectedBtn")
-    .disabled =
-    selected === 0;
-
-}
-
-
-function attachOrderCheckboxEvents(){
-
-  document
-    .querySelectorAll(
-      ".orderCheck"
-    )
-    .forEach(
-      checkbox => {
-
-        checkbox.addEventListener(
-          "change",
-          updateDeleteButton
-        );
-
-      }
-    );
-
-
-  updateDeleteButton();
-
-}
-
-
-/* =====================================================
-   RESET
-   ===================================================== */
-
-async function resetAccess(
-  orderCode
-){
-
-  if(
-    !confirm(
-      "Reset akses untuk " +
-      orderCode +
-      "?"
-    )
-  ){
-
-    return;
-
-  }
-
-
-  try{
-
-    const data =
-      await api(
-        "reset",
-        {
-
-          order_code:
-            orderCode
-
-        }
-      );
-
-
-    showMessage(
-      $("appMessage"),
-      data.message,
-      true
-    );
-
-
-    await loadOrders();
-
-  }
-
-  catch(error){
-
-    showMessage(
-      $("appMessage"),
-      error.message,
-      false
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   DELETE ORDERS
-   ===================================================== */
-
-$("deleteSelectedBtn")
-  .addEventListener(
-    "click",
-    async () => {
-
-      const selected =
-        Array.from(
-          document.querySelectorAll(
-            ".orderCheck:checked"
-          )
-        )
-        .map(
-          checkbox =>
-            checkbox.value
-        );
-
-
-      if(
-        !selected.length
-      ){
-
-        return;
-
-      }
-
-
-      const password =
-        prompt(
-          "Masukkan PASSWORD PENGHAPUSAN:"
-        );
-
-
-      if(
-        password ===
-        null
-      ){
-
-        return;
-
-      }
-
-
-      if(
-        !confirm(
-          "Hapus " +
-          selected.length +
-          " order terpilih?"
-        )
-      ){
-
-        return;
-
-      }
-
-
-      try{
-
-        const data =
-          await api(
-            "delete_orders",
+          return jsonResponse(
             {
-
-              order_codes:
-                selected,
-
-              delete_password:
-                password
-
-            }
+              error:
+                "Gagal mengambil order.",
+              detail:
+                error.message
+            },
+            500
           );
 
-
-        showMessage(
-          $("appMessage"),
-          data.message,
-          true
-        );
+        }
 
 
-        await loadOrders();
+        return jsonResponse(
+          {
 
-      }
+            ok:true,
 
-      catch(error){
-
-        showMessage(
-          $("appMessage"),
-          error.message,
-          false
-        );
-
-      }
-
-    }
-  );
-
-
-/* =====================================================
-   SELECT ALL
-   ===================================================== */
-
-$("selectAll")
-  .addEventListener(
-    "change",
-    () => {
-
-      const checked =
-        $("selectAll")
-          .checked;
-
-
-      document
-        .querySelectorAll(
-          ".orderCheck"
-        )
-        .forEach(
-          checkbox => {
-
-            checkbox.checked =
-              checked;
+            orders:
+              data ||
+              []
 
           }
         );
 
-
-      updateDeleteButton();
-
-    }
-  );
-
-
-/* =====================================================
-   LOGIN
-   ===================================================== */
-
-$("loginBtn")
-  .addEventListener(
-    "click",
-    async () => {
-
-      const key =
-        $("adminKey")
-          .value
-          .trim();
-
-
-      if(!key){
-
-        showMessage(
-          $("loginMessage"),
-          "Admin Key wajib diisi.",
-          false
-        );
-
-        return;
-
       }
 
 
-      adminKey =
-        key;
-
-
-      $("loginBtn")
-        .disabled =
-        true;
-
-
-      try{
-
-        await loadTeam();
-
-        await loadVouchers();
-
-        await loadOrders();
-
-
-        $("loginCard")
-          .classList
-          .add(
-            "hidden"
-          );
-
-
-        $("app")
-          .classList
-          .remove(
-            "hidden"
-          );
-
-
-        $("logoutBtn")
-          .classList
-          .remove(
-            "hidden"
-          );
-
-      }
-
-      catch(error){
-
-        adminKey =
-          "";
-
-        showMessage(
-          $("loginMessage"),
-          error.message ||
-            "Gagal login.",
-          false
-        );
-
-      }
-
-      finally{
-
-        $("loginBtn")
-          .disabled =
-          false;
-
-      }
-
-    }
-  );
-
-
-/* =====================================================
-   LOGOUT
-   ===================================================== */
-
-$("logoutBtn")
-  .addEventListener(
-    "click",
-    () => {
-
-      adminKey =
-        "";
-
-      orders =
-        [];
-
-      vouchers =
-        [];
-
-
-      $("app")
-        .classList
-        .add(
-          "hidden"
-        );
-
-
-      $("loginCard")
-        .classList
-        .remove(
-          "hidden"
-        );
-
-
-      $("logoutBtn")
-        .classList
-        .add(
-          "hidden"
-        );
-
-    }
-  );
-
-
-/* =====================================================
-   TEAM BUTTON
-   ===================================================== */
-
-$("saveInviteBtn")
-  .addEventListener(
-    "click",
-    saveTeam
-  );
-
-
-/* =====================================================
-   VOUCHER BUTTON
-   ===================================================== */
-
-$("addVoucherBtn")
-  .addEventListener(
-    "click",
-    addVoucher
-  );
-
-
-/* =====================================================
-   REFRESH
-   ===================================================== */
-
-$("refreshBtn")
-  .addEventListener(
-    "click",
-    async () => {
-
-      await loadOrders();
-
-      await loadVouchers();
-
-    }
-  );
-
-
-/* =====================================================
-   SEARCH
-   ===================================================== */
-
-$("search")
-  .addEventListener(
-    "input",
-    renderOrders
-  );
-
-
-/* =====================================================
-   SORT
-   ===================================================== */
-
-$("sortOrder")
-  .addEventListener(
-    "change",
-    () => {
-
-      currentSort =
-        $("sortOrder")
-          .value;
-
-
-      renderOrders();
-
-    }
-  );
-
-
-/* =====================================================
-   FILTER
-   ===================================================== */
-
-document
-  .querySelectorAll(
-    ".filterBtn"
-  )
-  .forEach(
-    button => {
-
-      button.addEventListener(
-        "click",
-        () => {
-
-          currentFilter =
-            button.dataset.filter;
-
-
-          document
-            .querySelectorAll(
-              ".filterBtn"
+      /* =================================================
+         GET TEAM
+         ================================================= */
+
+      if(
+        action ===
+        "get_invite"
+      ){
+
+        const {
+          data,
+          error
+        } =
+          await admin
+            .from(
+              "app_settings"
             )
-            .forEach(
-              item =>
-                item.style.opacity =
-                  "0.65"
+            .select(`
+              canva_team_name,
+              canva_invite_url,
+              updated_at
+            `)
+            .eq(
+              "id",
+              "main"
+            )
+            .maybeSingle();
+
+
+        if(error){
+
+          return jsonResponse(
+            {
+              error:
+                "Gagal mengambil tim Canva.",
+              detail:
+                error.message
+            },
+            500
+          );
+
+        }
+
+
+        return jsonResponse(
+          {
+
+            ok:true,
+
+            canva_team_name:
+              data?.canva_team_name ||
+              "",
+
+            canva_invite_url:
+              data?.canva_invite_url ||
+              "",
+
+            updated_at:
+              data?.updated_at ||
+              null
+
+          }
+        );
+
+      }
+
+
+      /* =================================================
+         UPDATE TEAM
+         ================================================= */
+
+      if(
+        action ===
+        "update_invite"
+      ){
+
+        const teamName =
+          String(
+            body.canva_team_name ||
+            ""
+          ).trim();
+
+
+        const inviteUrl =
+          String(
+            body.canva_invite_url ||
+            ""
+          ).trim();
+
+
+        if(
+          !teamName
+        ){
+
+          return jsonResponse(
+            {
+              error:
+                "Nama tim Canva wajib diisi."
+            },
+            400
+          );
+
+        }
+
+
+        if(
+          !isValidCanvaInviteUrl(
+            inviteUrl
+          )
+        ){
+
+          return jsonResponse(
+            {
+              error:
+                "Link Canva tidak valid."
+            },
+            400
+          );
+
+        }
+
+
+        const {
+          data,
+          error
+        } =
+          await admin
+            .from(
+              "app_settings"
+            )
+            .upsert(
+              {
+
+                id:
+                  "main",
+
+                canva_team_name:
+                  teamName,
+
+                canva_invite_url:
+                  inviteUrl
+
+              },
+              {
+                onConflict:
+                  "id"
+              }
+            )
+            .select(`
+              canva_team_name,
+              canva_invite_url,
+              updated_at
+            `)
+            .single();
+
+
+        if(error){
+
+          return jsonResponse(
+            {
+              error:
+                "Gagal menyimpan tim Canva.",
+              detail:
+                error.message
+            },
+            500
+          );
+
+        }
+
+
+        return jsonResponse(
+          {
+
+            ok:true,
+
+            message:
+              "Nama dan link tim Canva berhasil diperbarui.",
+
+            canva_team_name:
+              data.canva_team_name,
+
+            canva_invite_url:
+              data.canva_invite_url,
+
+            updated_at:
+              data.updated_at
+
+          }
+        );
+
+      }
+
+
+      /* =================================================
+         LIST VOUCHERS
+         ================================================= */
+
+      if(
+        action ===
+        "list_vouchers"
+      ){
+
+        const {
+          data,
+          error
+        } =
+          await admin
+            .from(
+              "vouchers"
+            )
+            .select(`
+              id,
+              code,
+              discount_amount,
+              usage_limit,
+              usage_count,
+              active,
+              created_at,
+              updated_at
+            `)
+            .order(
+              "created_at",
+              {
+                ascending:false
+              }
             );
 
 
-          button.style.opacity =
-            "1";
+        if(error){
 
-
-          renderOrders();
+          return jsonResponse(
+            {
+              error:
+                "Gagal mengambil voucher.",
+              detail:
+                error.message
+            },
+            500
+          );
 
         }
-      );
-
-    }
-  );
 
 
-/* =====================================================
-   ENTER LOGIN
-   ===================================================== */
+        return jsonResponse(
+          {
 
-$("adminKey")
-  .addEventListener(
-    "keydown",
-    event => {
+            ok:true,
 
-      if(
-        event.key ===
-        "Enter"
-      ){
+            vouchers:
+              data ||
+              []
 
-        $("loginBtn")
-          .click();
+          }
+        );
 
       }
 
+
+      /* =================================================
+         CREATE VOUCHER
+         ================================================= */
+
+      if(
+        action ===
+        "create_voucher"
+      ){
+
+        const code =
+          String(
+            body.code ||
+            ""
+          )
+            .trim()
+            .toUpperCase();
+
+
+        const discountAmount =
+          Number(
+            body.discount_amount
+          );
+
+
+        const usageLimit =
+          body.usage_limit ===
+            null ||
+
+          body.usage_limit ===
+            undefined ||
+
+          body.usage_limit ===
+            ""
+            ? null
+            : Number(
+                body.usage_limit
+              );
+
+
+        const active =
+          body.active !==
+          false;
+
+
+        if(
+          !/^[A-Z0-9_-]{3,30}$/
+            .test(
+              code
+            )
+        ){
+
+          return jsonResponse(
+            {
+              error:
+                "Kode voucher tidak valid."
+            },
+            400
+          );
+
+        }
+
+
+        if(
+          !Number.isInteger(
+            discountAmount
+          ) ||
+          discountAmount <=
+            0
+        ){
+
+          return jsonResponse(
+            {
+              error:
+                "Nominal potongan tidak valid."
+            },
+            400
+          );
+
+        }
+
+
+        if(
+          usageLimit !==
+            null &&
+
+          (
+            !Number.isInteger(
+              usageLimit
+            ) ||
+            usageLimit <=
+              0
+          )
+        ){
+
+          return jsonResponse(
+            {
+              error:
+                "Batas penggunaan tidak valid."
+            },
+            400
+          );
+
+        }
+
+
+        const {
+          data,
+          error
+        } =
+          await admin
+            .from(
+              "vouchers"
+            )
+            .insert({
+
+              code:
+                code,
+
+              discount_amount:
+                discountAmount,
+
+              usage_limit:
+                usageLimit,
+
+              usage_count:
+                0,
+
+              active:
+                active,
+
+              updated_at:
+                new Date()
+                  .toISOString()
+
+            })
+            .select(`
+              id,
+              code,
+              discount_amount,
+              usage_limit,
+              usage_count,
+              active,
+              created_at,
+              updated_at
+            `)
+            .single();
+
+
+        if(error){
+
+          if(
+            error.code ===
+            "23505"
+          ){
+
+            return jsonResponse(
+              {
+                error:
+                  "Kode voucher sudah ada."
+              },
+              400
+            );
+
+          }
+
+
+          return jsonResponse(
+            {
+              error:
+                "Gagal membuat voucher.",
+              detail:
+                error.message
+            },
+            500
+          );
+
+        }
+
+
+        return jsonResponse(
+          {
+
+            ok:true,
+
+            message:
+              "Voucher berhasil ditambahkan.",
+
+            voucher:
+              data
+
+          }
+        );
+
+      }
+
+
+      /* =================================================
+         UPDATE VOUCHER
+         ================================================= */
+
+      if(
+        action ===
+        "update_voucher"
+      ){
+
+        const voucherId =
+          String(
+            body.voucher_id ||
+            ""
+          ).trim();
+
+
+        const code =
+          String(
+            body.code ||
+            ""
+          )
+            .trim()
+            .toUpperCase();
+
+
+        const discountAmount =
+          Number(
+            body.discount_amount
+          );
+
+
+        const usageLimit =
+          body.usage_limit ===
+            null ||
+
+          body.usage_limit ===
+            undefined ||
+
+          body.usage_limit ===
+            ""
+            ? null
+            : Number(
+                body.usage_limit
+              );
+
+
+        const usageCount =
+          Number(
+            body.usage_count
+          );
+
+
+        const active =
+          Boolean(
+            body.active
+          );
+
+
+        if(
+          !voucherId
+        ){
+
+          return jsonResponse(
+            {
+              error:
+                "ID voucher wajib diisi."
+            },
+            400
+          );
+
+        }
+
+
+        if(
+          !Number.isInteger(
+            discountAmount
+          ) ||
+          discountAmount <=
+            0
+        ){
+
+          return jsonResponse(
+            {
+              error:
+                "Potongan tidak valid."
+            },
+            400
+          );
+
+        }
+
+
+        if(
+          !Number.isInteger(
+            usageCount
+          ) ||
+          usageCount <
+            0
+        ){
+
+          return jsonResponse(
+            {
+              error:
+                "Jumlah penggunaan tidak valid."
+            },
+            400
+          );
+
+        }
+
+
+        if(
+          usageLimit !==
+            null &&
+
+          (
+            !Number.isInteger(
+              usageLimit
+            ) ||
+
+            usageLimit <=
+              0
+          )
+        ){
+
+          return jsonResponse(
+            {
+              error:
+                "Batas penggunaan tidak valid."
+            },
+            400
+          );
+
+        }
+
+
+        if(
+          usageLimit !==
+            null &&
+
+          usageCount >
+            usageLimit
+        ){
+
+          return jsonResponse(
+            {
+              error:
+                "Penggunaan tidak boleh lebih besar dari batas."
+            },
+            400
+          );
+
+        }
+
+
+        const {
+          data,
+          error
+        } =
+          await admin
+            .from(
+              "vouchers"
+            )
+            .update({
+
+              code:
+                code,
+
+              discount_amount:
+                discountAmount,
+
+              usage_limit:
+                usageLimit,
+
+              usage_count:
+                usageCount,
+
+              active:
+                active,
+
+              updated_at:
+                new Date()
+                  .toISOString()
+
+            })
+            .eq(
+              "id",
+              voucherId
+            )
+            .select(`
+              id,
+              code,
+              discount_amount,
+              usage_limit,
+              usage_count,
+              active,
+              created_at,
+              updated_at
+            `)
+            .single();
+
+
+        if(error){
+
+          return jsonResponse(
+            {
+              error:
+                "Gagal memperbarui voucher.",
+              detail:
+                error.message
+            },
+            500
+          );
+
+        }
+
+
+        return jsonResponse(
+          {
+
+            ok:true,
+
+            message:
+              "Voucher berhasil diperbarui.",
+
+            voucher:
+              data
+
+          }
+        );
+
+      }
+
+
+      /* =================================================
+         TOGGLE VOUCHER
+         ================================================= */
+
+      if(
+        action ===
+        "toggle_voucher"
+      ){
+
+        const {
+          data,
+          error
+        } =
+          await admin
+            .from(
+              "vouchers"
+            )
+            .update({
+
+              active:
+                Boolean(
+                  body.active
+                ),
+
+              updated_at:
+                new Date()
+                  .toISOString()
+
+            })
+            .eq(
+              "id",
+              String(
+                body.voucher_id
+              )
+            )
+            .select()
+            .single();
+
+
+        if(error){
+
+          return jsonResponse(
+            {
+              error:
+                "Gagal mengubah voucher.",
+              detail:
+                error.message
+            },
+            500
+          );
+
+        }
+
+
+        return jsonResponse(
+          {
+            ok:true,
+            voucher:
+              data
+          }
+        );
+
+      }
+
+
+      /* =================================================
+         DELETE VOUCHER
+         ================================================= */
+
+      if(
+        action ===
+        "delete_voucher"
+      ){
+
+        const {
+          error
+        } =
+          await admin
+            .from(
+              "vouchers"
+            )
+            .delete()
+            .eq(
+              "id",
+              String(
+                body.voucher_id
+              )
+            );
+
+
+        if(error){
+
+          return jsonResponse(
+            {
+              error:
+                "Gagal menghapus voucher.",
+              detail:
+                error.message
+            },
+            500
+          );
+
+        }
+
+
+        return jsonResponse(
+          {
+            ok:true,
+
+            message:
+              "Voucher berhasil dihapus."
+          }
+        );
+
+      }
+
+
+      /* =================================================
+         RESET ACCESS
+         
+         RESET ADMIN MEMBUAT SIKLUS KEMBALI
+         KE 0.
+         ================================================= */
+
+      if(
+        action ===
+        "reset"
+      ){
+
+        const orderCode =
+          String(
+            body.order_code ||
+            ""
+          ).trim();
+
+
+        const {
+          data: order,
+          error
+        } =
+          await admin
+            .from(
+              "orders"
+            )
+            .select(`
+              id,
+              order_code,
+              payment_status,
+              access_token,
+              duration_months,
+              billing_start_at,
+              billing_end_at
+            `)
+            .eq(
+              "order_code",
+              orderCode
+            )
+            .maybeSingle();
+
+
+        if(error){
+
+          return jsonResponse(
+            {
+              error:
+                "Gagal mencari order.",
+              detail:
+                error.message
+            },
+            500
+          );
+
+        }
+
+
+        if(!order){
+
+          return jsonResponse(
+            {
+              error:
+                "Order tidak ditemukan."
+            },
+            404
+          );
+
+        }
+
+
+        if(
+          String(
+            order.payment_status
+          ).toUpperCase() !==
+          "PAID"
+        ){
+
+          return jsonResponse(
+            {
+              error:
+                "Order belum PAID."
+            },
+            400
+          );
+
+        }
+
+
+        if(
+          order.billing_end_at &&
+          new Date() >
+            new Date(
+              order.billing_end_at
+            )
+        ){
+
+          return jsonResponse(
+            {
+              error:
+                "Billing order sudah berakhir."
+            },
+            400
+          );
+
+        }
+
+
+        const {
+          data: team
+        } =
+          await admin
+            .from(
+              "app_settings"
+            )
+            .select(
+              "canva_team_name"
+            )
+            .eq(
+              "id",
+              "main"
+            )
+            .maybeSingle();
+
+
+        const {
+          error:
+            orderUpdateError
+        } =
+          await admin
+            .from(
+              "orders"
+            )
+            .update({
+
+              access_status:
+                "UNUSED",
+
+              access_cycle:
+                0,
+
+              last_access_at:
+                null,
+
+              next_access_at:
+                null,
+
+              canva_team_name:
+                team?.canva_team_name ||
+                null,
+
+              canva_team_joined_at:
+                null
+
+            })
+            .eq(
+              "id",
+              order.id
+            );
+
+
+        if(
+          orderUpdateError
+        ){
+
+          return jsonResponse(
+            {
+              error:
+                "Gagal reset order.",
+              detail:
+                orderUpdateError.message
+            },
+            500
+          );
+
+        }
+
+
+        if(
+          order.access_token
+        ){
+
+          await admin
+            .from(
+              "access_tokens"
+            )
+            .update({
+
+              status:
+                "UNUSED",
+
+              used_at:
+                null
+
+            })
+            .eq(
+              "access_token",
+              order.access_token
+            );
+
+        }
+
+
+        return jsonResponse(
+          {
+
+            ok:true,
+
+            message:
+              "Akses berhasil direset.",
+
+            order_code:
+              order.order_code
+
+          }
+        );
+
+      }
+
+
+      /* =================================================
+         DELETE ORDER
+         ================================================= */
+
+      if(
+        action ===
+        "delete_orders"
+      ){
+
+        const password =
+          String(
+            body.delete_password ||
+            ""
+          );
+
+
+        if(
+          !DELETE_PASSWORD
+        ){
+
+          return jsonResponse(
+            {
+              error:
+                "ADMIN_DELETE_PASSWORD belum dikonfigurasi."
+            },
+            500
+          );
+
+        }
+
+
+        if(
+          password !==
+          DELETE_PASSWORD
+        ){
+
+          return jsonResponse(
+            {
+              error:
+                "Password penghapusan salah."
+            },
+            401
+          );
+
+        }
+
+
+        const codes =
+          Array.from(
+            new Set(
+              (
+                Array.isArray(
+                  body.order_codes
+                )
+                  ? body.order_codes
+                  : []
+              )
+              .map(
+                code =>
+                  String(
+                    code ||
+                    ""
+                  ).trim()
+              )
+              .filter(
+                Boolean
+              )
+            )
+          );
+
+
+        if(
+          !codes.length
+        ){
+
+          return jsonResponse(
+            {
+              error:
+                "Tidak ada order yang dipilih."
+            },
+            400
+          );
+
+        }
+
+
+        const {
+          data: selected,
+          error
+        } =
+          await admin
+            .from(
+              "orders"
+            )
+            .select(
+              `
+                id,
+                order_code,
+                payment_status
+              `
+            )
+            .in(
+              "order_code",
+              codes
+            );
+
+
+        if(error){
+
+          return jsonResponse(
+            {
+              error:
+                "Gagal membaca order.",
+              detail:
+                error.message
+            },
+            500
+          );
+
+        }
+
+
+        const paid =
+          (
+            selected ||
+            []
+          )
+          .filter(
+            item =>
+              String(
+                item.payment_status
+              ).toUpperCase() ===
+              "PAID"
+          );
+
+
+        if(
+          paid.length
+        ){
+
+          return jsonResponse(
+            {
+              error:
+                "Order PAID tidak boleh dihapus.",
+
+              paid_orders:
+                paid.map(
+                  item =>
+                    item.order_code
+                )
+            },
+            400
+          );
+
+        }
+
+
+        await admin
+          .from(
+            "access_tokens"
+          )
+          .delete()
+          .in(
+            "order_code",
+            codes
+          );
+
+
+        const {
+          error:
+            deleteError
+        } =
+          await admin
+            .from(
+              "orders"
+            )
+            .delete()
+            .in(
+              "order_code",
+              codes
+            );
+
+
+        if(deleteError){
+
+          return jsonResponse(
+            {
+              error:
+                "Gagal menghapus order.",
+              detail:
+                deleteError.message
+            },
+            500
+          );
+
+        }
+
+
+        return jsonResponse(
+          {
+
+            ok:true,
+
+            message:
+              (
+                selected?.length ||
+                0
+              ) +
+              " order berhasil dihapus."
+
+          }
+        );
+
+      }
+
+
+      return jsonResponse(
+        {
+          error:
+            "Action tidak dikenal."
+        },
+        400
+      );
+
     }
-  );
 
-</script>
+    catch(error){
 
-</body>
+      console.error(
+        "ADMIN API ERROR:",
+        error
+      );
 
-</html>
+
+      return jsonResponse(
+        {
+          error:
+            "Terjadi kesalahan pada admin-api.",
+
+          detail:
+            error instanceof Error
+              ? error.message
+              : String(error)
+        },
+        500
+      );
+
+    }
+
+  }
+);
