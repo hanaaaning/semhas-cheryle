@@ -14,736 +14,402 @@
   Canva Premium Store
 </title>
 
-
 <style>
 
 *{
   box-sizing:border-box;
 }
 
-
 body{
-
   margin:0;
-
   background:#f7f7fb;
-
   color:#172033;
-
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
-
+  font-family:Arial,Helvetica,sans-serif;
 }
-
 
 .container{
-
-  width:
-    min(1050px,92%);
-
+  width:min(1050px,92%);
   margin:0 auto;
-
 }
-
 
 header{
-
-  padding:
-    28px 0 18px;
-
+  padding:28px 0 18px;
 }
-
 
 .brand{
-
-  font-size:
-    24px;
-
-  font-weight:
-    800;
-
+  font-size:24px;
+  font-weight:800;
 }
-
 
 .hero{
-
-  padding:
-    28px 0 16px;
-
+  padding:28px 0 16px;
 }
-
 
 .hero h1{
-
-  font-size:
-    42px;
-
-  margin:
-    0 0 12px;
-
+  font-size:42px;
+  margin:0 0 12px;
 }
-
 
 .hero p{
-
-  color:
-    #697386;
-
-  line-height:
-    1.6;
-
+  color:#697386;
+  line-height:1.6;
 }
-
 
 .grid{
-
-  display:
-    grid;
-
-  grid-template-columns:
-    repeat(3,1fr);
-
-  gap:
-    18px;
-
-  margin:
-    28px 0;
-
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+  margin:28px 0;
 }
-
 
 .card{
-
-  background:
-    #fff;
-
-  border:
-    1px solid #eceef3;
-
-  border-radius:
-    20px;
-
-  padding:
-    24px;
-
-  box-shadow:
-    0 12px 40px rgba(0,0,0,.05);
-
+  background:#fff;
+  border:1px solid #eceef3;
+  border-radius:20px;
+  padding:24px;
+  box-shadow:0 12px 40px rgba(0,0,0,.05);
 }
-
 
 .card h2{
-
-  margin:
-    0 0 8px;
-
+  margin:0 0 8px;
 }
-
 
 .price{
-
-  font-size:
-    32px;
-
-  font-weight:
-    800;
-
-  margin:
-    16px 0;
-
+  font-size:32px;
+  font-weight:800;
+  margin:16px 0;
 }
-
 
 button{
-
-  width:
-    100%;
-
-  border:
-    0;
-
-  border-radius:
-    12px;
-
-  background:
-    #7c3aed;
-
-  color:
-    #fff;
-
-  padding:
-    14px;
-
-  font-size:
-    16px;
-
-  font-weight:
-    700;
-
-  cursor:
-    pointer;
-
+  width:100%;
+  border:0;
+  border-radius:12px;
+  background:#7c3aed;
+  color:#fff;
+  padding:14px;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
 }
-
 
 button:hover{
-
-  background:
-    #6d28d9;
-
+  background:#6d28d9;
 }
-
 
 button:disabled{
-
-  background:
-    #c7cad3;
-
+  background:#c7cad3;
+  cursor:not-allowed;
 }
-
 
 .panel{
-
-  display:
-    none;
-
-  background:
-    #fff;
-
-  border:
-    1px solid #eceef3;
-
-  border-radius:
-    20px;
-
-  padding:
-    26px;
-
-  margin:
-    22px 0 40px;
-
+  display:none;
+  background:#fff;
+  border:1px solid #eceef3;
+  border-radius:20px;
+  padding:26px;
+  margin:22px 0 40px;
 }
-
 
 label{
-
-  display:
-    block;
-
-  font-weight:
-    700;
-
-  margin:
-    14px 0 7px;
-
+  display:block;
+  font-weight:700;
+  margin:14px 0 7px;
 }
-
 
 input{
-
-  width:
-    100%;
-
-  padding:
-    14px;
-
-  border:
-    1px solid #d6dae3;
-
-  border-radius:
-    11px;
-
-  font-size:
-    15px;
-
+  width:100%;
+  padding:14px;
+  border:1px solid #d6dae3;
+  border-radius:11px;
+  font-size:15px;
+  outline:none;
 }
 
+input:focus{
+  border-color:#7c3aed;
+  box-shadow:0 0 0 3px rgba(124,58,237,.08);
+}
 
 .summary{
-
-  background:
-    #f6f5ff;
-
-  padding:
-    16px;
-
-  border-radius:
-    12px;
-
-  line-height:
-    1.8;
-
+  background:#f6f5ff;
+  padding:16px;
+  border-radius:12px;
+  line-height:1.8;
 }
-
 
 .orderbox{
-
-  background:
-    #eef2ff;
-
-  padding:
-    16px;
-
-  border-radius:
-    12px;
-
-  margin-top:
-    16px;
-
-  line-height:
-    1.8;
-
+  background:#eef2ff;
+  padding:16px;
+  border-radius:12px;
+  margin-top:16px;
+  line-height:1.8;
 }
-
 
 .note{
-
-  background:
-    #fff7ed;
-
-  color:
-    #9a3412;
-
-  padding:
-    15px;
-
-  border-radius:
-    12px;
-
-  margin-top:
-    16px;
-
-  line-height:
-    1.6;
-
+  background:#fff7ed;
+  color:#9a3412;
+  padding:15px;
+  border-radius:12px;
+  margin-top:16px;
+  line-height:1.6;
 }
-
 
 .message{
-
-  display:
-    none;
-
-  padding:
-    14px;
-
-  margin-top:
-    14px;
-
-  border-radius:
-    12px;
-
+  display:none;
+  padding:14px;
+  margin-top:14px;
+  border-radius:12px;
+  line-height:1.5;
 }
-
 
 .message.ok{
-
-  display:
-    block;
-
-  background:
-    #ecfdf5;
-
-  color:
-    #065f46;
-
+  display:block;
+  background:#ecfdf5;
+  color:#065f46;
 }
-
 
 .message.err{
-
-  display:
-    block;
-
-  background:
-    #fff1f2;
-
-  color:
-    #9f1239;
-
+  display:block;
+  background:#fff1f2;
+  color:#9f1239;
 }
-
 
 .muted{
-
-  color:
-    #667085;
-
+  color:#667085;
 }
 
 
-/* =================================================
-   HISTORY
-   ================================================= */
+/* =====================================================
+   RIWAYAT PEMBELIAN
+   ===================================================== */
 
 .history-panel{
-
-  background:
-    #fff;
-
-  border:
-    1px solid #eceef3;
-
-  border-radius:
-    20px;
-
-  padding:
-    26px;
-
-  margin:
-    22px 0 40px;
-
+  display:block;
+  background:#fff;
+  border:1px solid #eceef3;
+  border-radius:20px;
+  padding:26px;
+  margin:22px 0 40px;
 }
-
 
 .history-form{
-
-  display:
-    grid;
-
-  grid-template-columns:
-    1fr auto 1fr auto;
-
-  gap:
-    10px;
-
-  align-items:
-    center;
-
+  display:grid;
+  grid-template-columns:1fr auto 1fr auto;
+  gap:10px;
+  align-items:center;
 }
-
 
 .history-or{
-
-  font-size:
-    12px;
-
-  font-weight:
-    800;
-
-  color:
-    #667085;
-
+  font-size:12px;
+  font-weight:800;
+  color:#667085;
+  text-align:center;
 }
-
 
 .history-table-wrap{
-
-  overflow:
-    auto;
-
-  margin-top:
-    18px;
-
+  overflow:auto;
+  margin-top:18px;
 }
-
 
 .history-table{
-
-  width:
-    100%;
-
-  border-collapse:
-    collapse;
-
-  min-width:
-    1050px;
-
+  width:100%;
+  border-collapse:collapse;
+  min-width:1050px;
 }
-
 
 .history-table th,
 .history-table td{
-
-  padding:
-    12px;
-
-  border-bottom:
-    1px solid #edf0f4;
-
-  text-align:
-    left;
-
-  font-size:
-    13px;
-
+  padding:12px;
+  border-bottom:1px solid #edf0f4;
+  text-align:left;
+  font-size:13px;
+  vertical-align:top;
 }
-
 
 .history-table th{
-
-  background:
-    #fafafa;
-
-  color:
-    #667085;
-
-  font-size:
-    11px;
-
-  text-transform:
-    uppercase;
-
+  background:#fafafa;
+  color:#667085;
+  font-size:11px;
+  text-transform:uppercase;
 }
-
 
 .status-badge{
-
-  display:
-    inline-block;
-
-  padding:
-    5px 9px;
-
-  border-radius:
-    999px;
-
-  font-size:
-    11px;
-
-  font-weight:
-    800;
-
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:800;
 }
-
 
 .status-paid{
-
-  background:
-    #dcfce7;
-
-  color:
-    #166534;
-
+  background:#dcfce7;
+  color:#166534;
 }
-
 
 .status-pending{
-
-  background:
-    #fef3c7;
-
-  color:
-    #92400e;
-
+  background:#fef3c7;
+  color:#92400e;
 }
-
 
 .status-expired{
-
-  background:
-    #f3f4f6;
-
-  color:
-    #374151;
-
+  background:#f3f4f6;
+  color:#374151;
 }
-
 
 .access-used{
-
-  background:
-    #ede9fe;
-
-  color:
-    #6d28d9;
-
+  background:#ede9fe;
+  color:#6d28d9;
 }
-
 
 .access-unused{
-
-  background:
-    #e0f2fe;
-
-  color:
-    #075985;
-
+  background:#e0f2fe;
+  color:#075985;
 }
-
 
 .history-action{
-
-  display:
-    inline-block;
-
-  background:
-    #7c3aed;
-
-  color:
-    #fff;
-
-  padding:
-    8px 11px;
-
-  border-radius:
-    9px;
-
-  text-decoration:
-    none;
-
-  font-weight:
-    700;
-
-  font-size:
-    12px;
-
-  white-space:
-    nowrap;
-
+  display:inline-block;
+  background:#7c3aed;
+  color:#fff;
+  padding:8px 11px;
+  border-radius:9px;
+  text-decoration:none;
+  font-weight:700;
+  font-size:12px;
+  white-space:nowrap;
 }
 
+.history-action:hover{
+  background:#6d28d9;
+}
 
 .history-action-disabled{
-
-  display:
-    inline-block;
-
-  background:
-    #eef0f4;
-
-  color:
-    #667085;
-
-  padding:
-    8px 11px;
-
-  border-radius:
-    9px;
-
-  font-size:
-    12px;
-
+  display:inline-block;
+  background:#eef0f4;
+  color:#667085;
+  padding:8px 11px;
+  border-radius:9px;
+  font-size:12px;
+  white-space:nowrap;
 }
 
 
-/* =================================================
-   ACCESS
-   ================================================= */
+/* =====================================================
+   ACCESS PAGE
+   ===================================================== */
 
 .access-badge{
-
-  display:
-    inline-block;
-
-  background:
-    #ede9fe;
-
-  color:
-    #6d28d9;
-
-  padding:
-    9px 16px;
-
-  border-radius:
-    999px;
-
-  font-weight:
-    800;
-
-  margin-bottom:
-    18px;
-
+  display:inline-block;
+  background:#ede9fe;
+  color:#6d28d9;
+  padding:9px 16px;
+  border-radius:999px;
+  font-weight:800;
+  margin-bottom:18px;
 }
-
-
-.access-warning{
-
-  background:
-    #fff7ed;
-
-  color:
-    #9a3412;
-
-  padding:
-    18px;
-
-  border-radius:
-    16px;
-
-  margin:
-    18px 0;
-
-  line-height:
-    1.6;
-
-}
-
 
 .access-info{
-
-  background:
-    #eff6ff;
-
-  color:
-    #1e40af;
-
-  padding:
-    15px;
-
-  border-radius:
-    12px;
-
-  margin:
-    16px 0;
-
-  line-height:
-    1.6;
-
+  background:#eff6ff;
+  color:#1e40af;
+  padding:16px;
+  border-radius:14px;
+  margin:16px 0;
+  line-height:1.7;
 }
 
+.access-warning{
+  background:#fff7ed;
+  color:#9a3412;
+  padding:18px;
+  border-radius:16px;
+  margin:18px 0;
+  line-height:1.6;
+}
+
+
+/* =====================================================
+   ORDER CODE BOX
+   ===================================================== */
+
+.order-code-box{
+  background:#f8fafc;
+  border:1px solid #e2e8f0;
+  border-radius:16px;
+  padding:18px;
+  margin:16px 0;
+}
+
+.order-code-label{
+  font-size:12px;
+  font-weight:800;
+  color:#667085;
+  letter-spacing:.04em;
+  margin-bottom:8px;
+}
+
+.order-code-value{
+  font-size:18px;
+  font-weight:800;
+  color:#172033;
+  word-break:break-all;
+  line-height:1.5;
+  padding:11px 13px;
+  border-radius:10px;
+  background:#fff;
+  border:1px solid #e5e7eb;
+}
+
+.copy-order-button{
+  margin-top:12px;
+  background:#111827;
+}
+
+.copy-order-button:hover{
+  background:#0b1220;
+}
+
+
+/* =====================================================
+   WHATSAPP
+   ===================================================== */
 
 .whatsapp-btn{
-
-  display:
-    block;
-
-  width:
-    100%;
-
-  padding:
-    13px;
-
-  background:
-    #16a34a;
-
-  color:
-    #fff;
-
-  text-align:
-    center;
-
-  border-radius:
-    12px;
-
-  text-decoration:
-    none;
-
-  font-weight:
-    700;
-
-  margin-top:
-    12px;
-
+  display:block;
+  width:100%;
+  padding:14px;
+  background:#16a34a;
+  color:#fff;
+  text-align:center;
+  border-radius:12px;
+  text-decoration:none;
+  font-weight:700;
+  margin-top:12px;
 }
 
+.whatsapp-btn:hover{
+  background:#15803d;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
 
 @media(max-width:760px){
 
   .grid{
+    grid-template-columns:1fr;
+  }
 
-    grid-template-columns:
-      1fr;
-
+  .hero h1{
+    font-size:34px;
   }
 
   .history-form{
+    grid-template-columns:1fr;
+  }
 
-    grid-template-columns:
-      1fr;
-
+  .history-or{
+    padding:3px 0;
   }
 
 }
@@ -756,10 +422,12 @@ input{
 <body>
 
 
-<div
-  class="container"
->
+<div class="container">
 
+
+<!-- =====================================================
+     HEADER
+     ===================================================== -->
 
 <header>
 
@@ -771,7 +439,7 @@ input{
 
 
 <!-- =====================================================
-     TOKO
+     HERO
      ===================================================== -->
 
 <section
@@ -788,9 +456,9 @@ input{
     Pembayaran menggunakan
     <strong>Midtrans</strong>.
 
-    Biaya layanan pembayaran
-    akan ditambahkan saat checkout
-    sesuai tarif Midtrans.
+    Biaya pembayaran QRIS
+    akan ditambahkan pada
+    proses checkout.
 
   </p>
 
@@ -897,7 +565,7 @@ input{
   ></div>
 
 
-  <label>
+  <label for="name">
     Nama
   </label>
 
@@ -907,7 +575,7 @@ input{
   >
 
 
-  <label>
+  <label for="email">
     Email Canva
   </label>
 
@@ -918,7 +586,7 @@ input{
   >
 
 
-  <label>
+  <label for="voucherCode">
     Kode Voucher
     <span
       class="muted"
@@ -960,24 +628,24 @@ input{
   <div class="note">
 
     <strong>
-      Info pembayaran:
+      Info pembayaran
     </strong>
 
     <br>
 
-    Harga produk tetap ditampilkan
-    sesuai harga paket.
+    Harga paket merupakan harga
+    dasar produk.
 
     <br>
 
-    Jika voucher digunakan,
-    potongan harga diterapkan terlebih dahulu.
+    Jika menggunakan voucher,
+    potongan akan diterapkan terlebih dahulu.
 
     <br>
 
-    Biaya pembayaran Midtrans
-    kemudian ditambahkan pada proses
-    pembayaran QRIS.
+    Biaya pembayaran QRIS
+    kemudian ditambahkan pada
+    total pembayaran.
 
   </div>
 
@@ -985,7 +653,7 @@ input{
 
 
 <!-- =====================================================
-     HISTORY
+     RIWAYAT
      ===================================================== -->
 
 <section
@@ -996,7 +664,6 @@ input{
   <h2>
     Riwayat Pembelian
   </h2>
-
 
   <p
     class="muted"
@@ -1128,7 +795,7 @@ input{
 
 
 <!-- =====================================================
-     ACCESS
+     ACCESS PAGE
      ===================================================== -->
 
 <section
@@ -1151,15 +818,54 @@ input{
   </h1>
 
 
+  <!-- ===================================================
+       ORDER INFORMATION
+       =================================================== -->
+
   <div
-    class="summary"
+    class="access-info"
     id="accessInfo"
-  ></div>
+  >
+    Memeriksa akses...
+  </div>
 
 
-  <!-- ===============================================
-       PERINGATAN SIMPAN ORDER/EMAIL
-       =============================================== -->
+  <!-- ===================================================
+       ORDER CODE
+       =================================================== -->
+
+  <div
+    class="order-code-box"
+    id="orderCodeBox"
+  >
+
+    <div class="order-code-label">
+      KODE ORDER
+    </div>
+
+
+    <div
+      id="accessOrderCode"
+      class="order-code-value"
+    >
+      -
+    </div>
+
+
+    <button
+      type="button"
+      id="copyOrderButton"
+      class="copy-order-button"
+    >
+      📋 Salin Kode Order
+    </button>
+
+  </div>
+
+
+  <!-- ===================================================
+       WARNING
+       =================================================== -->
 
   <div
     class="access-info"
@@ -1171,9 +877,12 @@ input{
 
     <br>
 
-    Simpan kode order dan email pembelian
-    Anda untuk mengecek pesanan melalui
-    menu Riwayat Pembelian.
+    Simpan kode order dan email
+    pembelian Anda untuk mengecek
+    pesanan melalui menu
+    <strong>
+      Riwayat Pembelian
+    </strong>.
 
   </div>
 
@@ -1206,6 +915,10 @@ input{
   </div>
 
 
+  <!-- ===================================================
+       LANJUT CANVA
+       =================================================== -->
+
   <button
     id="continueCanvaBtn"
   >
@@ -1213,17 +926,18 @@ input{
   </button>
 
 
-  <!-- ===============================================
+  <!-- ===================================================
        WHATSAPP RESET EMAIL
-       =============================================== -->
+       =================================================== -->
 
   <a
     class="whatsapp-btn"
     id="changeEmailBtn"
     href="#"
     target="_blank"
+    rel="noopener"
   >
-    Ajukan Penggantian Email ke Admin
+    💬 Ajukan Penggantian Email ke Admin
   </a>
 
 
@@ -1239,14 +953,18 @@ input{
 
 
 <!-- =====================================================
-     MIDTRANS
+     MIDTRANS SNAP
      ===================================================== -->
 
 <script
   src="https://app.sandbox.midtrans.com/snap/snap.js"
-  data-client-key="Mid-client-0b04AvipKr4ASQqQw"
+  data-client-key="Mid-client-0b04AvipKr4ASqQw"
 ></script>
 
+
+<!-- =====================================================
+     SUPABASE
+     ===================================================== -->
 
 <script
   src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
@@ -1298,6 +1016,14 @@ const supabaseClient =
 let selectedCode =
   null;
 
+
+let currentAccessOrderCode =
+  "";
+
+
+/* =====================================================
+   PRODUK
+   ===================================================== */
 
 const products = {
 
@@ -1375,7 +1101,7 @@ function esc(
     ""
   ).replace(
     /[&<>"']/g,
-    char => ({
+    character => ({
 
       "&":
         "&amp;",
@@ -1392,7 +1118,7 @@ function esc(
       "'":
         "&#039;"
 
-    }[char])
+    }[character])
   );
 
 }
@@ -1454,7 +1180,7 @@ function showMessage(
 
 
 /* =====================================================
-   HISTORY BADGES
+   PAYMENT STATUS BADGE
    ===================================================== */
 
 function historyStatusBadge(
@@ -1475,22 +1201,29 @@ function historyStatusBadge(
   if(
     status ===
     "PAID"
-  )
+  ){
+
     className +=
       "status-paid";
 
+  }
 
   else if(
     status ===
     "PENDING"
-  )
+  ){
+
     className +=
       "status-pending";
 
+  }
 
-  else
+  else{
+
     className +=
       "status-expired";
+
+  }
 
 
   return `
@@ -1508,6 +1241,10 @@ function historyStatusBadge(
 
 }
 
+
+/* =====================================================
+   ACCESS STATUS BADGE
+   ===================================================== */
 
 function historyAccessBadge(
   value
@@ -1541,7 +1278,7 @@ function historyAccessBadge(
 
 
 /* =====================================================
-   HISTORY
+   RIWAYAT PEMBELIAN
    ===================================================== */
 
 async function loadPurchaseHistory(){
@@ -1607,7 +1344,7 @@ async function loadPurchaseHistory(){
 
     showMessage(
       message,
-      "Gunakan salah satu saja.",
+      "Gunakan salah satu saja: email pembelian ATAU kode pembelian.",
       false
     );
 
@@ -1619,8 +1356,25 @@ async function loadPurchaseHistory(){
   button.disabled =
     true;
 
+
   button.textContent =
     "Mencari...";
+
+
+  body.innerHTML = `
+
+    <tr>
+
+      <td
+        colspan="8"
+        class="muted"
+      >
+        Mengambil riwayat...
+      </td>
+
+    </tr>
+
+  `;
 
 
   try{
@@ -1806,9 +1560,11 @@ async function loadPurchaseHistory(){
 
             const team =
               order.canva_team_name
+
                 ? esc(
                     order.canva_team_name
                   )
+
                 : `
 
                   <span
@@ -1864,17 +1620,21 @@ async function loadPurchaseHistory(){
 
 
                 <td>
+
                   ${esc(
                     order.product_name ||
                     "-"
                   )}
+
                 </td>
 
 
                 <td>
+
                   Rp${fmt(
                     order.amount
                   )}
+
                 </td>
 
 
@@ -1958,6 +1718,22 @@ async function loadPurchaseHistory(){
 
   catch(error){
 
+    body.innerHTML = `
+
+      <tr>
+
+        <td
+          colspan="8"
+          class="muted"
+        >
+          Tidak dapat mengambil riwayat.
+        </td>
+
+      </tr>
+
+    `;
+
+
     showMessage(
       message,
       error.message,
@@ -1979,6 +1755,10 @@ async function loadPurchaseHistory(){
 }
 
 
+/* =====================================================
+   HISTORY EVENTS
+   ===================================================== */
+
 document
   .getElementById(
     "historyBtn"
@@ -1997,7 +1777,9 @@ document
   id => {
 
     document
-      .getElementById(id)
+      .getElementById(
+        id
+      )
       .addEventListener(
         "keydown",
         event => {
@@ -2019,7 +1801,7 @@ document
 
 
 /* =====================================================
-   PILIH PRODUK
+   PILIH PAKET
    ===================================================== */
 
 document
@@ -2097,7 +1879,7 @@ document
 
 
 /* =====================================================
-   BAYAR
+   PAYMENT
    ===================================================== */
 
 document
@@ -2244,12 +2026,28 @@ document
 
 
       if(
-        !response.ok
+        !response.ok ||
+        !data.ok
       ){
 
-        throw new Error(
+        let errorMessage =
           data.error ||
-          "Gagal membuat pembayaran."
+          "Gagal membuat pembayaran.";
+
+
+        if(
+          data.midtrans_status
+        ){
+
+          errorMessage +=
+            "\n\nMidtrans HTTP Status: " +
+            data.midtrans_status;
+
+        }
+
+
+        throw new Error(
+          errorMessage
         );
 
       }
@@ -2284,12 +2082,11 @@ document
             data.amount
           )}
 
-          <br>
-
           ${
             data.discount_amount
-
               ? `
+
+                <br>
 
                 Diskon voucher:
                 -Rp${fmt(
@@ -2298,23 +2095,33 @@ document
 
                 <br>
 
+                Harga setelah voucher:
+                <strong>
+                  Rp${fmt(
+                    data.final_amount
+                  )}
+                </strong>
+
               `
-
               : ""
-
           }
-
-          Harga setelah voucher:
-          <strong>
-            Rp${fmt(
-              data.final_amount
-            )}
-          </strong>
 
           <br>
 
-          Biaya pembayaran Midtrans
-          akan ditambahkan pada Snap.
+          Biaya pembayaran QRIS:
+          Rp${fmt(
+            data.qris_fee || 0
+          )}
+
+          <br>
+
+          Total pembayaran:
+          <strong>
+            Rp${fmt(
+              data.customer_payment ||
+              data.final_amount
+            )}
+          </strong>
 
         `;
 
@@ -2352,8 +2159,7 @@ document
                   Pembayaran berhasil!
                 </strong>
                 <br>
-                Sistem sedang memproses
-                akses Canva...`,
+                Sistem sedang memproses akses Canva...`,
                 true
               );
 
@@ -2374,8 +2180,7 @@ document
                   Pembayaran belum selesai.
                 </strong>
                 <br>
-                Silakan selesaikan
-                pembayaran QRIS.`,
+                Silakan selesaikan pembayaran QRIS.`,
                 false
               );
 
@@ -2415,7 +2220,12 @@ document
     catch(error){
 
       show(
-        error.message,
+        esc(
+          error.message
+        ).replace(
+          /\n/g,
+          "<br>"
+        ),
         false
       );
 
@@ -2436,7 +2246,7 @@ document
 
 
 /* =====================================================
-   WAIT FOR PAYMENT
+   MENUNGGU AKSES
    ===================================================== */
 
 async function waitForAccess(
@@ -2454,7 +2264,8 @@ async function waitForAccess(
 
   for(
     let attempt = 1;
-    attempt <= maxAttempts;
+    attempt <=
+      maxAttempts;
     attempt++
   ){
 
@@ -2542,6 +2353,7 @@ async function waitForAccess(
     catch(error){
 
       console.error(
+        "GET ACCESS ERROR:",
         error
       );
 
@@ -2572,6 +2384,184 @@ async function waitForAccess(
 
 
 /* =====================================================
+   SALIN KODE ORDER
+   ===================================================== */
+
+async function salinKodeOrder(){
+
+  const codeElement =
+    document.getElementById(
+      "accessOrderCode"
+    );
+
+
+  const button =
+    document.getElementById(
+      "copyOrderButton"
+    );
+
+
+  if(
+    !codeElement
+  ){
+
+    alert(
+      "Kode order tidak ditemukan."
+    );
+
+    return;
+
+  }
+
+
+  const code =
+    codeElement
+      .textContent
+      .trim();
+
+
+  if(
+    !code ||
+    code === "-"
+  ){
+
+    alert(
+      "Kode order belum tersedia."
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    if(
+      navigator.clipboard &&
+      window.isSecureContext
+    ){
+
+      await navigator.clipboard
+        .writeText(
+          code
+        );
+
+    }
+
+    else{
+
+      const textarea =
+        document.createElement(
+          "textarea"
+        );
+
+
+      textarea.value =
+        code;
+
+
+      textarea.style.position =
+        "fixed";
+
+      textarea.style.left =
+        "-9999px";
+
+
+      document
+        .body
+        .appendChild(
+          textarea
+        );
+
+
+      textarea.focus();
+
+      textarea.select();
+
+
+      document.execCommand(
+        "copy"
+      );
+
+
+      document
+        .body
+        .removeChild(
+          textarea
+        );
+
+    }
+
+
+    const oldText =
+      button.innerHTML;
+
+
+    button.innerHTML =
+      "✓ Kode Berhasil Disalin";
+
+
+    setTimeout(
+      () => {
+
+        button.innerHTML =
+          oldText;
+
+      },
+      2000
+    );
+
+  }
+
+  catch(error){
+
+    alert(
+      "Kode tidak dapat disalin otomatis. Silakan salin secara manual."
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   WHATSAPP RESET EMAIL
+   ===================================================== */
+
+function ajukanPenggantianEmail(
+  orderCode
+){
+
+  const nomorAdmin =
+    "6285707486749";
+
+
+  const pesan =
+`Halo min. Ingin *mereset akses canva*, karena salah menggunakan email canva.
+━━━━━━━━━━━━━━━━━━━━━━━━━
+CODE : ${orderCode}
+━━━━━━━━━━━━━━━━━━━━━━━━━
+Terimakasih :b`;
+
+
+  const whatsappURL =
+    "https://wa.me/" +
+    nomorAdmin +
+    "?text=" +
+    encodeURIComponent(
+      pesan
+    );
+
+
+  window.open(
+    whatsappURL,
+    "_blank"
+  );
+
+}
+
+
+/* =====================================================
    ACCESS TOKEN
    ===================================================== */
 
@@ -2584,26 +2574,7 @@ const accessToken =
 
 
 /* =====================================================
-   WHATSAPP
-   ===================================================== */
-
-const whatsappMessage =
-  "halo min. ingin meminta bantuan mereset akses canva, dikarenakan salah penggunaan email";
-
-
-document
-  .getElementById(
-    "changeEmailBtn"
-  )
-  .href =
-    "https://wa.me/6285707486749?text=" +
-    encodeURIComponent(
-      whatsappMessage
-    );
-
-
-/* =====================================================
-   ACCESS PAGE
+   LOAD ACCESS PAGE
    ===================================================== */
 
 async function loadAccessPage(){
@@ -2618,7 +2589,6 @@ async function loadAccessPage(){
       )
       .style.display =
       "none";
-
 
     return;
 
@@ -2657,13 +2627,11 @@ async function loadAccessPage(){
     "none";
 
 
-  const panel =
-    document.getElementById(
+  document
+    .getElementById(
       "accessPanel"
-    );
-
-
-  panel.style.display =
+    )
+    .style.display =
     "block";
 
 
@@ -2739,6 +2707,78 @@ async function loadAccessPage(){
       "-";
 
 
+    /* ===============================================
+       SIMPAN ORDER CODE GLOBAL
+       =============================================== */
+
+    currentAccessOrderCode =
+      orderCode;
+
+
+    /* ===============================================
+       TAMPILKAN ORDER CODE
+       =============================================== */
+
+    document
+      .getElementById(
+        "accessOrderCode"
+      )
+      .textContent =
+      orderCode;
+
+
+    /* ===============================================
+       ATUR LINK WHATSAPP
+       =============================================== */
+
+    document
+      .getElementById(
+        "changeEmailBtn"
+      )
+      .onclick =
+      event => {
+
+        event.preventDefault();
+
+
+        ajukanPenggantianEmail(
+          orderCode
+        );
+
+      };
+
+
+    /* ===============================================
+       INFO
+       =============================================== */
+
+    info.innerHTML = `
+
+      <strong>
+        Order:
+      </strong>
+
+      ${esc(
+        orderCode
+      )}
+
+      <br>
+
+      <strong>
+        Email pembelian:
+      </strong>
+
+      ${esc(
+        email
+      )}
+
+    `;
+
+
+    /* ===============================================
+       USED
+       =============================================== */
+
     if(
       status ===
       "USED"
@@ -2755,33 +2795,14 @@ async function loadAccessPage(){
     }
 
 
+    /* ===============================================
+       UNUSED
+       =============================================== */
+
     if(
       status ===
       "UNUSED"
     ){
-
-      info.innerHTML = `
-
-        <strong>
-          Order:
-        </strong>
-
-        ${esc(
-          orderCode
-        )}
-
-        <br>
-
-        <strong>
-          Email pembelian:
-        </strong>
-
-        ${esc(
-          email
-        )}
-
-      `;
-
 
       return;
 
@@ -2798,6 +2819,7 @@ async function loadAccessPage(){
   catch(error){
 
     console.error(
+      "ACCESS CHECK ERROR:",
       error
     );
 
@@ -2818,18 +2840,37 @@ async function loadAccessPage(){
       "AKSES TIDAK VALID";
 
 
-    info.innerHTML = `
+    document
+      .getElementById(
+        "accessInfo"
+      )
+      .innerHTML = `
 
-      <div
-        class="access-info"
-      >
+        <div
+          class="access-warning"
+        >
 
-        Token akses tidak valid
-        atau sudah tidak tersedia.
+          Token akses tidak valid
+          atau sudah tidak tersedia.
 
-      </div>
+          <br>
+          <br>
 
-    `;
+          Silakan hubungi admin
+          jika Anda merasa
+          ini adalah kesalahan.
+
+        </div>
+
+      `;
+
+
+    document
+      .getElementById(
+        "orderCodeBox"
+      )
+      .style.display =
+      "none";
 
 
     document
@@ -2847,13 +2888,21 @@ async function loadAccessPage(){
       .style.display =
       "none";
 
+
+    document
+      .getElementById(
+        "changeEmailBtn"
+      )
+      .style.display =
+      "none";
+
   }
 
 }
 
 
 /* =====================================================
-   USED PAGE
+   ACCESS USED
    ===================================================== */
 
 function showAccessUsed(
@@ -2906,13 +2955,21 @@ function showAccessUsed(
 
   document
     .getElementById(
+      "accessOrderCode"
+    )
+    .textContent =
+    orderCode;
+
+
+  document
+    .getElementById(
       "accessWarning"
     )
     .innerHTML = `
 
-      Jika Anda salah akun Canva,
-      silakan ajukan penggantian email
-      kepada admin.
+      Jika Anda salah menggunakan
+      email Canva, silakan ajukan
+      penggantian email kepada admin.
 
     `;
 
@@ -2949,6 +3006,20 @@ function showAccessUsed(
     "Token ini sudah digunakan.";
 
 }
+
+
+/* =====================================================
+   COPY BUTTON EVENT
+   ===================================================== */
+
+document
+  .getElementById(
+    "copyOrderButton"
+  )
+  .addEventListener(
+    "click",
+    salinKodeOrder
+  );
 
 
 /* =====================================================
@@ -3050,7 +3121,7 @@ document
       ){
 
         throw new Error(
-          "Link Canva tidak diterima."
+          "Link Canva tidak diterima dari server."
         );
 
       }
@@ -3096,4 +3167,5 @@ loadAccessPage();
 </script>
 
 </body>
+
 </html>
