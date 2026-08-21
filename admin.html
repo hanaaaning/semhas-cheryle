@@ -14,308 +14,714 @@
   Canva Premium Admin
 </title>
 
+
 <style>
 
 *{
   box-sizing:border-box;
 }
 
+
 body{
+
   margin:0;
+
   background:#f7f7fb;
+
   color:#172033;
-  font-family:Arial,Helvetica,sans-serif;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
 }
+
 
 .container{
-  width:min(1300px,94%);
-  margin:0 auto;
+
+  width:
+    min(1350px,95%);
+
+  margin:
+    0 auto;
+
 }
+
 
 header{
-  padding:28px 0 18px;
+
+  padding:
+    25px 0;
+
   display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:16px;
+
+  justify-content:
+    space-between;
+
+  align-items:
+    center;
+
 }
+
 
 .brand{
-  font-size:24px;
-  font-weight:800;
+
+  font-size:
+    24px;
+
+  font-weight:
+    800;
+
 }
+
 
 .subtitle{
-  color:#667085;
-  font-size:14px;
-  margin-top:4px;
+
+  color:
+    #667085;
+
+  font-size:
+    14px;
+
+  margin-top:
+    4px;
+
 }
+
 
 .card{
-  background:#fff;
-  border:1px solid #e9eaf0;
-  border-radius:18px;
-  box-shadow:0 10px 30px rgba(0,0,0,.05);
+
+  background:
+    #fff;
+
+  border:
+    1px solid #e7e9ef;
+
+  border-radius:
+    18px;
+
+  padding:
+    22px;
+
+  margin-bottom:
+    18px;
+
+  box-shadow:
+    0 8px 25px
+    rgba(0,0,0,.04);
+
 }
 
-.login-card{
-  max-width:520px;
-  margin:70px auto;
-  padding:28px;
-}
 
 .hidden{
   display:none!important;
 }
 
-label{
-  display:block;
-  font-weight:700;
-  margin:14px 0 7px;
-}
 
 input,
 select{
-  width:100%;
-  padding:13px;
-  border:1px solid #d7dbe4;
-  border-radius:10px;
-  font-size:15px;
-  outline:none;
+
+  width:
+    100%;
+
+  padding:
+    12px;
+
+  border:
+    1px solid #d7dbe4;
+
+  border-radius:
+    10px;
+
+  font-size:
+    14px;
+
 }
+
 
 input:focus,
 select:focus{
-  border-color:#7c3aed;
+
+  outline:none;
+
+  border-color:
+    #7c3aed;
+
   box-shadow:
     0 0 0 3px
     rgba(124,58,237,.10);
+
 }
+
+
+label{
+
+  display:block;
+
+  font-weight:
+    700;
+
+  margin:
+    12px 0 7px;
+
+}
+
 
 button{
+
   border:0;
-  border-radius:10px;
-  background:#7c3aed;
+
+  background:
+    #7c3aed;
+
   color:#fff;
-  padding:12px 16px;
-  font-size:14px;
-  font-weight:700;
+
+  padding:
+    11px 15px;
+
+  border-radius:
+    10px;
+
+  font-weight:
+    700;
+
   cursor:pointer;
+
 }
+
 
 button:hover{
-  background:#6d28d9;
+
+  background:
+    #6d28d9;
+
 }
+
 
 button:disabled{
-  background:#c7cad3;
-  cursor:not-allowed;
+
+  background:
+    #c7cad3;
+
+  cursor:
+    not-allowed;
+
 }
+
 
 button.secondary{
-  background:#111827;
+
+  background:
+    #111827;
+
 }
 
-button.danger{
-  background:#be123c;
-}
 
 button.success{
-  background:#059669;
+
+  background:
+    #059669;
+
 }
+
+
+button.danger{
+
+  background:
+    #be123c;
+
+}
+
+
+button.small{
+
+  padding:
+    7px 9px;
+
+  font-size:
+    11px;
+
+}
+
 
 .actions{
+
   display:flex;
-  gap:10px;
+
+  gap:8px;
+
   flex-wrap:wrap;
+
 }
+
+
+.muted{
+
+  color:
+    #667085;
+
+}
+
 
 .message{
-  margin-top:14px;
-  padding:13px;
-  border-radius:10px;
+
   display:none;
-  line-height:1.45;
+
+  padding:
+    13px;
+
+  border-radius:
+    10px;
+
+  margin-top:
+    12px;
+
 }
+
 
 .message.ok{
+
   display:block;
-  background:#ecfdf5;
-  color:#065f46;
+
+  background:
+    #ecfdf5;
+
+  color:
+    #065f46;
+
 }
+
 
 .message.err{
+
   display:block;
-  background:#fff1f2;
-  color:#9f1239;
+
+  background:
+    #fff1f2;
+
+  color:
+    #9f1239;
+
 }
 
-.top-note{
-  padding:12px 14px;
-  border-radius:10px;
-  background:#fff7ed;
-  color:#9a3412;
-  margin-bottom:14px;
-  font-size:13px;
+
+.note{
+
+  background:
+    #fff7ed;
+
+  color:
+    #9a3412;
+
+  border-radius:
+    10px;
+
+  padding:
+    12px;
+
+  font-size:
+    13px;
+
+  margin-bottom:
+    15px;
+
 }
 
-.section-card{
-  padding:22px;
-  margin-bottom:18px;
-}
 
 .section-title{
-  font-size:20px;
-  font-weight:800;
-  margin-bottom:6px;
+
+  font-size:
+    20px;
+
+  font-weight:
+    800;
+
+  margin-bottom:
+    5px;
+
 }
+
 
 .section-subtitle{
-  color:#667085;
-  font-size:13px;
-  line-height:1.5;
-  margin-bottom:18px;
+
+  color:
+    #667085;
+
+  font-size:
+    13px;
+
+  margin-bottom:
+    15px;
+
+  line-height:
+    1.5;
+
 }
 
-.active-info{
-  margin-top:14px;
-  padding:13px 15px;
-  border-radius:11px;
-  background:#f6f5ff;
-  color:#4c1d95;
-  font-size:13px;
-  line-height:1.6;
+
+/* =====================================================
+   TEAM
+   ===================================================== */
+
+.team-info{
+
+  background:
+    #f5f3ff;
+
+  color:
+    #4c1d95;
+
+  padding:
+    12px;
+
+  border-radius:
+    10px;
+
+  margin-top:
+    12px;
+
+  font-size:
+    13px;
+
+  line-height:
+    1.6;
+
 }
+
+
+/* =====================================================
+   VOUCHER FORM
+   ===================================================== */
 
 .voucher-form{
+
   display:grid;
-  grid-template-columns:1fr 180px auto;
-  gap:10px;
-  align-items:end;
+
+  grid-template-columns:
+    1.2fr 1fr 1fr 170px auto;
+
+  gap:
+    10px;
+
+  align-items:
+    end;
+
 }
 
-.voucher-list{
-  margin-top:18px;
-  overflow:auto;
+
+.check-row{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:8px;
+
+  margin-top:
+    12px;
+
 }
+
+
+.check-row input{
+
+  width:auto;
+
+}
+
+
+/* =====================================================
+   VOUCHER TABLE
+   ===================================================== */
+
+.voucher-wrap{
+
+  overflow:auto;
+
+  margin-top:
+    18px;
+
+}
+
 
 .voucher-table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:650px;
+
+  width:
+    100%;
+
+  border-collapse:
+    collapse;
+
+  min-width:
+    900px;
+
 }
+
 
 .voucher-table th,
 .voucher-table td{
-  padding:11px;
-  border-bottom:1px solid #edf0f4;
-  text-align:left;
-  font-size:13px;
+
+  padding:
+    11px;
+
+  border-bottom:
+    1px solid #edf0f4;
+
+  text-align:
+    left;
+
+  font-size:
+    13px;
+
 }
+
 
 .voucher-table th{
-  background:#fafafa;
-  color:#667085;
-  font-size:11px;
-  text-transform:uppercase;
+
+  background:
+    #fafafa;
+
+  color:
+    #667085;
+
+  font-size:
+    11px;
+
+  text-transform:
+    uppercase;
+
 }
+
+
+.badge{
+
+  display:
+    inline-block;
+
+  padding:
+    5px 9px;
+
+  border-radius:
+    999px;
+
+  font-size:
+    11px;
+
+  font-weight:
+    800;
+
+}
+
+
+.badge-active{
+
+  background:
+    #dcfce7;
+
+  color:
+    #166534;
+
+}
+
+
+.badge-full{
+
+  background:
+    #fef3c7;
+
+  color:
+    #92400e;
+
+}
+
+
+.badge-off{
+
+  background:
+    #f3f4f6;
+
+  color:
+    #374151;
+
+}
+
+
+/* =====================================================
+   TOOLBAR
+   ===================================================== */
 
 .toolbar{
+
   display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-  flex-wrap:wrap;
-  margin:22px 0 14px;
+
+  justify-content:
+    space-between;
+
+  align-items:
+    center;
+
+  gap:
+    10px;
+
+  flex-wrap:
+    wrap;
+
+  margin-bottom:
+    15px;
+
 }
+
 
 .search{
-  max-width:420px;
-  flex:1;
+
+  max-width:
+    380px;
+
 }
+
 
 .table-wrap{
+
   overflow:auto;
+
 }
 
+
 .order-table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:1500px;
+
+  width:
+    100%;
+
+  border-collapse:
+    collapse;
+
+  min-width:
+    1550px;
+
 }
+
 
 .order-table th,
 .order-table td{
-  padding:12px;
-  border-bottom:1px solid #edf0f4;
-  text-align:left;
-  vertical-align:top;
-  font-size:12px;
+
+  padding:
+    11px;
+
+  border-bottom:
+    1px solid #edf0f4;
+
+  text-align:
+    left;
+
+  vertical-align:
+    top;
+
+  font-size:
+    12px;
+
 }
+
 
 .order-table th{
-  background:#fafafa;
-  color:#667085;
-  font-size:11px;
-  text-transform:uppercase;
+
+  background:
+    #fafafa;
+
+  color:
+    #667085;
+
+  font-size:
+    11px;
+
+  text-transform:
+    uppercase;
+
 }
+
 
 .status{
-  display:inline-block;
-  padding:5px 9px;
-  border-radius:999px;
-  font-size:11px;
-  font-weight:800;
+
+  display:
+    inline-block;
+
+  padding:
+    5px 9px;
+
+  border-radius:
+    999px;
+
+  font-size:
+    10px;
+
+  font-weight:
+    800;
+
 }
 
-.paid{
-  background:#dcfce7;
-  color:#166534;
+
+.status-paid{
+
+  background:
+    #dcfce7;
+
+  color:
+    #166534;
+
 }
 
-.pending{
-  background:#fef3c7;
-  color:#92400e;
+
+.status-pending{
+
+  background:
+    #fef3c7;
+
+  color:
+    #92400e;
+
 }
 
-.used{
-  background:#ede9fe;
-  color:#6d28d9;
+
+.status-used{
+
+  background:
+    #ede9fe;
+
+  color:
+    #6d28d9;
+
 }
 
-.unused{
-  background:#e0f2fe;
-  color:#075985;
+
+.status-unused{
+
+  background:
+    #e0f2fe;
+
+  color:
+    #075985;
+
 }
 
-.other{
-  background:#f3f4f6;
-  color:#374151;
+
+.status-other{
+
+  background:
+    #f3f4f6;
+
+  color:
+    #374151;
+
 }
 
-.small{
-  padding:7px 10px;
-  font-size:11px;
-}
 
-.muted{
-  color:#667085;
-}
-
-@media(max-width:800px){
-
-  header{
-    align-items:flex-start;
-    flex-direction:column;
-  }
-
-  .login-card{
-    margin:30px auto;
-    padding:22px;
-  }
+@media(max-width:900px){
 
   .voucher-form{
-    grid-template-columns:1fr;
+
+    grid-template-columns:
+      1fr;
+
   }
 
 }
@@ -326,6 +732,7 @@ button.success{
 
 
 <body>
+
 
 <div class="container">
 
@@ -340,7 +747,7 @@ button.success{
 
     <div class="subtitle">
       Kelola pesanan, voucher,
-      akses, dan link tim Canva
+      akses, dan tim Canva
     </div>
 
   </div>
@@ -362,20 +769,22 @@ button.success{
 
 <section
   id="loginCard"
-  class="card login-card"
+  class="card"
+  style="
+    max-width:500px;
+    margin:50px auto;
+  "
 >
 
   <h2>
     Login Admin
   </h2>
 
-  <p class="muted">
-    Masukkan Admin Key.
-  </p>
 
-  <label for="adminKey">
+  <label>
     Admin Key
   </label>
+
 
   <input
     id="adminKey"
@@ -383,12 +792,14 @@ button.success{
     placeholder="Masukkan Admin Key"
   >
 
+
   <button
     id="loginBtn"
-    style="margin-top:16px"
+    style="margin-top:14px"
   >
     Masuk
   </button>
+
 
   <div
     id="loginMessage"
@@ -407,10 +818,11 @@ button.success{
   class="hidden"
 >
 
-<div class="top-note">
+
+<div class="note">
 
   Admin Key hanya digunakan
-  saat request ke server.
+  untuk request ke server.
   Jangan menaruh Admin Key
   di file HTML.
 
@@ -418,19 +830,20 @@ button.success{
 
 
 <!-- =====================================================
-     TIM CANVA
+     TEAM CANVA
      ===================================================== -->
 
-<div class="card section-card">
+<section class="card">
 
   <div class="section-title">
     Tim Canva Aktif
   </div>
 
+
   <div class="section-subtitle">
 
     Ganti nama dan link tim Canva
-    setiap kali mendapatkan tim baru.
+    ketika mendapatkan link tim baru.
 
   </div>
 
@@ -439,15 +852,17 @@ button.success{
     Nama Tim Canva
   </label>
 
+
   <input
     id="canvaTeamName"
-    placeholder="Contoh: MYCLIPS 826 | 19.13"
+    placeholder="Contoh: MYCLIPS 826 | 20.19"
   >
 
 
   <label>
     Link Tim Canva
   </label>
+
 
   <input
     id="canvaInviteUrl"
@@ -465,7 +880,7 @@ button.success{
 
   <div
     id="inviteUpdated"
-    class="active-info"
+    class="team-info"
   >
     Belum ada tim aktif.
   </div>
@@ -476,25 +891,25 @@ button.success{
     class="message"
   ></div>
 
-</div>
+</section>
 
 
 <!-- =====================================================
-     KANTONG VOUCHER
+     VOUCHER
      ===================================================== -->
 
-<div class="card section-card">
+<section class="card">
 
   <div class="section-title">
     Kantong Voucher
   </div>
 
+
   <div class="section-subtitle">
 
-    Buat kode promo potongan
-    <strong>Rp1.000</strong>
-    atau
-    <strong>Rp2.000</strong>.
+    Nominal potongan bebas.
+    Bisa diberi batas penggunaan
+    atau tanpa batas.
 
   </div>
 
@@ -509,7 +924,7 @@ button.success{
 
       <input
         id="voucherCode"
-        placeholder="Contoh: MYC1000"
+        placeholder="Contoh: IUDAHAIDIS"
       >
 
     </div>
@@ -518,19 +933,51 @@ button.success{
     <div>
 
       <label>
-        Potongan
+        Potongan (Rp)
+      </label>
+
+      <input
+        id="voucherDiscount"
+        type="number"
+        min="1"
+        placeholder="1500"
+      >
+
+    </div>
+
+
+    <div>
+
+      <label>
+        Batas Penggunaan
+      </label>
+
+      <input
+        id="voucherLimit"
+        type="number"
+        min="1"
+        placeholder="25"
+      >
+
+    </div>
+
+
+    <div>
+
+      <label>
+        Status
       </label>
 
       <select
-        id="voucherDiscount"
+        id="voucherActive"
       >
 
-        <option value="1000">
-          Rp1.000
+        <option value="true">
+          Aktif
         </option>
 
-        <option value="2000">
-          Rp2.000
+        <option value="false">
+          Nonaktif
         </option>
 
       </select>
@@ -548,14 +995,38 @@ button.success{
 
 
   <div
+    class="check-row"
+  >
+
+    <input
+      id="voucherNoLimit"
+      type="checkbox"
+    >
+
+    <label
+      for="voucherNoLimit"
+      style="
+        margin:0;
+        font-weight:400;
+      "
+    >
+      Tanpa batas penggunaan
+    </label>
+
+  </div>
+
+
+  <div
     id="voucherMessage"
     class="message"
   ></div>
 
 
-  <div class="voucher-list">
+  <div class="voucher-wrap">
 
-    <table class="voucher-table">
+    <table
+      class="voucher-table"
+    >
 
       <thead>
 
@@ -570,11 +1041,19 @@ button.success{
           </th>
 
           <th>
+            Digunakan
+          </th>
+
+          <th>
+            Batas
+          </th>
+
+          <th>
             Status
           </th>
 
           <th>
-            Dibuat
+            Terakhir Diubah
           </th>
 
           <th>
@@ -593,10 +1072,10 @@ button.success{
         <tr>
 
           <td
-            colspan="5"
+            colspan="7"
             class="muted"
           >
-            Belum ada voucher.
+            Memuat voucher...
           </td>
 
         </tr>
@@ -607,11 +1086,11 @@ button.success{
 
   </div>
 
-</div>
+</section>
 
 
 <!-- =====================================================
-     ORDER TOOLBAR
+     TOOLBAR ORDER
      ===================================================== -->
 
 <div class="toolbar">
@@ -635,7 +1114,7 @@ button.success{
 
 
     <button
-      class="secondary filterBtn active"
+      class="secondary filterBtn"
       data-filter="ALL"
     >
       Semua
@@ -668,17 +1147,10 @@ button.success{
   </div>
 
 
-  <div
-    class="actions"
-    style="
-      flex:1;
-      justify-content:flex-end;
-    "
-  >
+  <div class="actions">
 
     <select
       id="sortOrder"
-      style="max-width:150px"
     >
 
       <option value="newest">
@@ -695,7 +1167,7 @@ button.success{
     <input
       id="search"
       class="search"
-      placeholder="Cari order, nama, atau email..."
+      placeholder="Cari order, nama, email..."
     >
 
   </div>
@@ -713,11 +1185,9 @@ button.success{
      ORDER TABLE
      ===================================================== -->
 
-<div class="card table-wrap">
+<section class="card table-wrap">
 
-<table
-  class="order-table"
->
+<table class="order-table">
 
 <thead>
 
@@ -728,6 +1198,7 @@ button.success{
     <input
       type="checkbox"
       id="selectAll"
+      style="width:auto"
     >
 
   </th>
@@ -800,7 +1271,7 @@ button.success{
 
 </table>
 
-</div>
+</section>
 
 </section>
 
@@ -854,7 +1325,8 @@ function escapeHtml(
 ){
 
   return String(
-    value ?? ""
+    value ??
+    ""
   ).replace(
     /[&<>"']/g,
     m => ({
@@ -918,7 +1390,7 @@ function formatDate(
     )
   ){
 
-    return value;
+    return "-";
 
   }
 
@@ -946,151 +1418,6 @@ function showMessage(
 
   element.textContent =
     text;
-
-}
-
-
-function statusBadge(
-  value
-){
-
-  const status =
-    String(
-      value ||
-      ""
-    ).toUpperCase();
-
-
-  let cls =
-    "other";
-
-
-  if(
-    status ===
-    "PAID"
-  )
-    cls =
-      "paid";
-
-
-  else if(
-    status ===
-    "PENDING"
-  )
-    cls =
-      "pending";
-
-
-  else if(
-    status ===
-    "USED"
-  )
-    cls =
-      "used";
-
-
-  else if(
-    status ===
-    "UNUSED"
-  )
-    cls =
-      "unused";
-
-
-  return `
-
-    <span
-      class="status ${cls}"
-    >
-      ${escapeHtml(
-        status ||
-        "-"
-      )}
-    </span>
-
-  `;
-
-}
-
-
-/* =====================================================
-   BILLING
-   30 HARI X BULAN
-   ===================================================== */
-
-function getBillingPeriod(
-  paidAt,
-  months
-){
-
-  if(
-    !paidAt ||
-    !months
-  ){
-
-    return "-";
-
-  }
-
-
-  const start =
-    new Date(
-      paidAt
-    );
-
-
-  if(
-    Number.isNaN(
-      start.getTime()
-    )
-  ){
-
-    return "-";
-
-  }
-
-
-  const totalDays =
-    Number(
-      months
-    ) * 30;
-
-
-  const end =
-    new Date(
-      start
-    );
-
-
-  end.setDate(
-    end.getDate() +
-    totalDays -
-    1
-  );
-
-
-  const format =
-    date =>
-      date.toLocaleDateString(
-        "id-ID",
-        {
-          day:
-            "2-digit",
-
-          month:
-            "2-digit",
-
-          year:
-            "numeric"
-        }
-      );
-
-
-  return (
-    format(start) +
-    " – " +
-    format(end)
-  );
 
 }
 
@@ -1147,7 +1474,7 @@ async function api(
     !response.ok
   ){
 
-    let error =
+    let message =
       data.error ||
       "Request gagal.";
 
@@ -1156,7 +1483,7 @@ async function api(
       data.paid_orders
     ){
 
-      error +=
+      message +=
         "\n\nOrder PAID:\n" +
         data.paid_orders.join(
           "\n"
@@ -1166,7 +1493,7 @@ async function api(
 
 
     throw new Error(
-      error
+      message
     );
 
   }
@@ -1214,13 +1541,13 @@ async function loadTeam(){
 
         <br>
 
+        Terakhir diperbarui:
         ${
           data.updated_at
-            ? "Terakhir diperbarui: " +
-              formatDate(
+            ? formatDate(
                 data.updated_at
               )
-            : ""
+            : "-"
         }
 
       `;
@@ -1254,9 +1581,7 @@ async function saveTeam(){
       .trim();
 
 
-  if(
-    !teamName
-  ){
+  if(!teamName){
 
     showMessage(
       $("inviteMessage"),
@@ -1269,31 +1594,11 @@ async function saveTeam(){
   }
 
 
-  if(
-    !inviteUrl
-  ){
+  if(!inviteUrl){
 
     showMessage(
       $("inviteMessage"),
       "Link tim wajib diisi.",
-      false
-    );
-
-    return;
-
-  }
-
-
-  if(
-    !/^https:\/\/www\.canva\.com\/brand\/join/i
-      .test(
-        inviteUrl
-      )
-  ){
-
-    showMessage(
-      $("inviteMessage"),
-      "Link Canva tidak valid.",
       false
     );
 
@@ -1329,6 +1634,7 @@ async function saveTeam(){
     $("canvaTeamName")
       .value =
       "";
+
 
     $("canvaInviteUrl")
       .value =
@@ -1371,37 +1677,23 @@ async function saveTeam(){
 
 
 /* =====================================================
-   VOUCHERS
+   VOUCHER
    ===================================================== */
 
 async function loadVouchers(){
 
-  try{
-
-    const data =
-      await api(
-        "list_vouchers"
-      );
-
-
-    vouchers =
-      data.vouchers ||
-      [];
-
-
-    renderVouchers();
-
-  }
-
-  catch(error){
-
-    showMessage(
-      $("voucherMessage"),
-      error.message,
-      false
+  const data =
+    await api(
+      "list_vouchers"
     );
 
-  }
+
+  vouchers =
+    data.vouchers ||
+    [];
+
+
+  renderVouchers();
 
 }
 
@@ -1421,7 +1713,7 @@ function renderVouchers(){
       <tr>
 
         <td
-          colspan="5"
+          colspan="7"
           class="muted"
         >
           Belum ada voucher.
@@ -1439,116 +1731,188 @@ function renderVouchers(){
   body.innerHTML =
     vouchers
       .map(
-        voucher => `
+        voucher => {
 
-          <tr>
+          const limit =
+            voucher.usage_limit === null
+              ? "∞"
+              : voucher.usage_limit;
 
-            <td>
 
-              <strong>
-                ${escapeHtml(
-                  voucher.code
+          const count =
+            Number(
+              voucher.usage_count ||
+              0
+            );
+
+
+          const isFull =
+            voucher.usage_limit !== null &&
+            count >=
+              Number(
+                voucher.usage_limit
+              );
+
+
+          return `
+
+            <tr>
+
+              <td>
+
+                <strong>
+                  ${escapeHtml(
+                    voucher.code
+                  )}
+                </strong>
+
+              </td>
+
+
+              <td>
+
+                Rp${rupiah(
+                  voucher.discount_amount
                 )}
-              </strong>
 
-            </td>
-
-
-            <td>
-
-              Rp${rupiah(
-                voucher.discount_amount
-              )}
-
-            </td>
+              </td>
 
 
-            <td>
+              <td>
 
-              ${
-                voucher.active
+                ${count}x
 
-                  ? `
-                    <span
-                      class="status paid"
-                    >
-                      AKTIF
-                    </span>
-                  `
+              </td>
+
+
+              <td>
+
+                ${
+                  limit === "∞"
+                    ? "Tanpa batas"
+                    : limit + "x"
+                }
+
+              </td>
+
+
+              <td>
+
+                ${
+                  !voucher.active
+
+                    ? `
+
+                      <span
+                        class="badge badge-off"
+                      >
+                        NONAKTIF
+                      </span>
+
+                    `
+
+                  : isFull
+
+                    ? `
+
+                      <span
+                        class="badge badge-full"
+                      >
+                        HABIS
+                      </span>
+
+                    `
 
                   : `
-                    <span
-                      class="status other"
-                    >
-                      NONAKTIF
-                    </span>
-                  `
-              }
 
-            </td>
+                      <span
+                        class="badge badge-active"
+                      >
+                        AKTIF
+                      </span>
 
+                    `
+                }
 
-            <td>
-
-              ${formatDate(
-                voucher.created_at
-              )}
-
-            </td>
+              </td>
 
 
-            <td>
+              <td>
 
-              <div
-                class="actions"
-              >
+                ${formatDate(
+                  voucher.updated_at ||
+                  voucher.created_at
+                )}
 
-                <button
-                  class="small ${
-                    voucher.active
-                      ? "secondary"
-                      : "success"
-                  }"
-                  onclick="toggleVoucher(
-                    '${escapeHtml(
-                      voucher.id
-                    )}',
-                    ${!voucher.active}
-                  )"
+              </td>
+
+
+              <td>
+
+                <div
+                  class="actions"
                 >
 
-                  ${
-                    voucher.active
-                      ? "Nonaktifkan"
-                      : "Aktifkan"
-                  }
-
-                </button>
-
-
-                <button
-                  class="danger small"
-                  onclick="deleteVoucher(
-                    '${escapeHtml(
+                  <button
+                    class="small secondary"
+                    onclick="editVoucher('${escapeHtml(
                       voucher.id
-                    )}'
-                  )"
-                >
-                  Hapus
-                </button>
+                    )}')"
+                  >
+                    Edit
+                  </button>
 
-              </div>
 
-            </td>
+                  <button
+                    class="small ${
+                      voucher.active
+                        ? "secondary"
+                        : "success"
+                    }"
+                    onclick="toggleVoucher(
+                      '${escapeHtml(
+                        voucher.id
+                      )}',
+                      ${!voucher.active}
+                    )"
+                  >
 
-          </tr>
+                    ${
+                      voucher.active
+                        ? "Nonaktifkan"
+                        : "Aktifkan"
+                    }
 
-        `
+                  </button>
+
+
+                  <button
+                    class="small danger"
+                    onclick="deleteVoucher('${escapeHtml(
+                      voucher.id
+                    )}')"
+                  >
+                    Hapus
+                  </button>
+
+                </div>
+
+              </td>
+
+            </tr>
+
+          `;
+
+        }
       )
       .join("");
 
 }
 
+
+/* =====================================================
+   CREATE VOUCHER
+   ===================================================== */
 
 async function addVoucher(){
 
@@ -1566,13 +1930,70 @@ async function addVoucher(){
     );
 
 
+  const noLimit =
+    $("voucherNoLimit")
+      .checked;
+
+
+  const limit =
+    noLimit
+      ? null
+      : Number(
+          $("voucherLimit")
+            .value
+        );
+
+
+  const active =
+    $("voucherActive")
+      .value ===
+      "true";
+
+
+  if(!code){
+
+    showMessage(
+      $("voucherMessage"),
+      "Kode voucher wajib diisi.",
+      false
+    );
+
+    return;
+
+  }
+
+
   if(
-    !code
+    !Number.isInteger(
+      discount
+    ) ||
+    discount <= 0
   ){
 
     showMessage(
       $("voucherMessage"),
-      "Masukkan kode voucher.",
+      "Nominal potongan tidak valid.",
+      false
+    );
+
+    return;
+
+  }
+
+
+  if(
+    !noLimit &&
+    (
+      !Number.isInteger(
+        limit
+      ) ||
+      limit <= 0
+    )
+  ){
+
+    showMessage(
+      $("voucherMessage"),
+      "Isi batas penggunaan atau pilih Tanpa batas.",
       false
     );
 
@@ -1592,7 +2013,13 @@ async function addVoucher(){
             code,
 
           discount_amount:
-            discount
+            discount,
+
+          usage_limit:
+            limit,
+
+          active:
+            active
 
         }
       );
@@ -1608,6 +2035,26 @@ async function addVoucher(){
     $("voucherCode")
       .value =
       "";
+
+
+    $("voucherDiscount")
+      .value =
+      "";
+
+
+    $("voucherLimit")
+      .value =
+      "";
+
+
+    $("voucherNoLimit")
+      .checked =
+      false;
+
+
+    $("voucherActive")
+      .value =
+      "true";
 
 
     await loadVouchers();
@@ -1626,6 +2073,264 @@ async function addVoucher(){
 
 }
 
+
+/* =====================================================
+   EDIT VOUCHER
+   ===================================================== */
+
+async function editVoucher(
+  voucherId
+){
+
+  const voucher =
+    vouchers.find(
+      item =>
+        item.id ===
+        voucherId
+    );
+
+
+  if(!voucher)
+    return;
+
+
+  const discountInput =
+    prompt(
+      "Potongan voucher (Rp):",
+      voucher.discount_amount
+    );
+
+
+  if(
+    discountInput ===
+    null
+  )
+    return;
+
+
+  const limitInput =
+    prompt(
+      "Batas penggunaan.\nKosongkan untuk tanpa batas:",
+      voucher.usage_limit ===
+        null
+        ? ""
+        : voucher.usage_limit
+    );
+
+
+  if(
+    limitInput ===
+    null
+  )
+    return;
+
+
+  const countInput =
+    prompt(
+      "Sudah digunakan berapa kali?",
+      voucher.usage_count ||
+      0
+    );
+
+
+  if(
+    countInput ===
+    null
+  )
+    return;
+
+
+  const active =
+    confirm(
+      "Klik OK untuk AKTIF.\nKlik Cancel untuk NONAKTIF."
+    );
+
+
+  const discount =
+    Number(
+      discountInput
+    );
+
+
+  const limit =
+    limitInput.trim() ===
+      ""
+      ? null
+      : Number(
+          limitInput
+        );
+
+
+  const count =
+    Number(
+      countInput
+    );
+
+
+  if(
+    !Number.isInteger(
+      discount
+    ) ||
+    discount <= 0
+  ){
+
+    alert(
+      "Potongan tidak valid."
+    );
+
+    return;
+
+  }
+
+
+  if(
+    !Number.isInteger(
+      count
+    ) ||
+    count < 0
+  ){
+
+    alert(
+      "Jumlah penggunaan tidak valid."
+    );
+
+    return;
+
+  }
+
+
+  if(
+    limit !== null &&
+    (
+      !Number.isInteger(
+        limit
+      ) ||
+      limit <= 0
+    )
+  ){
+
+    alert(
+      "Batas penggunaan tidak valid."
+    );
+
+    return;
+
+  }
+
+
+  if(
+    limit !== null &&
+    count >
+      limit
+  ){
+
+    alert(
+      "Penggunaan tidak boleh lebih besar dari batas."
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    const data =
+      await api(
+        "update_voucher",
+        {
+
+          voucher_id:
+            voucherId,
+
+          code:
+            voucher.code,
+
+          discount_amount:
+            discount,
+
+          usage_limit:
+            limit,
+
+          usage_count:
+            count,
+
+          active:
+            active
+
+        }
+      );
+
+
+    showMessage(
+      $("voucherMessage"),
+      data.message,
+      true
+    );
+
+
+    await loadVouchers();
+
+  }
+
+  catch(error){
+
+    showMessage(
+      $("voucherMessage"),
+      error.message,
+      false
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   TOGGLE
+   ===================================================== */
+
+async function toggleVoucher(
+  voucherId,
+  active
+){
+
+  try{
+
+    await api(
+      "toggle_voucher",
+      {
+
+        voucher_id:
+          voucherId,
+
+        active:
+          active
+
+      }
+    );
+
+
+    await loadVouchers();
+
+  }
+
+  catch(error){
+
+    showMessage(
+      $("voucherMessage"),
+      error.message,
+      false
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   DELETE VOUCHER
+   ===================================================== */
 
 async function deleteVoucher(
   voucherId
@@ -1648,8 +2353,10 @@ async function deleteVoucher(
       await api(
         "delete_voucher",
         {
+
           voucher_id:
             voucherId
+
         }
       );
 
@@ -1658,44 +2365,6 @@ async function deleteVoucher(
       $("voucherMessage"),
       data.message,
       true
-    );
-
-
-    await loadVouchers();
-
-  }
-
-  catch(error){
-
-    showMessage(
-      $("voucherMessage"),
-      error.message,
-      false
-    );
-
-  }
-
-}
-
-
-async function toggleVoucher(
-  voucherId,
-  active
-){
-
-  try{
-
-    await api(
-      "toggle_voucher",
-      {
-
-        voucher_id:
-          voucherId,
-
-        active:
-          active
-
-      }
     );
 
 
@@ -1752,6 +2421,150 @@ async function loadOrders(){
 }
 
 
+/* =====================================================
+   BILLING
+   30 HARI X BULAN
+   ===================================================== */
+
+function getBillingPeriod(
+  paidAt,
+  months
+){
+
+  if(
+    !paidAt ||
+    !months
+  ){
+
+    return "-";
+
+  }
+
+
+  const start =
+    new Date(
+      paidAt
+    );
+
+
+  const end =
+    new Date(
+      start
+    );
+
+
+  end.setDate(
+    end.getDate() +
+    (
+      Number(
+        months
+      ) * 30
+    ) -
+    1
+  );
+
+
+  return (
+
+    start.toLocaleDateString(
+      "id-ID"
+    )
+
+    +
+
+    " – "
+
+    +
+
+    end.toLocaleDateString(
+      "id-ID"
+    )
+
+  );
+
+}
+
+
+/* =====================================================
+   STATUS
+   ===================================================== */
+
+function statusBadge(
+  value
+){
+
+  const status =
+    String(
+      value ||
+      ""
+    ).toUpperCase();
+
+
+  let className =
+    "status status-other";
+
+
+  if(
+    status ===
+    "PAID"
+  ){
+
+    className =
+      "status status-paid";
+
+  }
+
+  else if(
+    status ===
+    "PENDING"
+  ){
+
+    className =
+      "status status-pending";
+
+  }
+
+  else if(
+    status ===
+    "USED"
+  ){
+
+    className =
+      "status status-used";
+
+  }
+
+  else if(
+    status ===
+    "UNUSED"
+  ){
+
+    className =
+      "status status-unused";
+
+  }
+
+
+  return `
+
+    <span
+      class="${className}"
+    >
+      ${escapeHtml(
+        status ||
+        "-"
+      )}
+    </span>
+
+  `;
+
+}
+
+
+/* =====================================================
+   RENDER ORDERS
+   ===================================================== */
+
 function renderOrders(){
 
   const keyword =
@@ -1765,7 +2578,7 @@ function renderOrders(){
     orders.filter(
       order => {
 
-        const status =
+        const paymentStatus =
           String(
             order.payment_status ||
             ""
@@ -1777,7 +2590,7 @@ function renderOrders(){
             "ALL" ||
 
           currentFilter ===
-            status;
+            paymentStatus;
 
 
         const searchable =
@@ -1805,10 +2618,13 @@ function renderOrders(){
 
 
         return (
+
           filterMatch &&
+
           searchable.includes(
             keyword
           )
+
         );
 
       }
@@ -1818,14 +2634,14 @@ function renderOrders(){
   filtered.sort(
     (a,b) => {
 
-      const dateA =
+      const timeA =
         new Date(
           a.created_at ||
           0
         ).getTime();
 
 
-      const dateB =
+      const timeB =
         new Date(
           b.created_at ||
           0
@@ -1835,11 +2651,9 @@ function renderOrders(){
       return currentSort ===
         "newest"
 
-        ? dateB -
-          dateA
+        ? timeB - timeA
 
-        : dateA -
-          dateB;
+        : timeA - timeB;
 
     }
   );
@@ -1869,6 +2683,7 @@ function renderOrders(){
         </tr>
 
       `;
+
 
     updateDeleteButton();
 
@@ -1912,6 +2727,7 @@ function renderOrders(){
                   value="${escapeHtml(
                     order.order_code
                   )}"
+                  style="width:auto"
                 >
 
               </td>
@@ -1927,12 +2743,12 @@ function renderOrders(){
 
                 <br>
 
-                <span class="muted">
-
+                <span
+                  class="muted"
+                >
                   ${formatDate(
                     order.created_at
                   )}
-
                 </span>
 
               </td>
@@ -2042,26 +2858,16 @@ function renderOrders(){
                   order.payment_status
                 )}
 
-                ${
-                  order.payment_method
+                <br>
 
-                    ? `
-
-                      <br>
-
-                      <span
-                        class="muted"
-                      >
-                        ${escapeHtml(
-                          order.payment_method
-                        )}
-                      </span>
-
-                    `
-
-                    : ""
-
-                }
+                <span
+                  class="muted"
+                >
+                  ${escapeHtml(
+                    order.payment_method ||
+                    ""
+                  )}
+                </span>
 
               </td>
 
@@ -2093,7 +2899,6 @@ function renderOrders(){
                       </span>
 
                     `
-
                 }
 
               </td>
@@ -2119,7 +2924,6 @@ function renderOrders(){
                       )
 
                     : "-"
-
                 }
 
               </td>
@@ -2133,7 +2937,7 @@ function renderOrders(){
                     ? `
 
                       <button
-                        class="danger small"
+                        class="small danger"
                         onclick="resetAccess(
                           '${escapeHtml(
                             order.order_code
@@ -2145,15 +2949,7 @@ function renderOrders(){
 
                     `
 
-                    : `
-
-                      <span
-                        class="muted"
-                      >
-                        -
-                      </span>
-
-                    `
+                    : "-"
 
                 }
 
@@ -2173,9 +2969,13 @@ function renderOrders(){
 }
 
 
+/* =====================================================
+   CHECKBOX
+   ===================================================== */
+
 function updateDeleteButton(){
 
-  const count =
+  const selected =
     document.querySelectorAll(
       ".orderCheck:checked"
     ).length;
@@ -2183,7 +2983,7 @@ function updateDeleteButton(){
 
   $("deleteSelectedBtn")
     .disabled =
-    count === 0;
+    selected === 0;
 
 }
 
@@ -2212,7 +3012,7 @@ function attachOrderCheckboxEvents(){
 
 
 /* =====================================================
-   RESET ACCESS
+   RESET
    ===================================================== */
 
 async function resetAccess(
@@ -2238,8 +3038,10 @@ async function resetAccess(
       await api(
         "reset",
         {
+
           order_code:
             orderCode
+
         }
       );
 
@@ -2315,24 +3117,10 @@ $("deleteSelectedBtn")
 
 
       if(
-        !password
-      ){
-
-        alert(
-          "Password wajib diisi."
-        );
-
-        return;
-
-      }
-
-
-      if(
         !confirm(
           "Hapus " +
           selected.length +
-          " order terpilih?\n\n" +
-          "Order PAID tidak dapat dihapus."
+          " order terpilih?"
         )
       ){
 
@@ -2432,9 +3220,7 @@ $("loginBtn")
           .trim();
 
 
-      if(
-        !key
-      ){
+      if(!key){
 
         showMessage(
           $("loginMessage"),
@@ -2447,13 +3233,13 @@ $("loginBtn")
       }
 
 
+      adminKey =
+        key;
+
+
       $("loginBtn")
         .disabled =
         true;
-
-
-      adminKey =
-        key;
 
 
       try{
@@ -2492,10 +3278,10 @@ $("loginBtn")
         adminKey =
           "";
 
-
         showMessage(
           $("loginMessage"),
-          error.message,
+          error.message ||
+            "Gagal login.",
           false
         );
 
@@ -2579,35 +3365,19 @@ $("addVoucherBtn")
 
 
 /* =====================================================
-   VOUCHER ENTER
-   ===================================================== */
-
-$("voucherCode")
-  .addEventListener(
-    "keydown",
-    event => {
-
-      if(
-        event.key ===
-        "Enter"
-      ){
-
-        addVoucher();
-
-      }
-
-    }
-  );
-
-
-/* =====================================================
    REFRESH
    ===================================================== */
 
 $("refreshBtn")
   .addEventListener(
     "click",
-    loadOrders
+    async () => {
+
+      await loadOrders();
+
+      await loadVouchers();
+
+    }
   );
 
 
@@ -2667,17 +3437,13 @@ document
             )
             .forEach(
               item =>
-                item.classList
-                  .remove(
-                    "active"
-                  )
+                item.style.opacity =
+                  "0.65"
             );
 
 
-          button.classList
-            .add(
-              "active"
-            );
+          button.style.opacity =
+            "1";
 
 
           renderOrders();
@@ -2690,7 +3456,7 @@ document
 
 
 /* =====================================================
-   ENTER ADMIN
+   ENTER LOGIN
    ===================================================== */
 
 $("adminKey")
@@ -2714,4 +3480,5 @@ $("adminKey")
 </script>
 
 </body>
+
 </html>
